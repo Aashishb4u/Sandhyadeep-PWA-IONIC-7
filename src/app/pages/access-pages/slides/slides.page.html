@@ -1,0 +1,42 @@
+<ion-content [fullscreen]="true">
+
+    <swiper [config]="slideOpts">
+        <ng-template *ngFor="let slide of slides" swiperSlide>
+            <div class="ion-text-center ion-slides-container">
+                <div class="ion-slide-toolbar">
+                    <ion-button class="ion-float-right" fill="clear" [color]="'primary'">Skip</ion-button>
+                </div>
+                <div class="ion-images-container">
+                    <img *ngIf="slide.svg === 'img-1'" src="/assets/theme-images/onboarding1.png"
+                         alt="">
+                    <img *ngIf="slide.svg === 'img-2'" src="/assets/theme-images/onboarding2.png"
+                         alt="">
+                    <div class="ion-slide-footer">
+                        <h2 class="slide-title" [innerHTML]="slide.title"></h2>
+                        <p [innerHTML]="slide.description"></p>
+                    </div>
+                </div>
+
+            </div>
+        </ng-template>
+        <ng-template swiperSlide>
+            <div class="ion-text-center ion-slides-container">
+                <div class="ion-slide-toolbar last-slide-toolbar">
+                </div>
+                <div class="ion-images-container">
+                    <img src="/assets/theme-images/onboarding3.png" alt="">
+                    <div class="ion-slide-footer">
+                        <h2 class="slide-title">Discover the Best Services</h2>
+                        <p>Explore a wide range of beauty services, from hair care to skin care. Choose <br> the services
+                            that suit your needs and preferences, <br> and let us take care of the rest.</p>
+                        <br>
+                        <ion-button (click)="onSlideSubmit()" color="primary" size="large">
+                            Get Started
+                        </ion-button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </swiper>
+
+</ion-content>
