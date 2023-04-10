@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>User Agreement</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()" [strong]="true">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <div class="agreement-note">Please scroll down to accept Agreement</div>
+  <div class="container">
+    <p>Welcome to our salon booking application! By using our application, you agree to be bound by the following terms and conditions:</p>
+    <ol>
+      <li><b>Booking and Payment:</b> You can easily book beauty treatment appointments through our application and pay for them online using UPI, cards, or other payment methods available on our application. Alternatively, you can choose to pay on service.</li>
+      <li><b>Pay on Service Policy:</b> If you book an appointment with pay on service and do not show up, you will have one more chance to book an appointment through pay on service. After that, we kindly request that you pay using UPI or card for all future bookings.</li>
+      <li><b>No Show Policy:</b> We understand that things come up unexpectedly, but please note that if you book an appointment and do not show up, the amount paid will be stored in your wallet and you can reuse it within the next 3 months. Unfortunately, we cannot offer refunds.</li>
+      <li><b>Late Arrival Policy:</b> We want to make sure all of our customers have a positive experience. If you arrive more than 15 minutes late for your scheduled appointment, we may need to ask you to wait until the current treatment is complete before receiving your treatment.</li>
+      <li><b>Booking Timeframe:</b> You can book appointments for the next 7 days.</li>
+      <li><b>Makeup Policy:</b> If you're booking a makeup appointment, you can choose a specific future date.</li>
+    </ol>
+
+    <hr>
+    <ion-item lines="none">
+      <ion-checkbox slot="start" [(ngModel)]="agreedToTerms"></ion-checkbox>
+      <ion-label style="white-space: normal;">I have read and agree to the above terms and conditions</ion-label>
+    </ion-item>
+
+    <div class="button-container">
+<!--      <ion-button color="secondary" (click)="cancel()" expand="block">Cancel</ion-button>-->
+      <ion-button [disabled]="!agreedToTerms" (click)="onApprove()" expand="block">Accept</ion-button>
+    </div>
+  </div>
+</ion-content>

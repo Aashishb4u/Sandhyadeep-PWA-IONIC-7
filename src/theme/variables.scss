@@ -1,6 +1,43 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+/* Sandhyadeep Primary color Pallete from Ionic color creator */
+:root {
+  --ion-color-sandhyadeep-blue: #265791;
+  --ion-color-sandhyadeep-blue-rgb: 38,87,145;
+  --ion-color-sandhyadeep-blue-contrast: #ffffff;
+  --ion-color-sandhyadeep-blue-contrast-rgb: 255,255,255;
+  --ion-color-sandhyadeep-blue-shade: #214d80;
+  --ion-color-sandhyadeep-blue-tint: #3c689c;
+}
+
+.ion-color-sandhyadeep-blue {
+  --ion-color-base: var(--ion-color-sandhyadeep-blue);
+  --ion-color-base-rgb: var(--ion-color-sandhyadeep-blue-rgb);
+  --ion-color-contrast: var(--ion-color-sandhyadeep-blue-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-sandhyadeep-blue-contrast-rgb);
+  --ion-color-shade: var(--ion-color-sandhyadeep-blue-shade);
+  --ion-color-tint: var(--ion-color-sandhyadeep-blue-tint);
+}
+
+:root {
+  --ion-color-sandhyadeep-pink: #BD1E51;
+  --ion-color-sandhyadeep-pink-rgb: 189,30,81;
+  --ion-color-sandhyadeep-pink-contrast: #ffffff;
+  --ion-color-sandhyadeep-pink-contrast-rgb: 255,255,255;
+  --ion-color-sandhyadeep-pink-shade: #a61a47;
+  --ion-color-sandhyadeep-pink-tint: #c43562;
+}
+
+.ion-color-sandhyadeep-pink {
+  --ion-color-base: var(--ion-color-sandhyadeep-pink);
+  --ion-color-base-rgb: var(--ion-color-sandhyadeep-pink-rgb);
+  --ion-color-contrast: var(--ion-color-sandhyadeep-pink-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-sandhyadeep-pink-contrast-rgb);
+  --ion-color-shade: var(--ion-color-sandhyadeep-pink-shade);
+  --ion-color-tint: var(--ion-color-sandhyadeep-pink-tint);
+}
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/

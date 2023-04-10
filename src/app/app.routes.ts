@@ -1,91 +1,115 @@
 import { Routes } from '@angular/router';
+import {AuthService} from "./shared-services/authentication/auth/auth.service";
+import {inject} from "@angular/core";
 
 export const routes: Routes = [
   {
     path: '',
+    canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
     loadComponent: () => import('./pages/access-pages/slides/slides.page').then( m => m.SlidesPage)
   },{
     path: 'slides',
+    canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
     loadComponent: () => import('./pages/access-pages/slides/slides.page').then( m => m.SlidesPage)
   },
   {
     path: 'login',
+    canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
     loadComponent: () => import('./pages/access-pages/login/login.page').then( m => m.LoginPage)
   },
   {
     path: 'sign-up',
+    canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
     loadComponent: () => import('./pages/access-pages/sign-up/sign-up.page').then( m => m.SignUpPage)
   },
   {
     path: 'feed',
+    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/feed/feed.page').then( m => m.FeedPage)
   },
   {
     path: 'services',
+    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/services/services.page').then( m => m.ServicesPage)
   },
   {
     path: 'about-us',
+    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/about-us/about-us.page').then( m => m.AboutUsPage)
   },
   {
     path: 'portfolio',
+    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/portfolio/portfolio.page').then( m => m.PortfolioPage)
   },
   {
     path: 'settings',
+    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/settings/settings.page').then( m => m.SettingsPage)
   },
   {
     path: 'packages',
+    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/packages/packages.page').then( m => m.PackagesPage)
   },
   {
     path: 'products',
+    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/products/products.page').then( m => m.ProductsPage)
   },
   {
     path: 'bookings',
+    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/bookings/bookings.page').then( m => m.BookingsPage)
   },
   {
     path: 'schedule-appointment',
-    loadComponent: () => import('./pages/user-interface/schedule-appointment/schedule-appointment.page').then( m => m.ScheduleAppointmentPage)
+      canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
+      loadComponent: () => import('./pages/user-interface/schedule-appointment/schedule-appointment.page').then( m => m.ScheduleAppointmentPage)
   },
   {
     path: 'packages-details',
+    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/packages-details/packages-details.page').then( m => m.PackagesDetailsPage)
   },
   {
     path: 'product-details',
+    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/product-details/product-details.page').then( m => m.ProductDetailsPage)
   },
   {
     path: 'coupons',
+    canActivate: [async () => await inject(AuthService).isUserAdmin()],
     loadComponent: () => import('./pages/admin-interface/coupons/coupons.page').then( m => m.CouponsPage)
   },
   {
     path: 'image-assets',
+    canActivate: [async () => await inject(AuthService).isUserAdmin()],
     loadComponent: () => import('./pages/admin-interface/image-assets/image-assets.page').then( m => m.ImageAssetsPage)
   },
   {
     path: 'admin-packages',
+    canActivate: [async () => await inject(AuthService).isUserAdmin()],
     loadComponent: () => import('./pages/admin-interface/admin-packages/admin-packages.page').then( m => m.AdminPackagesPage)
   },
   {
     path: 'admin-services',
+    canActivate: [async () => await inject(AuthService).isUserAdmin()],
     loadComponent: () => import('./pages/admin-interface/admin-services/admin-services.page').then( m => m.AdminServicesPage)
   },
   {
     path: 'admin-service-types',
+    canActivate: [async () => await inject(AuthService).isUserAdmin()],
     loadComponent: () => import('./pages/admin-interface/admin-service-types/admin-service-types.page').then( m => m.AdminServiceTypesPage)
   },
   {
     path: 'admin-sub-types',
+    canActivate: [async () => await inject(AuthService).isUserAdmin()],
     loadComponent: () => import('./pages/admin-interface/admin-sub-types/admin-sub-types.page').then( m => m.AdminSubTypesPage)
   },
   {
     path: 'admin-users',
+    canActivate: [async () => await inject(AuthService).isUserAdmin()],
     loadComponent: () => import('./pages/admin-interface/admin-users/admin-users.page').then( m => m.AdminUsersPage)
   },
   {
@@ -158,6 +182,6 @@ export const routes: Routes = [
   },
   {
     path: 'user-agreement-policy',
-    loadComponent: () => import('./shared-components/components/user-agreement-policy/user-agreement-policy.page').then( m => m.UserAgreementPolicyPage)
+    loadComponent: () => import('./shared-components/modals/user-agreement-policy/user-agreement-policy.page').then(m => m.UserAgreementPolicyPage)
   },
 ];

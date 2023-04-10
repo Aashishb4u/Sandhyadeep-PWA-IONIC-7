@@ -2,6 +2,30 @@ html, body {
   font-family: 'Muli' !important;
 }
 
-ion-content, ion-button, ion-header, ion-searchbar, ion-toolbar, ion-item, ion-label {
+ion-content, ion-button, ion-header, ion-searchbar, ion-toolbar, ion-item, ion-label, h2, p, button {
   font-family: 'Muli' !important;
+}
+
+
+.otpContainer {
+  width: 255px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  .otpInput {
+    height: 50px !important;
+    width: 50px !important;
+    background: transparent !important;
+  }
+}
+.custom-tel {
+  .ngx-floating {
+   .country-selector {
+     opacity: 1 !important;
+   }
+  }
+}
+
+.margin-0-5 {
+  margin: 0 0 0 5px;
 }

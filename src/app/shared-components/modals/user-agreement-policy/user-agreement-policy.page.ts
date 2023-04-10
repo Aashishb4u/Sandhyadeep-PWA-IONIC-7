@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import {IonicModule, ModalController} from '@ionic/angular';
 
 @Component({
   selector: 'app-user-agreement-policy',
@@ -12,9 +12,22 @@ import { IonicModule } from '@ionic/angular';
 })
 export class UserAgreementPolicyPage implements OnInit {
 
-  constructor() { }
-
+  constructor(private modalController: ModalController) { }
+  agreedToTerms = false;
   ngOnInit() {
+  }
+
+  ngOnDestroy(): void {
+    this.modalController.dismiss();
+  }
+
+  cancel() {
+    this.modalController.dismiss('cancelled');
+  }
+
+  onApprove() {
+    this.modalController.dismiss('approved');
+
   }
 
 }

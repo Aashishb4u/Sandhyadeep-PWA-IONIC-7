@@ -1,0 +1,208 @@
+@import "../../../../theme/sandhyadeep-theme";
+
+.input-group {
+  margin-bottom: 10px;
+  height: 45px;
+
+  .input-group-addon {
+    padding: 6px 12px;
+    font-size: $font-size-1;
+    font-weight: 400;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    background-color: $secondary-color;
+    border: 1px solid $secondary-color;
+    display: flex;
+    align-items: center;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    min-width: 42px;
+    justify-content: center;
+  }
+}
+
+input.default {
+  border: 1px solid $secondary-color !important;
+}
+
+ion-datetime.default {
+  border: 1px solid $secondary-color !important;
+}
+
+.login-main-container {
+  background: url("../../../../assets/theme-images/login-bg.jpg");
+  height: 100%;
+  display: flex;
+  font-size: $regular-font-size;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  background-size: cover;
+}
+
+.login-main-container .login-container {
+  width: 80%;
+  padding: 15px;
+  z-index: 9999;
+  background: #f3f3f342;
+  mix-blend-mode: normal;
+  border: 1px solid #E3E3E3;
+  box-shadow: 3px 4px 9px 10px rgb(0 0 0 / 10%);
+  border-radius: 25px;
+}
+
+.login-main-container .login-container .logo-container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.login-main-container .login-container .logo-container .logo-image {
+  background-image: url("../../../../assets/theme-images/Sandhyadeep_logo.png");
+  width: 100px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  background-position: center center;
+}
+
+.login-main-container .login-container .logo-container .slogan-text {
+  color: $secondary-color;
+  margin-bottom: 10%;
+  font-size: 12px;
+}
+
+.login-main-container .login-container .logo-container .logo-text {
+  font-size: 30px;
+  color: $secondary-color;
+  font-weight: 700;
+}
+
+.login-main-container .login-container .form-main-container {
+  display: flex;
+  justify-content: center;
+
+  form {
+    width: 90%;
+  }
+}
+
+.login-main-container .login-container .form-main-container .form-container {
+}
+
+.login-main-container .login-container .form-main-container .form-container .link-signup {
+  a {
+    font-size: 12px;
+    font-weight: bold;
+    color: $secondary-color;
+  }
+
+  text-align: center;
+}
+
+.login-main-container .login-container .form-main-container .form-container .login-button {
+  color: white;
+  padding: 9px 15px;
+  margin: 30px 0 5px;
+  display: flex;
+  border-radius: 5px;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(225deg, $primary-color 2%, $secondary-color 63%);
+  height: $button-height;
+}
+
+.login-main-container .login-container .form-main-container .form-container .login-button button {
+  font-size: $font-size-1;
+  font-weight: bold;
+  background: transparent;
+  color: white;
+}
+
+.login-main-container .login-container .form-main-container .form-container .form-input-container {
+  input {
+    font-size: $font-size-1;
+    height: 100%;
+  }
+
+  ion-datetime {
+    font-size: $font-size-1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.login-main-container .login-container .form-main-container .form-container .form-input-container .form-input::placeholder {
+  color: white;
+}
+
+.login-main-container .login-container .form-main-container .form-container .form-input-container .form-input {
+  padding: 15px;
+  border: 1px solid #fff;
+  margin: 10px;
+  color: white;
+  border-radius: 25px;
+  background-color: transparent;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .create-account-button {
+    padding: 6px;
+    width: 90%;
+    text-align: center;
+    font-size: $font-size-1;
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    border-radius: 0.25rem;
+    height: 45px;
+    justify-content: center;
+
+    &.only-button {
+      background: linear-gradient(225deg, $primary-color 2%, $secondary-color 63%);
+      color: white;
+    }
+
+    &.fb-button {
+      background: #3B5999;
+      color: white;
+    }
+
+    &.insta-button {
+      color: white;
+      background: #c32aa3;
+    }
+
+    i {
+      margin: 0 12px;
+      font-size: 22px;
+    }
+  }
+
+  img {
+    height: 40px;
+  }
+}
+
+.back-container {
+  //position: absolute;
+  .back-button {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 0.25rem;
+    color: $secondary-color;
+    font-size: $font-size-3;
+  }
+}
+//

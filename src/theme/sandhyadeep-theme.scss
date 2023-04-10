@@ -7,3 +7,125 @@ $header-size: 20px;
 $font-size-3: 30px;
 
 $button-height: 45px;
+ion-datetime {
+  --background: #fff1f2;
+  --background-rgb: 255, 241, 242;
+
+  border-radius: 16px;
+  box-shadow: rgba(var(--ion-color-rose-rgb), 0.3) 0px 10px 15px -3px;
+}
+
+.modal-wrapper{
+  background: transparent !important;
+}
+
+.sc-ion-modal-ios-h {
+  background: transparent !important;
+}
+
+hr {
+  border: 0;
+  clear: both;
+  display: block;
+  width: 98%;
+  background-color: #00000026;
+  height: 1px;
+  opacity: 0.7;
+}
+
+
+.ionic-success-toast {
+  --background: #198754;
+  --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+  --color: white;
+}
+
+.ionic-error-toast {
+  --background: #f44336;
+  --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+  --color: white;
+}
+
+::ng-deep ngx-mat-intl-tel-input .ngx-mat-tel-input-container .mdc-text-field {
+  padding: 0 !important;
+}
+
+::ng-deep ngx-mat-intl-tel-input .ngx-mat-tel-input-container .country-selector {
+  opacity: 1 !important;
+}
+
+.iti--allow-dropdown input, .iti--allow-dropdown input {
+  width: 254px;
+  height: 50px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.otpContainer {
+  width: 255px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  .otpInput {
+    height: 50px !important;
+    width: 50px !important;
+  }
+}
+
+.custom-button {
+  width: 100%;
+  height: 40px;
+  background: $secondary-color;
+  //background: linear-gradient(225deg, $primary-color 2%, $secondary-color 63%);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.custom-button:disabled, .custom-button[disabled] {
+  opacity: 0.7;
+  color: white !important;
+}
+
+.ion-input-box {
+  margin-bottom: 10px;
+  .item-native {
+    --background: transparent !important;
+  }
+}
+
+.iconEye {
+  font-size: 24px;
+  padding-left: 4px;
+  padding-top: 12px;
+  vertical-align: middle;
+}
+
+//ion-item {
+//margin-bottom: 10px;
+//--highlight-height: 0px;
+//--highlight-color-valid: black;
+//--highlight-color-focused: black;
+//--highlight-color-invalid: black;
+//}
+
+.iti--allow-dropdown input {
+  width: 270px !important;
+  background: transparent !important;
+}
+
+ion-item {
+  --margin-bottom: 10px;
+  --background: transparent !important;
+}
+
+.alert-title.sc-ion-alert-ios {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+.width-100 {
+  width: 100%;
+}
