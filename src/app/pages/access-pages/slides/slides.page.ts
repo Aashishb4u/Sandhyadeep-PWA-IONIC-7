@@ -5,12 +5,9 @@ import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import {EffectCards, EffectCoverflow, EffectCreative, EffectCube, EffectFlip, SwiperOptions} from 'swiper';
 import { SwiperModule } from 'swiper/angular';
-// import Swiper core and required modules
-import SwiperCore, { EffectFade, Swiper } from 'swiper';
+import SwiperCore, { Pagination, EffectFade, Swiper } from 'swiper';
+SwiperCore.use([Pagination, EffectCoverflow, EffectFade, EffectCards, EffectCube, EffectFlip, EffectCreative]);
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-
-// install Swiper modules
-SwiperCore.use([EffectCoverflow, EffectFade, EffectCards, EffectCube, EffectFlip, EffectCreative]);
 
 @Component({
   selector: 'app-slides',

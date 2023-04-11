@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ToastController} from '@ionic/angular';
 import * as moment from 'moment';
@@ -18,9 +17,9 @@ export class ApiService {
   // Init with null to filter out the first value in a guard!
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentAccessToken = null;
-  authUrl = environment.baseAuthUrl;
+  authUrl = appConstants.baseAuthUrl;
   userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  baseURL: string = environment.baseURLAdminAPIs;
+  baseURL: string = appConstants.baseURLAdminAPIs;
   header: any;
   private country : BehaviorSubject<any> = new BehaviorSubject<any>('');
   constructor(private storageService: StorageService, private router: Router,

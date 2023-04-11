@@ -1,13 +1,27 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>logo-spinner</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div *ngIf="sharedService.showSpinner | async" style="background: white;
+    opacity: 0.9;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    display: flex;
+    top: 0;
+    justify-content: center;
+    align-items: center;">
+  <div class="spinner-box">
+    <div style="display: flex;
+    position: absolute;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+    justify-content: center;">
+      <img style="width: 50px;z-index: 9999;" src="{{sharedService?.appLogoImage}}" alt="">
+      <div class="sandhyadeep-title-spinner">Sandhyadeep</div>
+    </div>
+    <div class="circle-border">
+      <div class="circle-core">
+      </div>
+    </div>
+  </div>
+</div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">logo-spinner</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>

@@ -184,4 +184,16 @@ export const routes: Routes = [
     path: 'user-agreement-policy',
     loadComponent: () => import('./shared-components/modals/user-agreement-policy/user-agreement-policy.page').then(m => m.UserAgreementPolicyPage)
   },
+  {
+    path: 'apply-coupon',
+    loadComponent: () => import('./shared-components/modals/apply-coupon/apply-coupon.page').then( m => m.ApplyCouponPage)
+  },
+  {
+    path: 'payment-success',
+    loadComponent: () => import('./shared-components/modals/payment-success/payment-success.page').then( m => m.PaymentSuccessPage)
+  },
+  {
+    path: 'payment-failure',
+    loadComponent: () => import('./shared-components/modals/payment-failure/payment-failure.page').then( m => m.PaymentFailurePage)
+  },
 ];

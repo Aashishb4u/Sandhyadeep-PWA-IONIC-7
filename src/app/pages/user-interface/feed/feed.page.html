@@ -1,9 +1,149 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>feed</ion-title>
-  </ion-toolbar>
-</ion-header>
+<sandhyadeep-header class="z-index-999"></sandhyadeep-header>
+<ion-content [scrollEvents]="true">
+    <ion-refresher slot="fixed" (ionRefresh)="refreshPage($event)">
+        <ion-refresher-content pulling-icon="arrow-dropdown" refreshing-spinner="circles">
 
-<ion-content [fullscreen]="true">
+        </ion-refresher-content>
+    </ion-refresher>
+    <swiper [config]="bannerSlideConfig">
+        <ng-template *ngFor="let banner of banners" swiperSlide>
+            <div class="ion-text-center ion-slides-container">
+                <img src="{{banner?.imageUrl}}" alt="">
+            </div>
+        </ng-template>
+    </swiper>
 
+    <div #animationRef class="menu-container">
+        <div class="quick_menus">
+            <ng-container *ngFor="let treatment of serviceTypesList; let index = index">
+                <div [ngStyle]="{'animation-delay': (index+1)/6 + 's'}"
+                     [ngClass]="{ animate__animated: changeAnim1, animate__fadeInRight: changeAnim1 }"
+                     (click)="goServices()" class="animate__animated animate__fadeInRight menu-container">
+                    <div class="menu-image"><img src="{{treatment.imageUrl}}" alt=""></div>
+                    <div class="menu-text">{{treatment.name}}</div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="feed-heading">
+            <div class="heading-text">
+                <b>Packages</b>
+            </div>
+            <div [routerLink]="['/packages']" class="know-more">See All <i class="fa fa-angle-right"></i></div>
+        </div>
+        <div [ngClass]="{ animate__animated: changeAnim2, animate__bounceIn: changeAnim2, animate__fast: changeAnim2 }"
+             #animationRef class="slide_container">
+            <swiper [loop]="true" [config]="slideOpts2">
+                <ng-template *ngFor="let packageData of packageList" swiperSlide>
+                    <ion-card (click)="onClickPackage(packageData?.id)">
+                        <img src="{{packageData?.imageUrl}}" alt="">
+                    </ion-card>
+                </ng-template>
+            </swiper>
+            <!--      <ion-content scroll-y="false" [fullscreen]="true">-->
+            <!--        <ion-slides (ionSlidesDidLoad)="slidesDidLoad($event)" (ionSlideReachEnd)="onLastPackageSlide()" #packagesSlider [options]="packagesOption">-->
+            <!--          <ion-slide *ngFor="let packageData of packageList">-->
+<!--                        <ion-card (click)="onClickPackage(packageData?.id)">-->
+<!--                          <img src="{{packageData?.imageUrl}}" alt="">-->
+<!--                        </ion-card>-->
+            <!--          </ion-slide>-->
+            <!--        </ion-slides>-->
+            <!--      </ion-content>-->
+        </div>
+
+        <!--        Removed products for now -->
+        <!--        <div class="feed-heading">-->
+        <!--            <div class="heading-text">-->
+        <!--                <b>Products</b>-->
+        <!--            </div>-->
+        <!--            <div [routerLink]="['//products']" class="know-more">See All <i class="fa fa-angle-right"></i></div>-->
+        <!--        </div>-->
+        <!--        <div class="products_container">-->
+        <!--            <div *ngFor="let product of productList, let index = index" class="image-slider-container">-->
+        <!--                <div class="slider-image">-->
+        <!--                    <img src="{{product.url}}" alt="">-->
+        <!--                </div>-->
+        <!--                <div class="slider-text">-->
+        <!--                    <div class="product-name-container">-->
+        <!--                        <div class="product-name">-->
+        <!--                            {{product.name}}-->
+        <!--                        </div>-->
+        <!--                        <div class="product-price-details">-->
+        <!--                            <div class="price-container">-->
+        <!--                                <div class="price">-->
+        <!--                                    {{product.price}} ₹-->
+        <!--                                </div>-->
+        <!--                                <div class="discounted-price">-->
+        <!--                                    <del> {{product.discountedPrice}} ₹</del>-->
+        <!--                                </div>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    <add-button (updateCounter)="onUpdateCounter($event, index)"></add-button>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="safety-measures">
+            <div class="margin-bottom-10">
+                Best-in-class safety measures
+            </div>
+            <div class="measures-container margin-bottom-10">
+                <div class="measure">
+                    <div class="measure-image"><img src="assets/icon/mask.png" alt=""></div>
+                    <div class="measure-text">Usage of mask & gloves</div>
+                </div>
+                <div class="measure">
+                    <div class="measure-image"><img src="assets/icon/thermometer.png" alt=""></div>
+                    <div class="measure-text">Temperature Checks</div>
+                </div>
+                <div class="measure">
+                    <div class="measure-image"><img src="assets/icon/liquid-soap.png" alt=""></div>
+                    <div class="measure-text">Sanitizations of tools & area</div>
+                </div>
+                <div class="measure">
+                    <div class="measure-image"><img src="assets/icon/setu.png" alt=""></div>
+                    <div class="measure-text">Arogya Setu to ensure Safety</div>
+                </div>
+            </div>
+        </div>
+        <div class="feed-heading">
+            <div class="heading-text">
+                <b>Our Stylist</b>
+            </div>
+            <div (click)="onKnowMore()" class="know-more">Know More <i class="fa fa-angle-right"></i></div>
+        </div>
+        <div class="application-details">
+            <div class="owner-info-container">
+                <div [routerLink]="['//about-us']" class="owner-image">
+                    <img src="assets/owner-images/deepaa_bhagwat.jpg">
+                </div>
+                <div class="owner-details">
+                    <div class="owner-name">Deepaa Bhagwat</div>
+                    <div class="social-media-icons">
+                        <div class="fb-icon"><i class="media-icon fa fa-facebook"></i></div>
+                        <div class="insta-icon"><i class="media-icon fa fa-instagram"></i></div>
+                        <div class="linkedin-icon"><i class="media-icon fa fa-linkedin"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <ul>
+                        <li>Media & Beauty Makeup Diploma · Media Makeup · Fsx · Singapore</li>
+                        <li>Makeup Techniques with Air Brush Machine · Mumbai, Maharashtra</li>
+                        <li>Master Diploma in Makeup Artistry · Singapore</li>
+                        <li>Comite International D’Esthetique Et De Cosmetologie., Zurich.</li>
+                        <li>British Association of Beauty Therapy & Cosmetology, London.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copy-rights">
+            <i class="fa fa-copyright"></i> Copyright {{todayYear}} <br> Sandhyadeep Beauty Parlour <br>
+        </div>
+    </div>
 </ion-content>
+<app-skeleton-loader></app-skeleton-loader>
+<app-footer-component></app-footer-component>
+<!--<app-logo-spinner></app-logo-spinner>-->

@@ -19,6 +19,9 @@ export class SharedService {
   updateServiceTotal = new BehaviorSubject<any>(0);
   updatePackageTotal = new BehaviorSubject<any>(0);
   selectedServicesCount = new BehaviorSubject<any>(0);
+  appLogoImage = '/assets/theme-images/Sandhyadeep_logo.png';
+  profileIcon = 'assets/icon/profile-icon.png';
+
   constructor(public storageService: StorageService, public toastController: ToastController) { }
 
 

@@ -1,0 +1,52 @@
+@import "../../../../theme/sandhyadeep-theme";
+
+.add-item {
+  .custom-add-button {
+    display: flex; justify-content: space-between;
+    align-items: center; border: 1px solid $secondary-color;
+    border-radius: 5px;
+    .add-text {
+      padding: 0 5px;
+      color: $secondary-color;
+      background: #fff;
+    }
+    i.fa.fa-plus {
+      padding: 5px;
+      background: #d3d3d31a;
+      color: $secondary-color;
+      border-left: 1px solid $secondary-color;
+      font-size: 10px;
+    }
+  }
+  .custom-add-more-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid $secondary-color;
+    border-radius: 5px;
+    .add-text {
+      padding: 2px 5px;
+      color: $secondary-color;
+    }
+    .in-cart-box {
+      padding: 0 6px;
+      color: $primary-color;
+      background: #fff;
+      font-weight: bold;
+    }
+    i.fa.fa-plus {
+      padding: 6px;
+      background: #d3d3d31a;
+      color: $secondary-color;
+      font-size: 10px;
+
+    }
+    i.fa.fa-minus {
+      padding: 6px;
+      background: #d3d3d31a;
+      color: $secondary-color;
+      font-size: 10px;
+
+    }
+  }
+}

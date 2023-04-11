@@ -1,13 +1,256 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>schedule-appointment</ion-title>
-  </ion-toolbar>
-</ion-header>
+<sandhyadeep-header [showBackIcon]="true" class="z-index-99"></sandhyadeep-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">schedule-appointment</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="schedule-appointment-container">
+    <div class="calender-body">
+      <div class="month-name">
+        {{monthName | titlecase}} {{todayYear}}
+      </div>
+      <div class="days-container">
+        <ng-container *ngFor="let singleDay of daysArray">
+          <div (click)="onChangeDate(singleDay)" class="single-day">
+            <div [class.bold-text]="selectedDate === singleDay" class="day">
+              {{singleDay | date: 'EEE'}}
+            </div>
+            <div [class.active]="selectedDate.isSame(singleDay, 'day')" class="date">
+              {{singleDay | date: 'dd'}}
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="slot-container">
+        <ng-container *ngFor="let slot of timeSlots">
+          <div (click)="onChangeSlot(slot)" class="time-slot">
+            <div [class.active]="selectedTimeSlot === slot"
+                 class="single-slot">
+              <ion-ripple-effect></ion-ripple-effect>
+              {{slot}}
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="summary-heading">
+        <div class="heading-text">
+          <b class="summary-title">Summary (Services)</b>
+          <ion-button class="light-button" color="light" [routerLink]="['/services']" slot="end" size="small">
+            More Services
+            <ion-icon slot="end" name="add"></ion-icon>
+          </ion-button>
+        </div>
+        <div style="padding: 15px; width: 100%" *ngIf="selectedServices.length === 0">
+          No Services Added
+        </div>
+        <div *ngIf="selectedServices && selectedServices.length > 0" class="summary-container">
+          <div class="summary-service" *ngFor="let service of selectedServices; let index = index">
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+              <div style="flex-basis: 50%">
+                <div style="text-align: left;"> {{service.name}} &nbsp;</div>
+                <div class="price-label-container">
+                  <div class="price-label">
+                    ₹ {{service.price}} &nbsp;
+                  </div>
+                </div>
+                <div (click)="service.showIncludes = !service.showIncludes"
+                     style="width: 100%; align-items: center; text-align: left; color: gray; display: flex;">
+                  <ion-icon name="alert-circle-outline"></ion-icon> &nbsp; More Info
+                </div>
+              </div>
+              <div style="display: flex; justify-content: center; align-items: center">
+                <div>
+                  <add-button [showRemove]="true"
+                              (updateCounter)="onServiceCounterChange($event, index)"
+                              [counter]="service?.counter"></add-button>
+                </div>
+                <div style="font-size: 16px; width: 80px; text-align: right; margin-right: 15px">{{service.counter * service.price}}
+                  ₹
+                </div>
+
+              </div>
+            </div>
+            <div *ngIf="service?.showIncludes" style="display: flex; flex-direction: column; width: 100%;">
+              <div>
+                <div class="include-title">Description</div>
+                <div style="text-align: left; padding: 10px;">{{service?.description}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="summary-heading">
+        <div class="heading-text">
+          <b class="summary-title">Summary (Packages)</b>
+          <ion-button class="light-button" color="light" (click)="onMorePackages()" slot="end" size="small">
+            More Packages
+            <ion-icon slot="end" name="add"></ion-icon>
+          </ion-button>
+        </div>
+        <div style="padding: 15px; width: 100%" *ngIf="selectedPackages.length === 0">
+          No Packages Added
+        </div>
+        <div *ngIf="selectedPackages && selectedPackages.length > 0" class="summary-container">
+          <div class="summary-service" *ngFor="let servicePackage of selectedPackages; let index = index">
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+              <div style="flex-basis: 60%">
+                <div style="text-align: left;"> {{servicePackage.name}} &nbsp;</div>
+                <div class="price-label-container">
+                  <div class="price-label">
+                    ₹ {{servicePackage?.totalAmount}} &nbsp;
+                  </div>
+                </div>
+                <div (click)="servicePackage.showIncludes = !servicePackage.showIncludes"
+                     style="width: 100%; align-items: center; text-align: left; color: gray; display: flex;">
+                  <ion-icon name="alert-circle-outline"></ion-icon> &nbsp; More Info
+                </div>
+              </div>
+              <div style="display: flex; justify-content: center; align-items: center">
+                <add-button [showRemove]="true"
+                            (updateCounter)="onPackageCounterChange($event, index)"
+                            [counter]="servicePackage?.counter"></add-button>
+                <div style="font-size: 16px; width: 80px; text-align: right; margin-right: 15px">{{servicePackage?.counter * servicePackage?.totalAmount}}
+                  ₹
+                </div>
+              </div>
+            </div>
+            <div *ngIf="servicePackage?.showIncludes"
+                 style="display: flex; flex-direction: column; width: 100%;">
+              <div>
+                <div class="include-title">Services</div>
+                <div *ngIf="servicePackage && servicePackage.services && servicePackage?.services?.length > 0"
+                     class="selected-services">
+                  <div class="each-selected-service" *ngFor="let service of servicePackage?.services">
+                    <div class="service-label">{{service?.name}}</div>
+                    <div class="price-label">{{service?.price}} ₹</div>
+                  </div>
+                  <div class="dashed-border"></div>
+                  <div class="each-selected-service">
+                    <div>Package Total</div>
+                    <div>
+                      {{servicePackage?.totalAmount}} ₹
+                    </div>
+                  </div>
+                  <div *ngIf="servicePackage?.discount > 0"
+                       class="each-selected-service discount-row">
+                    <div>Package Discount</div>
+                    <div>
+                      {{servicePackage?.discount}} ₹
+                    </div>
+                  </div>
+                  <div *ngIf="servicePackage?.discount > 0"
+                       class="each-selected-service">
+                    <div>Amount (Discount Added)</div>
+                    <div>
+                      {{servicePackage?.totalAmount - servicePackage?.discount}} ₹
+                    </div>
+                  </div>
+                  <div class="dashed-border"></div>
+                  <div class="each-selected-service bold-row">
+                    <div>Total Bill ({{servicePackage?.counter}} Packages)</div>
+                    <div>
+                      {{servicePackage?.totalAmount * servicePackage?.counter}} ₹
+                    </div>
+                  </div>
+                  <div *ngIf="servicePackage?.discount > 0"
+                       class="each-selected-service final-amount-row discount-row bold-row">
+                    <div>Total Discount</div>
+                    <div>
+                      {{servicePackage?.counter * servicePackage?.discount}} ₹
+                    </div>
+                  </div>
+                  <div *ngIf="servicePackage?.discount > 0"
+                       class="each-selected-service  bold-row">
+                    <div>Amount (Discount Added)</div>
+                    <div>
+                      {{(servicePackage?.totalAmount - servicePackage?.discount) * servicePackage?.counter}} ₹
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="include-title">Description</div>
+                <div style="text-align: left; padding: 10px;">{{servicePackage?.description}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!selectedCouponDetails" (click)="goToCoupons()" class="coupon-tab-container">
+        <div class="coupon-icon-container">
+          <img src="assets/icon/coupon.png" alt="">
+          Apply Coupon
+        </div>
+        <div>
+          <i class="fa fa-angle-right"></i>
+        </div>
+      </div>
+      <div *ngIf="selectedCouponDetails" class="coupon-applied-container">
+        <div class="coupon-applied">
+          <div class="coupon-icon">
+            <ion-icon name="pricetag-outline"></ion-icon>
+          </div>
+          <div class="coupon-text">
+            <p class="coupon-code">{{selectedCouponDetails?.couponLabel}}</p>
+            <p class="coupon-description"> {{selectedCouponDetails?.discountPercent}}% off upto {{selectedCouponDetails?.maxDiscountAmount}} on minimum purchase of {{selectedCouponDetails?.minAmount}} ₹</p>
+          </div>
+          <ion-button (click)="selectedCouponDetails = ''; serviceDiscount = 0;" class="remove-coupon-button ion-float-right" fill="clear">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+      <div class="total-bill-container">
+        <div class="bill-header">
+          Price Details ({{checkoutCount}}) Items
+        </div>
+        <div class="bill-details">
+          <div class="display-flex">
+            <div> Total Bill</div>
+            <div> {{checkoutAmount}} ₹</div>
+          </div>
+          <div class="display-flex">
+            <div> Total Discount</div>
+            <div> {{packageDiscount + serviceDiscount}} ₹</div>
+          </div>
+          <div class="display-flex">
+            <div> Coupon Discount</div>
+            <div class="apply-coupon" (click)="goToCoupons()">Apply Coupon</div>
+          </div>
+        </div>
+        <div class="display-flex total-bill-details">
+          <div> Total Amount <br> (Discount Added)</div>
+          <div> {{checkoutAmount - (packageDiscount + serviceDiscount)}} ₹</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar style="box-shadow: 4px 17px 20px 20px #6c757d3d;">
+    <div class="appointment-footer">
+      <div class="total-div-container">
+        <div class="total-div">
+          <div class="total-div-price">{{checkoutCount}} Items</div>
+        </div>
+        <div *ngIf="packageDiscount || serviceDiscount" style="color: #126d16; font-weight: bold; font-size: 14px">
+          You Save: {{packageDiscount + serviceDiscount}} ₹
+        </div>
+        <div>
+          {{checkoutAmount - (packageDiscount + serviceDiscount)}} ₹
+        </div>
+      </div>
+    </div>
+    <div class="appointment-button-footer">
+      <div (click)="reasonAlert()" class="payment-option">
+        <div class="payment-status-prompt">Payment Mode <i class="fa fa-chevron-up"></i></div>
+        <div class="payment-status">{{paymentMethod}}</div>
+      </div>
+      <ion-button class="book-now-button" (click)="onBookAppointment()" expand="block">
+        Book Now
+        <!--              <ion-spinner class="margin-0-5" name="circles"></ion-spinner>-->
+      </ion-button>
+<!--      <button (click)="onBookAppointment()" class="booking-button custom-button"-->
+<!--              mat-raised-button color="primary">Book Now-->
+<!--      </button>-->
+    </div>
+  </ion-toolbar>
+</ion-footer>
+
+

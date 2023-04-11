@@ -213,8 +213,6 @@ export class LoginPage implements OnInit {
       cssClass: 'admin-modal-class',
       backdropDismiss: true,
       showBackdrop: true,
-      // initialBreakpoint: 0.5,
-      breakpoints: [0, 1],
     });
     modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned!.data === 'approved') {

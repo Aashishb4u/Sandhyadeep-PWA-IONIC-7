@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import {SharedService} from "../../../shared-services/shared.service";
 
 @Component({
   selector: 'app-logo-spinner',
@@ -12,7 +13,7 @@ import { IonicModule } from '@ionic/angular';
 })
 export class LogoSpinnerPage implements OnInit {
 
-  constructor() { }
+  constructor(public sharedService: SharedService) { }
 
   ngOnInit() {
   }

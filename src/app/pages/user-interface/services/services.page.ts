@@ -1,20 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import {StorageService} from "../../../shared-services/storage.service";
+import {ApiService} from "../../../shared-services/api.service";
+import {Router} from "@angular/router";
+import {SharedService} from "../../../shared-services/shared.service";
+import {appConstants} from "../../../../assets/constants/app-constants";
+import {ServiceListPage} from "../service-list/service-list.page";
+import {LogoSpinnerPage} from "../../../shared-components/components/logo-spinner/logo-spinner.page";
+import {HeaderComponentPage} from "../../../shared-components/components/header-component/header-component.page";
 
 @Component({
   selector: 'app-services',
   templateUrl: './services.page.html',
   styleUrls: ['./services.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, ServiceListPage, LogoSpinnerPage, HeaderComponentPage]
 })
-export class ServicesPage implements OnInit {
+export class ServicesPage {
 
-  constructor() { }
+  constructor(private storageService: StorageService, public sharedService: SharedService, private router: Router, private adminService: ApiService) {
+  }
+  amountPurchased = 0;
+  selectedServices = [];
+  isRefreshed = false;
+  refreshRate: any = 0;
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.sharedService.showSearchBox.next(true);
+    this.refreshRate = Math.random();
+  }
+
+  ionViewDidEnter() {
+    this.selectedServices = this.storageService.getStorageValue(appConstants.SELECTED_SERVICES);
+  }
+
+  ionViewWillLeave() {
+    this.sharedService.showSearchBox.next(false);
+  }
+
+  refreshPage(event) {
+    setTimeout(() => {
+      this.isRefreshed = !this.isRefreshed;
+      this.selectedServices = [];
+      event.target.complete();
+    }, 1500);
+  }
+
+  onBookAppointment() {
+    const storedServices = this.storageService.getStorageValue(appConstants.SELECTED_SERVICES);
+    if (!storedServices || storedServices.length === 0) {
+      this.sharedService.presentToast('Please add service to Book Appointment', 'error');
+      return;
+    }
+    this.sharedService.onUpdateCart();
+    this.router.navigate(['/schedule-appointment']);
+  }
+
+  updateData(data) {
+    this.storageService.storeValue(appConstants.SELECTED_SERVICES, data.selectedServices);
+    this.selectedServices = data.selectedServices;
   }
 
 }

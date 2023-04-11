@@ -1,0 +1,43 @@
+@import "../../../../theme/sandhyadeep-theme";
+
+.sub-item-container {
+  display: flex;
+  padding: 15px 20px;
+  border-bottom: 1px solid lightgray;
+  justify-content: space-between;
+  align-items: center;
+  &:last-child {
+    border-bottom: 0;
+  }
+  &:first-child {
+    border-top: 1px solid lightgray;
+  }
+
+}
+.sub-item-name {
+  flex-basis: 50%;
+  line-height: 0.7;
+  .name {
+    font-size: 14px;
+  }
+  .time {
+    font-size: 12px;
+    color: #666;
+  }
+}
+.sub-item-checkbox {
+  display: flex;
+}
+.main-item-name-sub-container {
+  display: flex; justify-content: center; align-items: center;
+  img {
+    margin-right: 10px; width: 35px; height: 35px;
+  }
+}
+.main-item-name {
+  font-size: 16px;
+}
+
+.color-666 {
+  color: #666;
+}

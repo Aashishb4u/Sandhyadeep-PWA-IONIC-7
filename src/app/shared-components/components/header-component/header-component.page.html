@@ -1,13 +1,33 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>header-component</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">header-component</ion-title>
-    </ion-toolbar>
+  <ion-header class="header-container">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-right: 10px; padding: 40px 0 10px">
+      <div style="width: 100%; display: flex; align-items: center;">
+        <div *ngIf="showBackIcon" (click)="backClicked()" class="header-back">
+          <i class="fa fa-angle-left"></i>
+        </div>
+        <div *ngIf="!showSearchBox" [routerLink]="['/feed']" style="width: 65px; overflow: hidden; display: inline-block;">
+          <img src="{{sharedService?.appLogoImage}}">
+        </div>
+        <ng-container *ngIf="showSearchBox">
+          <div style="width: 100%">
+            <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems($event)"></ion-searchbar>
+          </div>
+        </ng-container>
+        <div *ngIf="!showSearchBox" class="logo-container">
+          <div class="logo-text">
+            Sandhyadeep
+          </div>
+          <div class="slogan-text">
+            Have a hair affair with us
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div *ngIf="(sharedService.updateCart | async) > 0" class="demo-section">
+          <mat-icon [routerLink]="['/schedule-appointment']"  color="primary" matBadge="{{sharedService.updateCart | async}}" matBadgeColor="warn">shopping_cart</mat-icon>
+        </div>
+        <div *ngIf="!hideProfileIcon" [routerLink]="['/settings']" class="profileIcon">
+          <img src="{{sharedService?.profileIcon}}" alt="">
+        </div>
+      </div>
+    </div>
   </ion-header>
-</ion-content>

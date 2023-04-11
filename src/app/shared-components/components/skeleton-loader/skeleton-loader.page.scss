@@ -1,0 +1,39 @@
+.skeleton-container {
+  z-index: 999;
+  background: white;
+  top: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 80px 15px 20px;
+}
+
+.middle-box {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ngx-skeleton-loader {
+    flex-basis: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+  }
+}
+
+.footer-menu {
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  padding: 10px 0;
+  align-items: center;
+  border-top: 1px solid #eff1f6;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

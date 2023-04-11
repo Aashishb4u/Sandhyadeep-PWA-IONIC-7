@@ -1,13 +1,72 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>service-list</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="item-list">
+  <mat-accordion>
+    <ng-container *ngFor="let mainService of mainServices; let index = index">
+      <mat-expansion-panel class="mat-elevation-z0 service-list-accordion">
+        <mat-expansion-panel-header class="expansion-header" [collapsedHeight]="'50px'">
+          <mat-panel-title>
+            <div class="animate__faster animate__fadeInLeft animate__animated main-item-name-sub-container">
+              <img [src]="mainService?.imageUrl" alt="">
+              <div [class.text-bold]="mainService?.show" class="main-item-name">{{mainService.name}} </div>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+          <div style="padding: 15px" *ngIf="mainService?.services?.length === 0 && mainService?.subServices?.length === 0">
+            We dont have any services available
+          </div>
+          <ng-container *ngIf="mainService.subServices && mainService.subServices.length > 0" >
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let subService of mainService?.subServices" class="mat-elevation-z5">
+                <mat-expansion-panel-header [collapsedHeight]="'50px'">
+                  <mat-panel-title>
+                    {{subService.name}}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div style="padding: 15px" *ngIf="subService.services?.length === 0">
+                  We dont have any services available
+                </div>
+                <div *ngFor="let service of subService.services; let index = index" (click)="onSelectServices(service)" class="sub-item-container">
+                  <div class="sub-item-name">
+                    <label class="name">{{service.name}}</label>
+                    <div class="time"><i
+                            class="fa fa-clock-o"></i> {{service.duration ? service.duration + ' Minutes' : ''}}
+                    </div>
+                  </div>
+                  <div class="sub-item-price">
+                    <div class="color-666">Price:</div>
+                    {{service.price}} ₹
+                  </div>
+                  <div class="sub-item-checkbox">
+                    <mat-checkbox [(ngModel)]="service.isChecked" color="primary"></mat-checkbox>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ng-container>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">service-list</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+          <!--                    If No Sub Service is there -->
+          <ng-container *ngIf="mainService.services && mainService.services.length > 0" >
+            <div *ngFor="let service of mainService.services; let index = index" (click)="onSelectServices(service)" class="sub-item-container">
+              <div class="sub-item-name">
+                <label class="name">{{service.name}}</label>
+                <div class="time"><i
+                        class="fa fa-clock-o"></i> {{service.duration ? service.duration + ' Minutes' : ''}}
+                </div>
+              </div>
+              <div class="sub-item-price">
+                <div class="color-666">Price:</div>
+                {{service.price}} ₹
+              </div>
+              <div class="sub-item-checkbox">
+                <mat-checkbox [(ngModel)]="service.isChecked" color="primary"></mat-checkbox>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-accordion>
+</div>
+
+
+

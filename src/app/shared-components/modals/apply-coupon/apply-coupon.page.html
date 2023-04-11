@@ -1,0 +1,59 @@
+<ion-content>
+  <div class="coupon-container">
+    <div class="coupon-search-container">
+<!--      <div class="coupon-search">-->
+<!--        <div class="coupon-search-input">-->
+<!--          <input (keyup)="filterCoupons()" type="text" />-->
+<!--        </div>-->
+<!--        <div class="coupon-search-button">-->
+<!--          APPLY-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+    <div class="coupon-cards-container">
+      <ng-container *ngIf="couponList && couponList.length">
+        <mat-card (click)="onSelectCoupon(index)" *ngFor="let coupon of couponList; let index = index" class="coupon-card">
+          <mat-card-content>
+            <div class="coupon-checkbox">
+              <ion-checkbox class="zoom-07" [checked]="selectedCouponDetails?.id === coupon.id" color="primary"></ion-checkbox>
+            </div>
+            <div class="coupon-details">
+              <div class="coupon">{{coupon.couponLabel}}</div>
+              <div class="savings-details"> {{coupon?.discountPercent}}% off upto {{coupon?.maxDiscountAmount}} on minimum purchase of {{coupon?.minAmount}} ₹</div>
+              <hr>
+              <div class="savings-details">Expires on: <b>{{coupon.expiresOn | date: 'dd MMM yyyy'}}</b></div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+      <ng-container *ngIf="couponList && couponList.length === 0">
+        <mat-card style="margin: 10px 0;">
+          <mat-card-content>
+            <div class="no-coupon-image">
+              <img src="/assets/icon/empty-coupon-outline-red.png" alt="">
+              <p>No Coupons Available</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+    </div>
+    <ion-toolbar *ngIf="selectedCouponDetails && selectedCouponDetails.id" class="ion-no-border" style="box-shadow: 1px -2px 8px 2px #6c757d3d;">
+      <div class="coupon-footer">
+        <div class="coupon-button-container">
+          <div>Maximum Savings: </div>
+          <div class="coupon-discount">{{selectedCouponDetails?.discountPercent}} %</div>
+        </div>
+        <div class="apply-button width-150">
+          <ion-button (click)="onApplyCoupon()" expand="block">Apply
+            <!--              <ion-spinner class="margin-0-5" name="circles"></ion-spinner>-->
+          </ion-button>
+        </div>
+      </div>
+    </ion-toolbar>
+  </div>
+
+</ion-content>
+<ion-footer >
+
+</ion-footer>
+

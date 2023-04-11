@@ -1,13 +1,39 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>services</ion-title>
-  </ion-toolbar>
-</ion-header>
+<sandhyadeep-header class="z-index-999"></sandhyadeep-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">services</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refreshPage($event)">
+    <ion-refresher-content pulling-icon="arrow-dropdown" refreshing-spinner="circles">
+
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="page-container">
+    <div class="page-heading">
+      <div class="heading-text">
+        <b>Services</b>
+      </div>
+    </div>
+    <div style="border-bottom: 10px solid #d3d3d37a;"></div>
+    <service-list [refreshRate]="refreshRate" [isRefreshed]="isRefreshed" (updateAmount)="updateData($event)"></service-list>
+  </div>
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar style="box-shadow: 4px 17px 20px 20px #6c757d3d;">
+    <div class="appointment-footer">
+      <div class="total-div-container">
+        <div class="total-div">
+          <div>Total</div>
+          <div class="total-div-price">{{selectedServices?.length}} Services</div>
+        </div>
+        <div>
+          {{sharedService?.updateServiceTotal | async}} ₹
+        </div>
+      </div>
+      <div style="margin: 10px 0; width: 100%">
+        <ion-button (click)="onBookAppointment()" expand="block">
+          Book Appointment
+        </ion-button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>
+<app-logo-spinner></app-logo-spinner>

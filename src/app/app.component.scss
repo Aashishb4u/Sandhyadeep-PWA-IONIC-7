@@ -1,3 +1,5 @@
+@import "../theme/sandhyadeep-theme";
+
 html, body {
   font-family: 'Muli' !important;
 }
@@ -28,4 +30,357 @@ ion-content, ion-button, ion-header, ion-searchbar, ion-toolbar, ion-item, ion-l
 
 .margin-0-5 {
   margin: 0 0 0 5px;
+}
+
+.swiper-pagination-bullet {
+  background: $primary-color !important;
+  opacity: .3;
+  &.swiper-pagination-bullet-active {
+    opacity: 1;
+    background: $secondary-color !important;
+    border: 1px solid pink;
+  }
+
+}
+
+.zoom-07 {
+  zoom: 0.7;
+}
+
+:root {
+  .tick-icon {
+    color: green;
+  }
+}
+
+.modal-backdrop-bg {
+  transition: opacity 300ms ease-in-out;
+  -webkit-transition: opacity 300ms ease-in-out;
+  background-color: #000;
+  opacity: 0;
+}
+
+.active .modal-backdrop-bg {
+  opacity: 0.5;
+}
+
+.default-button {
+  color: white;
+  margin: 15px 0;
+  display: flex;
+  border-radius: 7px;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(225deg, $primary-color 2%, $secondary-color 63%);
+  height: $button-height;
+  padding: 0 10px;
+  button {
+    font-size: 16px;
+    font-weight: bold;
+    background: transparent;
+    color: white;
+  }
+}
+
+.primary-add-button {
+  margin: 15px 0;
+  display: flex;
+  border-radius: 7px;
+  justify-content: center;
+  text-align: center;
+  background: white;
+  height: 45px;
+  border: 1px solid $primary-color;
+  padding: 0 10px;
+  button {
+    font-size: 16px;
+    font-weight: bold;
+    background: transparent;
+    color: $primary-color;
+  }
+}
+
+.border-spacing-top {
+  border-top: 10px solid #d3d3d38f;
+}
+
+.border-spacing-bottom {
+  border-bottom: 10px solid #d3d3d38f;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: $primary-color;
+}
+
+.mat-tab-label {
+  opacity: 1 !important;
+  width: 100% !important;
+  .mat-tab-label-content {
+    color: $secondary-color;
+  }
+}
+
+button:focus {
+  outline: none !important;
+}
+
+.mat-border-shadow {
+  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+}
+
+.border-div {
+  border-bottom: 10px solid #d3d3d37a;
+}
+
+.booking-trash-icon {
+  .mat-mini-fab .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.alert-title.sc-ion-alert-md {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+}
+
+.snackClass {
+  margin-top: 123px !important;
+  background: $secondary-color;
+}
+
+.successSnack {
+  .toast-content {
+    background: #198754 !important;
+  }
+}
+
+.errorSnack {
+  .toast-content {
+    background: red !important;
+  }
+}
+
+.z-index-999  {
+  z-index: 9999;
+}
+
+.no-internet-container {
+  background: white;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  .no-internet-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+  }
+  .no-internet-message {
+    text-align: center;
+    h1 {
+      font-weight: 800;
+    }
+  }
+}
+
+.no-internet-footer {
+  display: flex; justify-content: center; margin: 30px 0;
+  button {
+    width: 200px;
+  }
+}
+
+.service-checkbox mat-checkbox .mat-checkbox-inner-container {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.search-box {
+  padding: 5px 0 5px;
+  background: white;
+  ion-searchbar {
+    height: 50px !important;
+    .searchbar-input-container {
+      border: 1px solid $secondary-color;
+      border-radius: 10px;
+      input {
+        background: white !important;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.required-label::after {
+  content: "*";
+  color: red;
+}
+
+.mat-mini-fab .mat-button-wrapper {
+  display: flex !important;
+}
+
+.modal-form-container {
+  .service-textarea {
+    .textarea-wrapper {
+      textarea {
+        height: 300px;
+      }
+    }
+  }
+}
+
+ion-chip {
+  color: $secondary-color !important;
+}
+
+input, textarea, ion-select, ion-datetime {
+  color: #666 !important;
+}
+
+
+.service-list-accordion {
+  .expansion-header {
+    margin: 10px 0;
+    border-left: 4px solid $primary-color;
+    border-radius: 0;
+    height: 50px;
+  }
+  border-bottom: 10px solid #d3d3d37a;
+  .mat-expansion-panel-body {
+    padding: 0 !important;
+  }
+}
+
+.image-asset-container {
+  margin: 20px 5px;
+  .mat-expansion-panel-body {
+    padding: 0 !important;
+  }
+}
+
+mat-card.booking-details-card {
+  box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12) !important;
+  margin-bottom: 15px;
+}
+
+ion-datetime {
+  --background: #fff1f2;
+  --background-rgb: 255, 241, 242;
+
+  border-radius: 16px;
+  box-shadow: rgba(var(--ion-color-rose-rgb), 0.3) 0px 10px 15px -3px;
+}
+
+.modal-wrapper{
+  background: transparent !important;
+}
+
+.sc-ion-modal-ios-h {
+  background: transparent !important;
+}
+
+hr {
+  border: 0;
+  clear: both;
+  display: block;
+  width: 98%;
+  background-color: #00000026;
+  height: 1px;
+  opacity: 0.7;
+}
+
+
+.ionic-success-toast {
+  --background: #198754;
+  --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+  --color: white;
+}
+
+.ionic-error-toast {
+  --background: #f44336;
+  --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+  --color: white;
+}
+
+::ng-deep ngx-mat-intl-tel-input .ngx-mat-tel-input-container .mdc-text-field {
+  padding: 0 !important;
+}
+
+::ng-deep ngx-mat-intl-tel-input .ngx-mat-tel-input-container .country-selector {
+  opacity: 1 !important;
+}
+
+.iti--allow-dropdown input, .iti--allow-dropdown input {
+  width: 254px;
+  height: 50px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.otpContainer {
+  width: 255px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  .otpInput {
+    height: 50px !important;
+    width: 50px !important;
+  }
+}
+
+.custom-button {
+  width: 100%;
+  height: 40px;
+  background: $secondary-color;
+  //background: linear-gradient(225deg, $primary-color 2%, $secondary-color 63%);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.custom-button:disabled, .custom-button[disabled] {
+  opacity: 0.7;
+  color: white !important;
+}
+
+.ion-input-box {
+  margin-bottom: 10px;
+  .item-native {
+    --background: transparent !important;
+  }
+}
+
+.iconEye {
+  font-size: 24px;
+  padding-left: 4px;
+  padding-top: 12px;
+  vertical-align: middle;
+}
+
+.iti--allow-dropdown input {
+  width: 270px !important;
+  background: transparent !important;
+}
+
+ion-item {
+  --margin-bottom: 10px;
+  --background: transparent !important;
+}
+
+.alert-title.sc-ion-alert-ios {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+.width-100 {
+  width: 100%;
 }

@@ -1,0 +1,554 @@
+@import "../../../../theme/sandhyadeep-theme";
+
+.schedule-appointment-container {
+  font-size: 14px;
+  .calender-body {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .month-name {
+      padding: 5px;
+      border-bottom: 1px solid lightgray;
+      font-weight: bold;
+    }
+
+    .days-container {
+      display: flex;
+      justify-content: space-around;
+      padding: 5px 0;
+      font-size: 14px;
+      border-bottom: 1px solid lightgray;
+
+      .single-day {
+        flex-basis: (100/8);
+
+        .date {
+          &.active {
+            padding: 2px 6px;
+            background: $secondary-color;
+            border-radius: 50%;
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          font-weight: bold;
+        }
+      }
+    }
+
+    .slot-container {
+      padding: 5px 0;
+      display: flex;
+      overflow-x: scroll;
+      border-bottom: 1px solid lightgray;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .time-slot {
+        .single-slot {
+          width: 61px;
+          margin: 5px;
+          padding: 2px;
+          border: 1px solid $secondary-color;
+          color: $secondary-color;
+          border-radius: 5px;
+          box-shadow: 0 0 10px #aaaaaa94;
+          font-size: 14px;
+          transition: background-color 0.5s ease;
+          height: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &.active {
+            background: $secondary-color;
+            color: white;
+          }
+        }
+      }
+    }
+
+    .service-tab-container {
+      border-bottom: 5px solid #d3d3d36b;
+      border-top: 5px solid #d3d3d36b;
+    }
+
+    .services-container {
+      display: flex;
+      overflow-x: scroll;
+      align-items: center;
+      padding: 10px 0;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .service {
+        .single-service {
+          width: 160px;
+          margin: 5px 10px;
+          padding: 10px;
+          border-radius: 15px;
+          text-align: left;
+          border: 1px solid lightgray;
+          line-height: 1.2;
+          min-height: 90px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          box-shadow: 0 0 10px #aaaaaa94;
+          .service-details-container {
+            display: flex;
+            justify-content: space-between;
+            .service-checkbox {
+              display: flex;
+              justify-content: flex-end;
+              height: 5px;
+            }
+            .main-service-name {
+              font-size: 10px;
+              color: #666;
+            }
+            .service-name {
+              padding: 5px 0;
+              font-size: 12px;
+            }
+            .service-duration {
+              font-size: 10px;
+              color: #666;
+            }
+          }
+
+          .service-price-container {
+            display: flex; align-items: center;
+            .price-text {
+              font-size: 12px;
+            }
+            .service-fees {
+              font-size: 13px;
+            }
+            .last-service-fees {
+              font-size: 16px;
+              text-decoration: line-through;
+              margin-left: 5px
+            }
+          }
+
+          .service-fees {
+
+          }
+          &.active {
+            background: $secondary-color;
+            color: white;
+          }
+        }
+      }
+    }
+
+
+    .coupon-tab-container {
+      border-bottom: 5px solid #d3d3d36b;
+      border-top: 5px solid #d3d3d36b;
+      padding: 5px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .coupon-icon-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        img {
+          width: 35px; height: 35px; margin-right: 10px;
+        }
+      }
+    }
+
+    .combo-tab-container {
+      border-bottom: 5px solid #d3d3d36b;
+      border-top: 5px solid #d3d3d36b;
+      //padding: 5px 7px;
+    }
+
+    .combo-container {
+      display: flex;
+      overflow-x: scroll;
+      align-items: center;
+      padding: 10px 0;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .service {
+        .single-service {
+          width: 220px;
+          margin: 5px 10px;
+          padding: 10px;
+          border-radius: 15px;
+          text-align: left;
+          border: 1px solid lightgray;
+          line-height: 1.2;
+          min-height: 130px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          box-shadow: 0 0 10px #aaaaaa94;
+          .service-details-container {
+            .service-checkbox {
+              display: flex;
+              justify-content: flex-end;
+              height: 5px;
+            }
+            .main-service-name {
+              font-size: 16px;
+              color: #666;
+            }
+            .service-container {
+              padding: 10px 0;
+              .service-name {
+                display: flex;
+                padding: 3px 0;
+                justify-content: space-between;
+              }
+            }
+
+            .combo-name {
+              font-size: 16px;
+              width: 80%;
+              line-height: 1.4;
+            }
+          }
+
+          .service-price-container {
+            display: flex; align-items: center;
+            .price-container {
+              display: flex;
+              justify-content: flex-start;
+              align-items: baseline;
+              padding: 5px 0;
+            }
+            .price-text {
+              font-size: 14px;
+              color: #666;
+            }
+            .service-fees {
+              font-size: 16px;
+              padding-right: 10px;
+            }
+          }
+
+          .service-fees {
+
+          }
+          &.active {
+            background: $secondary-color;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.bold-text {
+  font-weight: bold;
+}
+.appointment-footer {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 15px;
+  .total-div-container {
+    display: flex;
+    padding: 10px;
+    background: #d3d3d37d;
+    justify-content: space-between;
+    border-radius: 7px;
+    align-items: center;
+
+    .total-div {
+      display: flex;
+      .total-div-price {
+        color: #666;
+        margin-left: 15px;
+      }
+    }
+  }
+}
+
+.appointment-button-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 15px;
+  align-items: center;
+  .payment-option {
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+    .payment-status {
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #BD1E51;
+    }
+    .payment-status-prompt {
+      display: flex;
+      align-items: center;
+      i {
+        margin: 0 5px;
+        font-size: 10px;
+        color: gray;
+      }
+    }
+  }
+  .booking-button {
+    flex-basis: 60%;
+  }
+}
+
+.appointment-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px;
+  border-bottom: 1px solid lightgray;
+  .heading-text {
+    font-size: 14px;
+  }
+}
+
+.total-bill-container {
+  text-align: left;
+  padding: 0 20px 20px;
+  font-size: 14px;
+  .bill-header {
+    padding: 10px 0 5px;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .bill-details {
+    padding: 5px 0;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .display-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .apply-coupon {
+      color: $primary-color;
+      font-size: 14px;
+    }
+  }
+
+  .total-bill-details {
+    padding: 5px 0;
+  }
+}
+
+.summary-heading {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  border-top: 5px solid #d3d3d36b;
+  .heading-text {
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+    padding: 5px 15px;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .summary-container {
+    width: 100%;
+    padding: 10px 15px;
+    .summary-service {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px;
+      border: 1px solid lightgray;
+      border-radius: 7px;
+      margin-bottom: 10px;
+      box-shadow: 0 0 3px #aaaaaa94;
+      flex-direction: column;
+      &:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+
+}
+
+.include-title {
+  font-size: 12px;
+  color: gray;
+  & {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    margin: 5px 0;
+  }
+  &:before, &:after {
+    position: absolute;
+    top: 51%;
+    overflow: hidden;
+    width: 49%;
+    height: 1px;
+    content: " ";
+    background-color: lightgray;
+  }
+  &:before {
+    margin-left: -50%;
+    text-align: right;
+  }
+  .color {
+    background-color: #ccc;
+  }
+}
+
+.light-button {
+  border: 1px solid #666;
+  border-radius: 5px;
+}
+
+
+.selected-services {
+  padding: 0 15px;
+  line-height: 1.6;
+  .each-selected-service {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    .price-label {
+      width: 90px;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+    }
+    .service-label{
+      text-align: left;
+    }
+    &.final-amount-row {
+      color: darkgreen;
+    }
+  }
+}
+
+
+.amount-details {
+  del {
+    text-decoration: none;
+    position: relative;
+    font-size: 16px;
+    color: rgba(red, 0.7);
+    &:before {
+      content: " ";
+      display: block;
+      width: 100%;
+      border-top: 1px solid rgba(255, 0, 0, 0.8);
+      height: 8px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: rotate(-7deg);
+    }
+  }
+  ins {
+    font-size: 22px;
+    text-decoration: none;
+    padding-left: 15px;
+  }
+}
+.dashed-border {
+  margin: 5px 0;
+  border-bottom: 1px dashed gray;
+}
+
+.price-label-container {
+  display: flex;
+  margin: 0 0 10px;
+  .price-label {
+    border-bottom: 3px solid #bd1e5191;
+  }
+}
+
+.summary-title {
+  text-transform: uppercase;
+  color: $primary-color;
+  font-size: 14px;
+}
+
+.bold-row {
+  font-weight: bold;
+}
+
+.coupon-applied-container {
+  border-top: 5px solid #d3d3d36b;
+  padding: 20px;
+  border-bottom: 5px solid #d3d3d36b;
+}
+
+.coupon-applied {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: #fff;
+  border: 2px solid #265791;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.1);
+}
+
+.coupon-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background-color: #265791;
+  color: #fff;
+}
+
+.coupon-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.coupon-code {
+  margin: 0;
+  font-weight: bold;
+  font-size: 16px;
+  color: #265791;
+  text-transform: uppercase;
+}
+
+.coupon-description {
+  margin: 0;
+  font-size: 14px;
+  color: #707070;
+}
+
+.remove-coupon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  color: #707070;
+}
+
+.book-now-button {
+  width: 50%;
+}

@@ -1,0 +1,45 @@
+@import "../../../../theme/sandhyadeep-theme";
+
+.header-container {
+    background: white;
+    box-shadow: 0 3px 11px 0 #6c757d3d;
+}
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  .logo-text {
+    font-size: 25px; font-weight: 700;
+  }
+  .slogan-text {
+    font-size: 10px;
+    padding: 3px 5px;
+  }
+}
+
+.profileIcon {
+  width: 40px;
+  img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid $secondary-color;
+    padding: 2px;
+  }
+}
+
+.header-back {
+  padding: 10px; font-size: 30px; color: #666;
+}
+
+.demo-section {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  mat-icon {
+    font-size: 25px;
+  }
+}
+

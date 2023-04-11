@@ -1,0 +1,31 @@
+@import "../../../../theme/sandhyadeep-theme";
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px;
+  .heading-text {
+    font-size: $header-size;
+  }
+}
+
+.appointment-footer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  .total-div-container {
+    display: flex;
+    padding: 10px;
+    background: #d3d3d37d;
+    justify-content: space-between;
+    border-radius: 7px;
+    .total-div {
+      display: flex;
+      .total-div-price {
+        color: #666;
+        margin-left: 15px;
+      }
+    }
+  }
+}

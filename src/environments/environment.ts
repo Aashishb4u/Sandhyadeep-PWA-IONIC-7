@@ -4,9 +4,6 @@
 
 export const environment = {
   production: false,
-  baseAuthUrl: 'http://localhost:3000/api/v1/auth/',
-  baseURLAdminAPIs: 'http://localhost:3000/api/v1/',
-  domainUrlApi: 'http://localhost:3000/api/',
 };
 
 /*
