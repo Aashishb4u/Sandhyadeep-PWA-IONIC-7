@@ -1,9 +1,9 @@
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterContentChecked, AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
-import {Observable} from 'rxjs';
+import {Observable, interval} from 'rxjs';
 import {StorageService} from "../../../shared-services/storage.service";
 import {SharedService} from "../../../shared-services/shared.service";
 import {ApiService} from "../../../shared-services/api.service";
@@ -11,7 +11,7 @@ import {appConstants} from "../../../../assets/constants/app-constants";
 import {SkeletonLoaderPage} from "../../../shared-components/components/skeleton-loader/skeleton-loader.page";
 import {FooterComponentPage} from "../../../shared-components/components/footer-component/footer-component.page";
 import {HeaderComponentPage} from "../../../shared-components/components/header-component/header-component.page";
-import {SwiperModule} from 'swiper/angular';
+import {SwiperComponent, SwiperModule} from 'swiper/angular';
 import SwiperCore, {
   Autoplay,
   EffectCards,
@@ -22,6 +22,8 @@ import SwiperCore, {
   EffectFlip,
   Keyboard, Navigation, Pagination, Scrollbar, SwiperOptions,
 } from 'swiper';
+import {Content} from "@ionic/core/dist/types/components/content/content";
+
 
 SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCoverflow, EffectFade, EffectCards, EffectCube, EffectFlip, EffectCreative]);
 @Component({
@@ -33,27 +35,23 @@ SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCov
   imports: [IonicModule, CommonModule, FormsModule, SkeletonLoaderPage,
     HeaderComponentPage, FooterComponentPage, RouterModule, SwiperModule]
 })
-export class FeedPage implements OnInit {
+export class FeedPage implements OnInit, AfterContentChecked {
+  @ViewChild('bannerSlide', { static: false }) bannerSlide?: SwiperComponent;
+  @ViewChild('packageSlide', { static: false }) packageSlide?: SwiperComponent;
+  @ViewChild('feedPageContent') feedPageContent: Content;
   autoPlay: boolean =  true;
   bannerSlideConfig: SwiperOptions = {
-    pagination: { type: 'bullets', clickable: true },
+    loop: true,
+    initialSlide: 1,
     keyboard: { enabled: true },
     scrollbar: { draggable: true },
-    // effect: 'cards',
-    autoplay: true,
-    navigation: true,
-    loop: true,
+    effect: 'coverflow',
   };
-  slideOpts2: SwiperOptions = {
-    speed: 500,
-    zoom: {
-      maxRatio: 3,
-    },
-    autoplay: true,
+  packageSlideOptions: SwiperOptions = {
     loop: true,
     initialSlide: 1,
     slidesPerView: 1.5,
-    spaceBetween: 5,
+    spaceBetween: 20,
     centeredSlides: true,
   };
   productImages = [
@@ -90,15 +88,6 @@ export class FeedPage implements OnInit {
       addedInCart: 0
     },
   ];
-  packagesOption = {
-    slidesPerView: 1.5,
-    centeredSlides: true,
-    initialSlide: 2,
-    spaceBetween: 10,
-    speed: 400,
-    autoplay: true,
-    loop: true,
-  };
   packageList = [];
   productList = [];
   banners = [];
@@ -111,7 +100,9 @@ export class FeedPage implements OnInit {
   bannerSliderObservable: any = new Observable();
   constructor(private storageService: StorageService,
               private sharedService: SharedService,
-              private router: Router, private adminService: ApiService) { }
+              private router: Router, private adminService: ApiService) {
+    console.log('In constructor');
+  }
 
   ionViewWillEnter() {
     this.getPackages();
@@ -120,13 +111,45 @@ export class FeedPage implements OnInit {
     this.todayYear = (new Date()).getFullYear();
   }
 
+  ngAfterContentChecked(): void {
+    this.packageSlideOptions = {
+      loop: true,
+      initialSlide: 1,
+      slidesPerView: 1.5,
+      spaceBetween: 20,
+      centeredSlides: true,
+    };
+    this.bannerSlideConfig = {
+      loop: true,
+      initialSlide: 1,
+      keyboard: { enabled: true },
+      scrollbar: { draggable: true },
+      effect: 'coverflow',
+    };
+  }
+
   ionViewDidEnter() {
+    this.feedPageContent.scrollToTop();
     this.sharedService.onSettingEvent.next(false);
     this.sharedService.showBackIcon.next(false);
     const userData = this.storageService.getStorageValue(appConstants.USER_INFO);
     if (userData.roleId.name === 'admin') {
       this.sharedService.showBackIcon.next(true);
     }
+    setTimeout(() => {
+      interval(3000).subscribe(x => {
+        if(this.bannerSlide.swiperRef.isEnd) {
+          this.bannerSlide.swiperRef.slideTo(0);
+          return;
+        }
+        if(this.packageSlide.swiperRef.isEnd) {
+          this.packageSlide.swiperRef.slideTo(0);
+          return;
+        }
+        this.bannerSlide.swiperRef.slideNext(800);
+        this.packageSlide.swiperRef.slideNext(800);
+      });
+    }, 1000)
   }
 
   ngOnInit() {

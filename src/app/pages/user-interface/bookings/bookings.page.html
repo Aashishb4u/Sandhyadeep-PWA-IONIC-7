@@ -1,13 +1,109 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>bookings</ion-title>
-  </ion-toolbar>
-</ion-header>
+<sandhyadeep-header class="z-index-99"></sandhyadeep-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">bookings</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="bookings-container">
+    <mat-tab-group [color]="'accent'">
+      <mat-tab label="New Appointments">
+        <div class="card-divider"></div>
+        <div *ngIf="futureBookings.length > 0">
+          <ng-container *ngFor="let booking of futureBookings; let index = index">
+            <mat-card class="booking-card">
+              <mat-card-content>
+                <div class="single-booking-card">
+                  <div class="single-booking-left">
+                    <div class="booking-date">
+                      <i class="fa fa-clock-o"></i> {{booking?.dateString}}
+                    </div>
+                    <div (click)="openModal(booking)" class="booking-more-info"> More Info <ion-icon name="alert-circle-outline"></ion-icon></div>
+                  </div>
+                  <div class="single-booking-right">
+                    <div class="booking-amount">₹ {{booking?.paymentData?.paymentAmount}}/-</div>
+                    <div (click)="showPopover($event, booking)" class="ellipsis-icon">
+                      <i class="fa fa-ellipsis-v"></i>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+              <mat-card-footer>
+                <mat-progress-bar *ngIf="booking?.showSpinner" mode="indeterminate"></mat-progress-bar>
+              </mat-card-footer>
+            </mat-card>
+            <div style="border-bottom: 15px solid #d3d3d37a;"></div>
+          </ng-container>
+        </div>
+        <ng-container *ngIf="futureBookings.length === 0">
+          <ng-container
+                  *ngTemplateOutlet="noBookings">
+          </ng-container>
+        </ng-container>
+
+      </mat-tab>
+      <mat-tab label="History">
+        <div style="border-bottom: 10px solid #d3d3d37a;"></div>
+        <div class="mat-border-shadow" style="display: flex; justify-content: space-between; padding: 20px;">
+          <div style="font-size: 16px; font-weight: 500; display: flex; justify-content: center;
+          align-items: center;">Show Cancelled Orders</div>
+          <div>
+            <ion-toggle [(ngModel)]="selectedToggle" (ionChange)="slideToggleEvent($event)" [color]="'primary'"></ion-toggle>
+<!--            <mat-slide-toggle [(ngModel)]="selectedToggle" (change)="slideToggleEvent($event)" [color]="'primary'"></mat-slide-toggle>-->
+          </div>
+        </div>
+        <div class="border-div"></div>
+        <div class="booking-card-container">
+          <div *ngIf="filteredBookings && filteredBookings.length > 0">
+            <ng-container *ngFor="let booking of filteredBookings; let index = index">
+              <mat-card [ngClass]="{'cancelledBooking' : booking?.isCancelled}" class="booking-card">
+                <mat-card-content>
+                  <div class="single-booking-card">
+                    <div class="single-booking-left">
+                      <div [ngClass]="{'colorRed': booking?.isCancelled,  'colorGreen': !booking?.isCancelled}" class="booking-date">
+                        <i class="fa fa-clock-o"></i> {{booking?.dateString}}
+                      </div>
+                      <div (click)="openModal(booking)" class="booking-more-info"> More Info <ion-icon name="alert-circle-outline"></ion-icon></div>
+                    </div>
+                    <div class="single-booking-right">
+                      <div class="booking-amount">₹ {{booking?.paymentData?.paymentAmount}}/-</div>
+                    </div>
+                  </div>
+                  <div *ngIf="!booking?.isCancelled" class="ratings-container">
+                    <div>
+                      <app-star-ratings [rating]="booking?.ratings"
+                                        (ratingUpdated)="onRatingsChanged($event, index, booking)"></app-star-ratings>
+                    </div>
+                  </div>
+                </mat-card-content>
+                <mat-card-footer>
+                  <mat-progress-bar *ngIf="booking?.showSpinner" mode="indeterminate"></mat-progress-bar>
+                </mat-card-footer>
+              </mat-card>
+              <div style="border-bottom: 15px solid #d3d3d37a;"></div>
+            </ng-container>
+          </div>
+          <ng-container *ngIf="filteredBookings.length === 0">
+            <ng-container
+                    *ngTemplateOutlet="noBookings">
+            </ng-container>
+          </ng-container>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <ng-template #noBookings>
+    <div class="no-active-bookings">
+      <div class="no-bookings-img">
+        <img src="assets/icon/no-bookings.png" alt="">
+      </div>
+      <div class="no-bookings-text">
+        No Active Bookings
+      </div>
+      <div [routerLink]="['/services']" class="button-container">
+        <button [routerLink]="['/services']" class="custom-button"
+                mat-raised-button color="primary">Search For Services
+        </button>
+      </div>
+    </div>
+  </ng-template>
 </ion-content>
+<app-footer-component></app-footer-component>
+<app-logo-spinner></app-logo-spinner>

@@ -2,6 +2,7 @@
 
 html, body {
   font-family: 'Muli' !important;
+  background: white;
 }
 
 ion-content, ion-button, ion-header, ion-searchbar, ion-toolbar, ion-item, ion-label, h2, p, button {
@@ -106,18 +107,6 @@ ion-content, ion-button, ion-header, ion-searchbar, ion-toolbar, ion-item, ion-l
 
 .border-spacing-bottom {
   border-bottom: 10px solid #d3d3d38f;
-}
-
-.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-  background-color: $primary-color;
-}
-
-.mat-tab-label {
-  opacity: 1 !important;
-  width: 100% !important;
-  .mat-tab-label-content {
-    color: $secondary-color;
-  }
 }
 
 button:focus {
@@ -384,3 +373,20 @@ ion-item {
 .width-100 {
   width: 100%;
 }
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: $primary-color;
+}
+
+.mat-tab-label {
+  opacity: 1 !important;
+  width: 100% !important;
+  .mat-tab-label-content {
+    color: $secondary-color;
+  }
+}
+
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+  width: 29%;
+}
+

@@ -1,3 +1,24 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
+  <ng-container>
+    <div class="no-internet-container" *ngIf="status === 'OFFLINE'">
+      <div class="no-internet-image-container">
+        <img src="assets/icon/no-internet.png" alt="">
+      </div>
+      <div class="no-internet-message">
+        <h1>Oops!</h1>
+        <div>
+          <span>It seems there is something wrong with your</span>
+          <span>internet connection. Please connect to the</span>
+          <span>internet and refresh again</span>
+        </div>
+      </div>
+      <div class="no-internet-footer">
+        <button (click)="refreshPage()"
+                mat-raised-button color="primary">Try Again
+        </button>
+      </div>
+    </div>
+  </ng-container>
 </ion-app>
+

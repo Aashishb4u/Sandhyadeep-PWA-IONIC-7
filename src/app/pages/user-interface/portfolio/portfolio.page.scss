@@ -1,0 +1,139 @@
+@import "../../../../theme/sandhyadeep-theme";
+
+
+.portfolio-container {
+  display: flex;
+}
+.photos-container {
+  .photo {
+    position: relative;
+    &.left {
+      margin: 10px 5px 5px 15px;
+    }
+    &.right {
+      margin: 10px 15px 5px 5px;
+    }
+    .single-photo {
+      position: relative;
+    }
+    .photo-likes-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px;
+      .photo-likes {
+        color: #666;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .like-icon {
+        i.fa.fa-heart {
+          color: red;
+        }
+      }
+    }
+  }
+}
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px;
+  .heading-text {
+    font-size: $header-size;
+  }
+}
+
+.icon {
+  position: absolute;
+  display: inline-block;
+  width: 50px;
+  top: 12%;
+  left: 35%;
+  opacity: 0;
+  fill: red;
+  &.like {
+    animation: 2s like-heart-animation ease-in-out forwards;
+  }
+}
+
+@keyframes like-heart-animation {
+  0%,
+  to {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  15% {
+    opacity: 0.9;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+  30% {
+    -webkit-transform: scale(0.95);
+    transform: scale(0.95);
+  }
+  45%,
+  80% {
+    opacity: 0.9;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+.portfolio-container-flex {
+  display: flex;
+  flex-wrap: wrap;
+  .each-photo {
+    display: flex;
+    flex-basis: 49%;
+    flex-direction: column;
+    .photo-likes-container {
+      padding: 5px 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+
+
+h1 {
+  color: coral;
+}
+.grid-container {
+  columns: 5 200px;
+  column-gap: 1.5rem;
+  width: 90%;
+  margin: 20px auto;
+  div {
+    margin: 0 1.5rem 1.5rem 0;
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    box-shadow: 2px 2px 17px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: all .25s ease-in-out;
+    &:hover img {
+      filter: grayscale(0);
+    }
+    &:hover {
+      border-color: coral;
+    }
+    img {
+      width: 100%;
+      //filter: grayscale(100%);
+      border-radius: 5px;
+      transition: all .25s ease-in-out;
+    }
+    p {
+      margin: 5px 0;
+      padding: 0;
+      text-align: center;
+      font-style: italic;
+    }
+  }
+}
+
+

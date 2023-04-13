@@ -1,11 +1,11 @@
 <sandhyadeep-header class="z-index-999"></sandhyadeep-header>
-<ion-content [scrollEvents]="true">
+<ion-content #feedPageContent [scrollEvents]="true">
     <ion-refresher slot="fixed" (ionRefresh)="refreshPage($event)">
         <ion-refresher-content pulling-icon="arrow-dropdown" refreshing-spinner="circles">
 
         </ion-refresher-content>
     </ion-refresher>
-    <swiper [config]="bannerSlideConfig">
+    <swiper #bannerSlide [config]="bannerSlideConfig">
         <ng-template *ngFor="let banner of banners" swiperSlide>
             <div class="ion-text-center ion-slides-container">
                 <img src="{{banner?.imageUrl}}" alt="">
@@ -13,12 +13,10 @@
         </ng-template>
     </swiper>
 
-    <div #animationRef class="menu-container">
+    <div class="menu-container">
         <div class="quick_menus">
             <ng-container *ngFor="let treatment of serviceTypesList; let index = index">
-                <div [ngStyle]="{'animation-delay': (index+1)/6 + 's'}"
-                     [ngClass]="{ animate__animated: changeAnim1, animate__fadeInRight: changeAnim1 }"
-                     (click)="goServices()" class="animate__animated animate__fadeInRight menu-container">
+                <div (click)="goServices()" class="menu-container">
                     <div class="menu-image"><img src="{{treatment.imageUrl}}" alt=""></div>
                     <div class="menu-text">{{treatment.name}}</div>
                 </div>
@@ -31,24 +29,14 @@
             </div>
             <div [routerLink]="['/packages']" class="know-more">See All <i class="fa fa-angle-right"></i></div>
         </div>
-        <div [ngClass]="{ animate__animated: changeAnim2, animate__bounceIn: changeAnim2, animate__fast: changeAnim2 }"
-             #animationRef class="slide_container">
-            <swiper [loop]="true" [config]="slideOpts2">
+        <div class="slide_container">
+            <swiper #packageSlide [config]="packageSlideOptions">
                 <ng-template *ngFor="let packageData of packageList" swiperSlide>
                     <ion-card (click)="onClickPackage(packageData?.id)">
                         <img src="{{packageData?.imageUrl}}" alt="">
                     </ion-card>
                 </ng-template>
             </swiper>
-            <!--      <ion-content scroll-y="false" [fullscreen]="true">-->
-            <!--        <ion-slides (ionSlidesDidLoad)="slidesDidLoad($event)" (ionSlideReachEnd)="onLastPackageSlide()" #packagesSlider [options]="packagesOption">-->
-            <!--          <ion-slide *ngFor="let packageData of packageList">-->
-<!--                        <ion-card (click)="onClickPackage(packageData?.id)">-->
-<!--                          <img src="{{packageData?.imageUrl}}" alt="">-->
-<!--                        </ion-card>-->
-            <!--          </ion-slide>-->
-            <!--        </ion-slides>-->
-            <!--      </ion-content>-->
         </div>
 
         <!--        Removed products for now -->

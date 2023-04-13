@@ -1,13 +1,70 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>packages</ion-title>
-  </ion-toolbar>
-</ion-header>
+<sandhyadeep-header class="z-index-999"></sandhyadeep-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">packages</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="page-heading">
+    <div class="heading-text">
+      <b>Packages</b>
+    </div>
+  </div>
+  <div class="package-list">
+    <div *ngFor="let singlePackage of packageList, let index = index" class="package border-spacing-top">
+      <div *ngIf="singlePackage?.discount && singlePackage?.discount?.type" class="package-tag">
+        {{singlePackage?.discount?.type}}
+      </div>
+      <div class="package-img">
+        <div class="image-container" *ngFor="let singleService of singlePackage?.services">
+          <img (click)="showImage(singleService?.imageUrl)" src="{{singleService?.imageUrl}}" alt="">
+        </div>
+      </div>
+      <div class="package-details-container">
+        <div class="package-title-details">
+          <div class="package-name">{{singlePackage.name}}</div>
+          <div class="package-duration"><i class="fa fa-clock-o"></i>{{singlePackage?.totalDuration}} Minutes</div>
+          <div class="package-price">
+            <div class="style-1">
+              <del><span class="amount">₹{{singlePackage?.totalAmount}}</span></del>
+              <ins><span class="amount">₹{{singlePackage?.totalAmount - singlePackage?.discount}}</span></ins>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!singlePackage.addedInCart" class="add-button">
+          <div (click)="addToCart(index)" class="primary-add-button">
+            <button> Add</button>
+          </div>
+        </div>
+        <div *ngIf="singlePackage.addedInCart">
+          <div (click)="addToCart(index)" class="booked-button">
+            <img src="assets/icon/green-tick.png" alt="">
+            <div>Added</div>
+          </div>
+        </div>
+      </div>
+      <div class="package-details">
+        <div>{{singlePackage?.description}}</div>
+        <div (click)="onShowDetails(singlePackage.id)" class="show-details"><u>Show Details</u></div>
+      </div>
+    </div>
+  </div>
+
+
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <div class="appointment-footer">
+      <div class="total-div-container">
+        <div class="total-div">
+          <div>Total</div>
+          <div class="total-div-price">{{selectedPackages?.length}} Packages</div>
+        </div>
+        <div>
+          {{sharedService?.updatePackageTotal | async}} ₹
+        </div>
+      </div>
+      <div style="margin: 10px 0; width: 100%">
+        <button (click)="onBookAppointment()" class="custom-button"
+                mat-raised-button color="primary">Book Appointment
+        </button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>

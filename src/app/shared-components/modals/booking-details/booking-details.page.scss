@@ -1,0 +1,115 @@
+.booking-details-container {
+  .main-container {
+    .container-title {
+      text-transform: uppercase;
+      font-size: 16px;
+      padding: 10px 15px;
+      color: #8E0833;
+      font-weight: bold;
+      border-bottom: 1px solid lightgray;
+    }
+    .booking-tab-container {
+      .bill-container {
+        padding: 15px;
+        line-height: 1.6;
+        .dashed-border {
+          margin: 5px 0;
+          border-bottom: 1px dashed gray;
+        }
+        .bill-row, .bill-row-footer {
+          &.dark-green-row {
+            color: darkgreen;
+          }
+          display: flex;
+          justify-content: space-between;
+          .bill-row-left {
+            flex-basis: 70%;
+            text-align: left;
+          }
+          .bill-row-right {
+            flex-basis: 30%;
+            text-align: right;
+          }
+        }
+        .bill-row-footer {
+          font-size: 15px;
+          font-weight: 500;
+        }
+      }
+      .booking-details-tab {
+        .booking-details-card {}
+      }
+    }
+  }
+}
+
+
+.descriptionText {
+  display: flex;
+  align-items: center;
+  .description-booking {
+    &.on-ellipsis {
+      flex-basis: 60%;
+      margin: 10px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+  }
+  .showMore {
+    text-decoration: underline;
+    color: #0E76A8;
+    font-size: 12px;
+    margin: 0 5px;
+  }
+}
+
+.descriptionText {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.description-booking {
+  margin: 10px 0;
+}
+
+.showMore,
+.showLess {
+  position: absolute;
+  bottom: -10px;
+  right: 0;
+  background-color: white;
+  color: blue;
+  cursor: pointer;
+}
+
+.showMore {
+  display: block;
+}
+
+.showLess {
+  display: none;
+}
+
+
+.card-divider {
+  border-bottom: 10px solid #d3d3d37a;
+}
+.booking-details-title {
+  display: flex;
+  justify-content: space-between;
+  .title-text {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .title-price {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+  }
+}
+
+.booking-details-footer {
+  box-shadow: 4px 17px 20px 20px #6c757d3d;
+  .footer-booking-button {
+    display: flex; justify-content: center; align-items: center; padding: 10px 0
+  }
+}

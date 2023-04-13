@@ -1,13 +1,109 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>booking-details</ion-title>
-  </ion-toolbar>
-</ion-header>
+<sandhyadeep-header class="z-index-99"></sandhyadeep-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">booking-details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+<ion-content>
+  <div class="booking-details-container">
+    <div *ngIf="bookingData?.services && bookingData?.services?.length" class="main-container">
+      <div class="container-title">
+        Summary (Services)
+      </div>
+      <div class="booking-tab-container">
+        <div class="booking-details-tab">
+          <mat-card *ngFor="let singleService of bookingData?.services; let index = index" class="booking-details-card">
+            <mat-card-content>
+              <div>
+                <div class="booking-details-title">
+                  <div>
+                    <div class="title-text">{{singleService?.serviceData?.name}}</div>
+                    <div class="tittle-price">₹ {{singleService?.serviceData?.price}} x ({{singleService?.quantity}} Quantity)</div>
+                  </div>
+                  <div>₹ {{singleService?.serviceData?.price * singleService?.quantity}}/-</div>
+                </div>
+                <div class="descriptionText">
+                  <div [ngClass]="{'description-booking': true, 'on-ellipsis': !singleService?.serviceData?.showFullDescription}">
+                    {{singleService?.serviceData?.description}}
+                  </div>
+                  <div class="showMore" (click)="toggleServiceDescription(index)">
+                    <div *ngIf="!singleService?.serviceData?.showFullDescription">Show More</div>
+                    <div *ngIf="singleService?.serviceData?.showFullDescription">Show Less</div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <div *ngIf="bookingData?.packages && bookingData?.packages?.length" class="main-container">
+      <div class="container-title">
+        Summary (Packages)
+      </div>
+      <div class="booking-tab-container">
+        <div class="booking-details-tab">
+          <mat-card *ngFor="let singlePackage of bookingData?.packages; let index = index" class="booking-details-card">
+            <mat-card-content>
+              <div>
+                <div class="booking-details-title">
+                  <div>
+                    <div class="title-text">{{singlePackage?.packageData?.name}}</div>
+                    <div class="tittle-price">₹ {{singlePackage?.finalAmount}} x ({{singlePackage?.quantity}} Quantity)</div>
+                  </div>
+                  <div>₹ {{singlePackage?.finalAmount * singlePackage?.quantity}}/-</div>
+                </div>
+                <div class="descriptionText">
+                  <div [ngClass]="{'description-booking': true, 'on-ellipsis': !singlePackage?.showFullDescription}">
+                    {{singlePackage?.packageData?.description}}
+                  </div>
+                  <div class="showMore" (click)="togglePackageDescription(index)">
+                    <div *ngIf="!singlePackage?.showFullDescription">Show More</div>
+                    <div *ngIf="singlePackage?.showFullDescription">Show Less</div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <div class="main-container">
+      <div class="container-title">
+        Price Details
+      </div>
+      <div class="booking-tab-container">
+        <div class="bill-container">
+          <div class="bill-row">
+            <div class="bill-row-left">Total Bill</div>
+            <div class="bill-row-right">{{bookingData?.checkoutAmount}}</div>
+          </div>
+          <div class="bill-row dark-green-row">
+            <div class="bill-row-left">Total Discount</div>
+            <div class="bill-row-right">{{bookingData?.checkoutDiscount}}</div>
+          </div>
+          <!--          <div class="bill-row dark-green-row">-->
+          <!--            <div class="bill-row-left">Coupon Discount</div>-->
+          <!--            <div class="bill-row-right">$100</div>-->
+          <!--          </div>-->
+          <div class="dashed-border"></div>
+          <div class="bill-row-footer">
+            <div class="bill-row-left">Total Amount (Discount Added)</div>
+            <div class="bill-row-right">{{bookingData?.checkoutFinalAmount}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+
+  </div>
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="booking-details-footer">
+    <div class="footer-booking-button">
+      <button (click)="closeModal()" style="width: 250px"
+              mat-raised-button color="primary">Close
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

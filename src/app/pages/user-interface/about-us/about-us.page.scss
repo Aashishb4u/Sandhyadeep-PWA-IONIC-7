@@ -1,0 +1,361 @@
+@import "../../../../theme/sandhyadeep-theme";
+
+.top-adjust {
+  top: 65px;
+}
+
+.page-container {
+
+  .page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 18px 0 5px;
+
+    .heading-text {
+      font-size: 24px;
+    }
+  }
+}
+
+
+.down {
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transition: ease-in-out 300ms;
+}
+
+.color-666 {
+  color: #666;
+}
+
+
+.about-us-container {
+  padding: 0 15px;
+}
+
+.image-container {
+
+  .about-us-image {
+    .feed-sliders {
+      height: 350px;
+
+      &.height-350 {
+      }
+
+      &.height-200 {
+        height: 350px;
+      }
+
+      border-radius: 10px;
+
+      .feed-slider {
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        max-height: 30em;
+
+        &.feed-slider-one {
+          background: url("/assets/owner-images/sandhyadeep5.png");
+        }
+
+        &.feed-slider-two {
+          background: url("/assets/owner-images/sandhyadeep3.png");
+        }
+
+        &.feed-slider-three {
+          background: url("/assets/owner-images/sandhyadeep1.png");
+        }
+
+        &.feed-slider-four {
+          background: url("/assets/owner-images/sandhyadeep2.png");
+        }
+
+        &.feed-slider-five {
+          background: url("/assets/owner-images/sandhyadeep6.png");
+        }
+      }
+    }
+  }
+
+  .about-us-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin: 18px 0 5px;
+
+    .heading-text {
+      font-size: 20px;
+    }
+
+    .slogan-text {
+      font-size: 14px;
+    }
+  }
+}
+
+.description-container {
+  padding: 15px 0 0;
+
+  .description-toggle-menus {
+    display: flex;
+    justify-content: space-between;
+
+    .toggle-menu-background {
+      padding-bottom: 4px;
+      width: 25%;
+      text-align: center;
+      transition: all 0.1s;
+      &.active {
+        border-bottom: 3px solid $primary-color;
+      }
+
+      .toggle-menu {
+        color: #666;
+
+        &.active {
+          color: $secondary-color;
+          font-weight: bold;
+        }
+
+        &.about-us {
+
+        }
+
+        &.services {
+        }
+
+        &.owner {
+        }
+
+        &.product {
+        }
+      }
+    }
+  }
+
+  .description-data-container {
+    padding: 5px 0 0;
+
+
+  }
+
+}
+.about-us-page-container, .owner-container {
+  .tab-container {
+    margin: 15px 0 10px;
+    padding-bottom: 5px;
+  }
+
+
+  .heading-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    align-items: center;
+    .know-more {
+      font-size: 14px;
+    }
+  }
+
+  .content-div {
+    padding: 5px 0;
+    font-size: 14px;
+  }
+
+  .phone-number-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .phone-icon {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      background-color: $secondary-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+  }
+
+  .timing {
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+  }
+}
+
+.services-container {
+  margin-bottom: 10px;
+
+  .heading-text {
+    font-size: 20px;
+  }
+}
+
+.owner-container {
+
+}
+
+.product-container {
+  .no-data {
+    text-align: center;
+    padding: 30px 0;
+    color: #666;
+  }
+}
+
+.padding-bottom-15 {
+  padding-bottom: 15px !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid lightgray;
+}
+
+.appointment-footer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px 0;
+
+  .total-div-container {
+    display: flex;
+    padding: 10px;
+    background: #d3d3d37d;
+    justify-content: space-between;
+    border-radius: 7px;
+
+    .total-div {
+      display: flex;
+
+      .total-div-price {
+        color: #666;
+        margin-left: 15px;
+      }
+    }
+  }
+}
+
+// Slider Style START
+.custon-nav{
+  height: 48px;
+  width: 20px;
+  cursor: pointer;
+
+  vertical-align: middle;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.prev-icon-custom{
+  background: url(https://freakyjolly.com/demo/jquery/OwlCarousel2/nav-icon.png) no-repeat scroll 0px 0px;
+}
+.prev-icon-custom.disabled{
+  opacity: 0.4;
+  cursor: default;
+}
+.next-icon-custom{
+  background: url(https://freakyjolly.com/demo/jquery/OwlCarousel2/nav-icon.png) no-repeat scroll -32px 0px;
+}
+.next-icon-custom.disabled{
+  opacity: 0.4;
+  cursor: default;
+}
+.slider-nav{
+  ion-icon{
+    height: 100%;
+  }
+}
+
+.slide-text{
+  position: absolute;
+  color: white;
+  bottom: 30px;
+}
+
+// Styling to show the arrow on slides - start
+
+ion-grid {
+  ion-row {
+    position: relative;
+    .ion-image-slides {
+      margin-bottom: 10px;
+      padding: 5px 0;
+    }
+  }
+}
+
+.scroll-arrow {
+  display: flex;
+  align-items: center;
+  font-size: 35px;
+  padding: 0 16px;
+  color: white;
+  position: absolute;
+  z-index: 99999;
+  height: 100%;
+  width: 50%;
+  &.arrow-left {
+    background: linear-gradient(to right, #2f3032d1, #2f30327a, transparent, transparent, transparent);
+  }
+  &.arrow-right {
+    justify-content: flex-end;
+    background: linear-gradient(to left, #2f3032d1, #2f30327a, transparent, transparent, transparent);
+    left: 50%;
+  }
+}
+
+// Styling to show the arrow on slides - end
+
+// Styling to show the arrow on outside - start
+
+//.ion-image-slides {
+//  margin-bottom: 10px;
+//  padding: 5px 0;
+//  .scroll-arrow {
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+//    font-size: 30px;
+//    padding: 0 5px;
+//    color: #666;
+//  }
+//}
+
+// Styling to show the arrow on outside - end
+
+// Slider Style STOP
+//
+
+.custom-slide {
+  margin: 0 5px;
+}
+
+.know-more {
+  color: #666;
+}
+
+.margin-bottom-20 {
+  margin-bottom: 20px !important;
+}
+
+.parlour-slide {
+  ion-card {
+    height: 360px;
+    box-shadow: none;
+    position: relative;
+    margin-bottom: 35px;
+
+    img {
+      object-fit: cover;
+      width: 100% !important;
+      height: 100% !important;
+      transform: scale(1.1, 1.1) rotate(1deg);
+      transition: 600ms all ease-in-out;
+    }
+  }
+}

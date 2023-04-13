@@ -1,13 +1,156 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>about-us</ion-title>
-  </ion-toolbar>
-</ion-header>
+<sandhyadeep-header class="z-index-999"></sandhyadeep-header>
+<ion-content>
+    <div class="about-us-container">
+        <div class="image-container">
+            <div class="about-us-image">
+                <div class="parlour-slide">
+                    <swiper #aboutUsSlide [config]="bannerSlideConfig">
+                        <ng-template *ngFor="let packageData of parlourSlides" swiperSlide>
+                            <ion-card>
+                                <img src="{{packageData?.imageUrl}}" alt="">
+                            </ion-card>
+                        </ng-template>
+                    </swiper>
+                </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">about-us</ion-title>
-    </ion-toolbar>
-  </ion-header>
+            </div>
+            <div class="about-us-heading">
+                <div class="heading-text">
+                    <b>Sandhyadeep Beauty Parlour</b>
+                </div>
+                <div class="slogan-text">
+                    Have a hair affair with us
+                </div>
+            </div>
+        </div>
+        <div class="description-container">
+            <div class="description-toggle-menus">
+                <div matRipple [matRippleCentered]="true" (click)="onSelectMenu('about_us')"
+                     class="toggle-menu-background about-us"
+                     [class.active]="selectedMenu === 'about_us'">
+                    <div class="toggle-menu" [class.active]="selectedMenu === 'about_us'">About Us</div>
+                </div>
+                <div matRipple [matRippleCentered]="true" (click)="onSelectMenu('services')"
+                     class="toggle-menu-background services"
+                     [class.active]="selectedMenu === 'services'">
+                    <div class="toggle-menu" [class.active]="selectedMenu === 'services'">Services</div>
+                </div>
+                <div matRipple [matRippleCentered]="true" (click)="onSelectMenu('owner')"
+                     class="toggle-menu-background owner"
+                     [class.active]="selectedMenu === 'owner'">
+                    <div class="toggle-menu" [class.active]="selectedMenu === 'owner'">Our Owner</div>
+                </div>
+                <!--                TODO: We removed Products for now-->
+                <!--                <div matRipple [matRippleCentered]="true" (click)="onSelectMenu('products')"-->
+                <!--                     class="toggle-menu-background product"-->
+                <!--                     [class.active]="selectedMenu === 'products'">-->
+                <!--                    <div class="toggle-menu" [class.active]="selectedMenu === 'products'">Products</div>-->
+                <!--                </div>-->
+            </div>
+            <div class="description-data-container">
+                <div *ngIf="selectedMenu === 'about_us'" class="about-us-page-container">
+                    <div class="tab-container border-bottom">
+                        <div class="heading-text">
+                            <b>Description</b>
+                        </div>
+                        <div class="content-div">
+                            In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
+                            demonstrate the visual form of a document or a typeface without relying on meaningful conte
+                        </div>
+                    </div>
+                    <div class="tab-container">
+                        <div class="heading-text">
+                            <b>Information</b>
+                        </div>
+                        <div class="timing">
+                            <div>Sunday - Friday</div>
+                            <div>10:00 AM - 07:00 PM</div>
+                        </div>
+                    </div>
+                    <div class="tab-container margin-bottom-20">
+                        <div class="content-div">
+                            5595, Near Samarth Vidya Mandir, Anandi Bazar, Ahmednagar, Maharashtra, 414001
+                        </div>
+                        <div class="phone-number-div">
+                            <div>+91-9422086335</div>
+                            <div>
+                                <div class="phone-icon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="selectedMenu === 'services'" class="services-container">
+                    <div class="page-container">
+                        <service-list (updateAmount)="updateData($event)"></service-list>
+                    </div>
+                </div>
+                <div *ngIf="selectedMenu === 'owner'" class="owner-container">
+                    <div class="tab-container border-bottom">
+                        <div class="heading-text">
+                            <b>Description</b>
+                        </div>
+                        <div class="content-div">
+                            In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
+                            demonstrate the visual form of a document or a typeface without relying on meaningful conte
+                        </div>
+                    </div>
+                    <div class="tab-container border-bottom">
+                        <div class="heading-text">
+                            <b>Achievements</b>
+                        </div>
+                        <div class="content-div">
+                            <ul>
+                                <li>Media & Beauty Makeup Diploma · Media Makeup · Fsx · Singapore</li>
+                                <li>Makeup Techniques with Air Brush Machine · Mumbai, Maharashtra</li>
+                                <li>Master Diploma in Makeup Artistry · Singapore</li>
+                                <li>Comite International D’Esthetique Et De Cosmetologie., Zurich.</li>
+                                <li>British Association of Beauty Therapy & Cosmetology, London.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-container">
+                        <div class="heading-text">
+                            <b>Portfolio</b>
+                            <div (click)="onSeeAllPortfolios()" class="know-more">See All <i
+                                    class="fa fa-angle-right"></i></div>
+                        </div>
+                        <div class="content-div">
+                            <ngx-slick-carousel class="carousel"
+                                                #slickModal="slick-carousel"
+                                                [config]="slideConfig"
+                                                (init)="slickInit($event)"
+                                                (breakpoint)="breakpoint($event)"
+                                                (afterChange)="afterChange($event)"
+                                                (beforeChange)="beforeChange($event)">
+                                <div ngxSlickItem *ngFor="let slide of slides" class="slide custom-slide">
+                                    <img src="{{ slide.img }}" alt="" width="100%">
+                                </div>
+                            </ngx-slick-carousel>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="selectedMenu === 'products'" class="product-container">
+                    <div *ngIf="productList?.length > 0">
+                        <app-product-list [productList]="productList"></app-product-list>
+                    </div>
+                    <div *ngIf="productList?.length === 0" class="no-data">
+                        No Products Available
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="image-modal.html" type="text/ng-template">
+        <div class="modal image-modal transparent" ng-click="closeModal()">
+            <ion-pane class="transparent">
+                <img ng-src="{{imageSrc}}" class="fullscreen-image"/>
+            </ion-pane>
+        </div>
+    </script>
 </ion-content>
+
+<app-footer-component></app-footer-component>
+<app-logo-spinner></app-logo-spinner>

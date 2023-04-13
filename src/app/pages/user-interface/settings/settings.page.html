@@ -1,13 +1,43 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>settings</ion-title>
-  </ion-toolbar>
-</ion-header>
+<sandhyadeep-header class="z-index-99"></sandhyadeep-header>
+<ion-content>
+  <div class="profile-bg"></div>
+  <div class="profile-image-container">
+    <img [src]="userDetails?.imageUrl ? userDetails?.imageUrl : '/assets/icon/profile-icon.png'">
+    <div class="profile-text-container">
+      <div class="profile-text"> {{userDetails.name ? userDetails.name : 'User'}}</div>
+      <div class="user-type">{{(userDetails?.roleId?.name ? userDetails?.roleId?.name : 'Customer') | titlecase}}</div>
+    </div>
+  </div>
+  <div class="login-container">
+    <div class="login-menus">
+      <div><button (click)="editUserModal()" mat-button color="primary">Manage Profile</button></div>
+      <div><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+    </div>
+    <div class="login-menus">
+      <div><button mat-button color="primary">Mobile Number</button></div>
+      <div>{{userDetails.mobileNo}}</div>
+    </div>
+    <div class="login-menus">
+      <div><button (click)="showPolicy()" mat-button color="primary">User Agreement</button></div>
+      <div><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+    </div>
+    <!--        <div class="login-menus">-->
+    <!--            <div><button mat-button color="primary">Email</button></div>-->
+    <!--            <div>aashishbhagwat@gmail.com</div>-->
+    <!--        </div>-->
+    <hr/>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">settings</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <div class="login-menus">
+      <div><button mat-button color="primary">Wallet Amount</button></div>
+      <div>0.0 (₹)</div>
+    </div>
+    <div (click)="presentAlert()" class="login-menus">
+      <div><button mat-button color="primary">Log Out</button></div>
+      <div><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+    </div>
+
+  </div>
+
+
 </ion-content>
+

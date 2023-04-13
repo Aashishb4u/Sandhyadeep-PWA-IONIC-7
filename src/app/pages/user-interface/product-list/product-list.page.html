@@ -1,13 +1,24 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>product-list</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">product-list</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<div class="products-container">
+  <mat-card *ngFor="let product of productList, let index = index" class="example-card">
+    <img (click)="goToProductDetails(product.id)" mat-card-image src="{{product.url}}">
+    <mat-card-content>
+      <div class="product-details-container">
+        <div (click)="goToProductDetails(product.id)"  class="product-title">{{product.name}}</div>
+        <div class="product-details">
+          <div class="price-container">
+            <div class="product-price">{{product.price}}</div>
+            <div class="discount-price"><del>{{product.discountedPrice}}</del></div>
+          </div>
+          <div class="product-add-button">
+            <add-button (updateCounter)="onUpdateCounter($event, index)" ></add-button>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-footer>
+      <ng-container *ngIf="product?.showSpinner">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </ng-container>
+    </mat-card-footer>
+  </mat-card>
+</div>

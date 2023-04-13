@@ -1,0 +1,86 @@
+@import "../../../../theme/sandhyadeep-theme";
+
+.settings-container {
+  margin: 10px 15px;
+}
+
+.profile-bg {
+  height: 209px;
+  width: 130%;
+  box-shadow: 0 1px 10px rgba(98, 140, 255, 0.5);
+  transform: rotate(15deg);
+  margin-left: -18px;
+  margin-top: -82px;
+  margin-bottom: 60px;
+  background: linear-gradient(318deg, #BD1E51 2%, #265791 63%);
+}
+
+.profile-image-container {
+  position: absolute;
+  top: 20px;
+  left: 10%;
+  display: flex;
+  width: 90%;
+  align-items: center;
+}
+
+.profile-image-container img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.profile-image-container .profile-text-container {
+  padding: 10px 20px;
+  line-height: 1.3;
+  color: white;
+  .user-type {
+    opacity: 0.6;
+    text-align: center;
+  }
+}
+
+.profile-image-container .profile-text-container .profile-text {
+  font-size: 23px;
+  text-align: center;
+}
+
+.login-container {
+  margin: 25px;
+  z-index: 999999999;
+  .login-menus {
+    display: flex; justify-content: space-between; align-items: center;
+    div {
+      display: flex;
+      flex-basis: 50%;
+      &:nth-child(2) {
+        justify-content: right;
+      }
+    }
+  }
+}
+
+.wave-blob {
+  z-index: 1;
+  width: 141%;
+  position: absolute;
+  left: -24%;
+  bottom: 0;
+  opacity: 0.2;
+  transform: rotate(360deg);
+  height: 116px;
+}
+
+.wave-blob-1 {
+  z-index: 1;
+  width: 141%;
+  position: absolute;
+  left: -24%;
+  opacity: 0.2;
+  transform: rotate(360deg);
+  bottom: 0;
+  height: 90px;
+}

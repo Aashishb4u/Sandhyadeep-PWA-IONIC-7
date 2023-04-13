@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {IonicModule, ModalController} from '@ionic/angular';
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-payment-failure',
   templateUrl: './payment-failure.page.html',
   styleUrls: ['./payment-failure.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, MatButtonModule]
 })
 export class PaymentFailurePage implements OnInit {
 

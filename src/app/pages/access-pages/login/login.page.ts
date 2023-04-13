@@ -59,9 +59,10 @@ export class LoginPage implements OnInit {
 
   loginNumber() {
     this.sharedService.showSpinner.next(true);
+    // Logic to remove the country code
+    const onlyMobileNumber = this.phoneForm.get('mobileNumber')!.value.replace(/\D/g, '').slice(-10)
     const data = {
-      mobileNo: this.phoneForm.get('mobileNumber')!.value,
-      // isWhatsAppAvailable: this.phoneForm.get('isWhatsAppAvailable')!.value
+      mobileNo: onlyMobileNumber,
     };
     this.adminService.loginWithOtp(data).subscribe(
         res => this.signInApiSuccess(res),
@@ -156,11 +157,13 @@ export class LoginPage implements OnInit {
       this.router.navigate(['sign-up']);
       return;
     }
-    if (userData.isRegistered && userData.roleId.name === 'admin') {
-      this.router.navigate(['/admin-panel']);
-    } else if (userData.isRegistered && userData.roleId.name === 'customer') {
-      this.router.navigate(['/feed']);
-    }
+    this.router.navigate(['/feed']);
+
+    // if (userData.isRegistered && userData.roleId.name === 'admin') {
+    //   this.router.navigate(['/admin-panel']);
+    // } else if (userData.isRegistered && userData.roleId.name === 'customer') {
+    //   this.router.navigate(['/feed']);
+    // }
   }
 
 

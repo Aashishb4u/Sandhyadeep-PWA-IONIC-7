@@ -1,13 +1,17 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>portfolio</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">portfolio</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<sandhyadeep-header [showBackIcon]="true" class="z-index-999"></sandhyadeep-header>
+<ion-content [scrollEvents]="true">
+  <div class="page-heading">
+    <div class="heading-text">
+      <b>Portfolio</b>
+    </div>
+  </div>
+  <div style="border-bottom: 10px solid #d3d3d37a;"></div>
+  <div class="grid-container">
+    <div *ngFor="let image of portfolios; let index = index">
+      <img (click)="showImage(image.imageUrl)" class='grid-item grid-item-1' src="{{image.imageUrl}}" alt=''>
+      <p>{{image?.name}}</p>
+    </div>
+  </div>
 </ion-content>
+<app-logo-spinner></app-logo-spinner>
+

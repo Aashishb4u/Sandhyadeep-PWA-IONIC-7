@@ -4,13 +4,14 @@ import { FormsModule } from '@angular/forms';
 import {IonicModule, ModalController} from '@ionic/angular';
 import {StorageService} from "../../../shared-services/storage.service";
 import {Router} from "@angular/router";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-payment-success',
   templateUrl: './payment-success.page.html',
   styleUrls: ['./payment-success.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, MatButtonModule]
 })
 export class PaymentSuccessPage implements OnInit {
   constructor(private modalController: ModalController) {
