@@ -1,13 +1,68 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>admin-user-modal</ion-title>
-  </ion-toolbar>
+<ion-header>
+  <div class="admin-modal-title-container">
+    <div class="admin-modal-title">{{editMode ? 'Update' : 'Add'}} User</div>
+  </div>
+  <div class="modal-form-image">
+    <div class="modal-image">
+      <img *ngIf="imageBase64 && !imageUrl" src="{{imageBase64}}" alt="">
+      <img *ngIf="!imageBase64 && !imageUrl" src="/assets/no-image.png" alt="">
+      <img *ngIf="editMode && imageUrl" [src]="imageUrl" alt="">
+    </div>
+    <div class="image-changer">
+      <input accept="image/*" (change)="onFileChange($event)" type="file" id="upload"
+             hidden/>
+      <label style="margin-bottom: 0" for="upload">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </label>
+    </div>
+  </div>
 </ion-header>
+<ion-content>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">admin-user-modal</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="modal-form-container">
+    <form [formGroup]='userForm'>
+      <ion-list>
+        <ion-item>
+          <ion-label class="required-label" position="floating">User Name</ion-label>
+          <ion-input maxlength="20" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Mobile Number</ion-label>
+          <ion-input [disabled]="settingEditMode" maxlength="10" formControlName="mobileNo" style="width: 200px" type="tell"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!settingEditMode">
+          <ion-label class="required-label" position="floating">Role</ion-label>
+          <ion-select formControlName="roleId" okText="Okay" cancelText="Dismiss">
+            <ion-select-option [value]="role?.id" *ngFor="let role of roles" value="admin">{{role?.name | titlecase}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item style="margin-top: 30px;">
+          <ion-checkbox formControlName="isWhatsAppAvailable"></ion-checkbox>
+          <ion-label >This is What's App Number</ion-label>
+        </ion-item>
+        <ion-item *ngIf="!settingEditMode">
+          <ion-checkbox formControlName="isActive"></ion-checkbox>
+          <ion-label>Active User</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Email</ion-label>
+          <ion-input formControlName="email" type="email"></ion-input>
+        </ion-item>
+        <ion-item style="margin-top: 20px">
+          <ion-label >Date of Birth</ion-label>
+          <ion-datetime-button display-format="DD MMM YYYY" datetime="datetime"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime (ionChange)="onChangeDOB()" formControlName="dateOfBirth" [showDefaultButtons]="true" presentation="date" id="datetime"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+      </ion-list>
+    </form>
+    <div class="admin-modal-button-container">
+      <button (click)="onSubmit()"
+              mat-raised-button color="primary">{{editMode ? 'Update' : 'Save'}}
+      </button>
+    </div>
+  </div>
 </ion-content>

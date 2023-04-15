@@ -18,33 +18,28 @@
       <div class="form-main-container">
         <form [formGroup]='loginForm'>
           <div style="margin-bottom: 10px">
-            <ion-list style="background: transparent">
-              <ion-item>
-                <ion-label style="color: gray" position="floating">Enter Name</ion-label>
-                <ion-input formControlName="name"></ion-input>
+              <mat-form-field class="width-100 margin-bottom-20" appearance="outline">
+                  <mat-label>Enter Name</mat-label>
+                  <input formControlName="name" matInput placeholder="Placeholder">
+                  <mat-error>Please enter valid name</mat-error>
+              </mat-form-field>
+              <mat-form-field class="width-100 margin-bottom-20"  appearance="outline">
+                  <mat-label>Enter Email</mat-label>
+                  <input formControlName="email" matInput placeholder="Placeholder">
+                  <mat-error>Please enter valid name</mat-error>
+              </mat-form-field>
+              <ion-item class="date-picker-container">
+                  <ion-label class="gray-label required-label">Birthday</ion-label>
+                  <ion-datetime-button display-format="DD MMM YYYY" datetime="datetime"></ion-datetime-button>
+                  <ion-modal [keepContentsMounted]="true">
+                      <ng-template>
+                          <ion-datetime formControlName="dob" max="{{todaysDate}}" [showDefaultButtons]="true" presentation="date" id="datetime"></ion-datetime>
+                      </ng-template>
+                  </ion-modal>
               </ion-item>
-              <ion-item>
-                <ion-label style="color: gray" position="floating">Enter Email</ion-label>
-                <ion-input formControlName="email"></ion-input>
-              </ion-item>
-
-              <ion-item style="margin-top: 20px">
-                <ion-label style="color: gray">Birthday</ion-label>
-                <ion-datetime-button display-format="DD MMM YYYY" datetime="datetime"></ion-datetime-button>
-                <ion-modal [keepContentsMounted]="true">
-                  <ng-template>
-                    <ion-datetime formControlName="dob" max="{{todaysDate}}" [showDefaultButtons]="true" presentation="date" id="datetime"></ion-datetime>
-                  </ng-template>
-                </ion-modal>
-              </ion-item>
-              <div style="display: flex; margin: 20px 0; align-items: center; color: gray">
-                <mat-checkbox formControlName="isWhatsAppAvailable" color="primary">This number is available on Whatsapp</mat-checkbox>
-              </div>
-            </ion-list>
-
           </div>
           <ion-button (click)="onSignUp()" expand="block">Continue
-<!--            <ion-spinner class="margin-0-5" name="circles"></ion-spinner>-->
+              <ion-spinner *ngIf="showButtonSpinner" class="margin-0-5" name="circles"></ion-spinner>
           </ion-button>
         </form>
       </div>

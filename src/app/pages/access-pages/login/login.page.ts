@@ -41,6 +41,8 @@ export class LoginPage implements OnInit {
   tick = 1000;
   phoneNumberSubmitted: any = false;
   selectedOtp: any = null;
+  showOtpSpinner: any = false;
+  showPhoneSpinner: any = false;
   @ViewChild('ngOtpInput', {static: false}) ngOtpInputRef: any;
   constructor(private modalController: ModalController, private alertController: AlertController, private storageService: StorageService, private sharedService: SharedService,
               private adminService: ApiService, private router: Router, private formBuilder: FormBuilder) {
@@ -76,6 +78,7 @@ export class LoginPage implements OnInit {
   signInApiSuccess(res: any) {
     this.selectedOtp = null;
     this.phoneNumberSubmitted = true;
+    this.showPhoneSpinner = false;
     this.showLogo = false;
     this.showBackButton = true;
     this.startCountDown();
@@ -123,10 +126,12 @@ export class LoginPage implements OnInit {
   }
 
   onSubmitOtp() {
+    if(this.showOtpSpinner) { return; }
     if (!this.selectedOtp) {
       this.sharedService.presentToast('Please Enter Valid OTP', 'error').then();
       return;
     }
+    this.showOtpSpinner = true;
     this.verifyOtp();
   }
 
@@ -141,6 +146,7 @@ export class LoginPage implements OnInit {
         error => {
           this.adminService.commonError(error);
           this.sharedService.showSpinner.next(false);
+          this.showOtpSpinner = false;
           this.ngOtpInputRef.setValue('');
         }
     );
@@ -152,18 +158,13 @@ export class LoginPage implements OnInit {
     this.sharedService.showSpinner.next(false);
     this.otpSubmitted = true;
     this.showLogo = true;
+    this.showOtpSpinner = false;
     const userData = res.data.user;
     if (!userData.isRegistered) {
       this.router.navigate(['sign-up']);
       return;
     }
     this.router.navigate(['/feed']);
-
-    // if (userData.isRegistered && userData.roleId.name === 'admin') {
-    //   this.router.navigate(['/admin-panel']);
-    // } else if (userData.isRegistered && userData.roleId.name === 'customer') {
-    //   this.router.navigate(['/feed']);
-    // }
   }
 
 
@@ -207,6 +208,8 @@ export class LoginPage implements OnInit {
   }
 
   async showPolicy() {
+    if (this.showPhoneSpinner) { return; }
+    this.showPhoneSpinner = true;
     if (this.phoneForm.invalid) {
       this.sharedService.presentToast('Please Enter Valid Phone Number', 'error').then();
       return;
@@ -220,7 +223,9 @@ export class LoginPage implements OnInit {
     modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned!.data === 'approved') {
         this.loginNumber();
+        return;
       }
+      this.showPhoneSpinner = false;
     });
     return await modal.present();
   }

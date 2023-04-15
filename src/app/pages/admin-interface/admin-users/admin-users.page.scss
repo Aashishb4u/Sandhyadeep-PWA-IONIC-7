@@ -1,0 +1,198 @@
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 6px solid #d3d3d37a;
+  .heading-text {
+    font-size: 18px;
+  }
+}
+
+
+// -------------
+
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400';
+@import "../../../../theme/sandhyadeep-theme";
+
+%reset { margin: 0; padding: 0; }
+%flex { display: flex; justify-content: center;	align-items: center; }
+%flex-2 { display: flex; justify-content: space-between;align-items: center; }
+
+@mixin animated($timein: null, $delay: null) {
+  transition: all $timein ease-in-out;
+  transition-delay: $delay;
+}
+
+@mixin dimensions($width: null, $height: null) { width: $width; min-height: $height; }
+html{height: 100%;}
+
+body{
+
+  @extend %flex;
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  min-height: 100%;
+  background: $secondary-color;
+  font-size: 16px;
+  overflow: hidden;
+}
+
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+.content{
+  position: relative;
+  animation: animatop 0.9s  cubic-bezier(0.425, 1.140, 0.470, 1.125) forwards ;
+}
+
+.card{
+  //@include dimensions( 100%,  100px);
+  margin: 15px 15px 100px;
+  border-radius: 3px;
+  background-color: white;
+  box-shadow: 0 3px 11px rgb(0 0 0 / 20%);
+  position: relative;
+  overflow: hidden;
+  &:after {
+    content: "";
+    display: block;
+    width: 149px;
+    height: 324px;
+    background: $secondary-color;
+    position: absolute;
+    -webkit-animation: rotatemagic 0.75s cubic-bezier(0.425, 1.04, 0.47, 1.105) 1s both;
+    animation: rotatemagic 0.75s cubic-bezier(0.425, 1.04, 0.47, 1.105) 1s both;
+  }
+}
+
+.badgescard-container{
+  .badgescard {
+    @extend %flex-2;
+    padding: 10px 20px;
+    background-color: #ECECEC;
+    width: 90%;
+    margin: 0 auto;
+    box-shadow: 0px 1px 10px rgb(0 0 0 / 20%);
+    text-align: center;
+    .badgescard-email {
+      word-break: break-all;
+      display: flex;
+      flex-basis: 60%;
+    }
+    .badgescard-buttons {
+      @extend %flex;
+      button {
+        @extend %flex;
+      }
+    }
+  }
+  padding: 10px 20px;
+  border-radius: 3px;
+  //background-color: #ECECEC;
+  width: 100%;
+  //box-shadow: 0px 1px 10px rgb(0 0 0 / 20%);
+  position: absolute;
+  z-index: -1;
+  bottom: 10px;
+  @extend %flex;
+  animation: animainfos 0.5s cubic-bezier(0.425, 1.040, 0.470, 1.105) 0.75s forwards;
+}
+
+.firstinfo{
+  @extend %flex;
+  flex-direction: row;
+  z-index: 2;
+  position: relative;
+  height: 100%;
+  padding: 20px;
+  .user-image-container{
+    @extend %flex;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+  }
+  .profileinfo{
+    padding: 0px 20px;
+    width: 200px;
+    h1{ font-size: 1.8em;}
+    h3{ font-size: 1.2em;
+      color: $secondary-color;
+      font-style: italic;
+    }
+    p.bio{
+      padding: 10px 0px;
+      color: #5A5A5A;
+      line-height: 1.2;
+      font-style: initial;
+    }
+  }
+}
+
+
+@keyframes animatop{
+  0%{
+    opacity: 0;
+    bottom: -500px;}
+  100%{
+    opacity: 1;
+    bottom: 0px;}
+}
+
+@keyframes animainfos{
+  0%{
+    bottom:  10px;}
+  100%{
+    bottom: -70px;}
+}
+
+@keyframes rotatemagic{
+  0%{
+    opacity: 0;
+    transform: rotate(-0deg);
+    top: -24px;
+    left: -253px;
+  }
+  100%{
+
+    transform: rotate(-30deg);
+    top: -24px;
+    left: -78px;
+  }
+}
+
+.contact-lines {
+
+}
+
+.service-type-container {
+  padding: 0 15px;
+}
+
+.user-status-container {
+  position: absolute; right: 0; padding: 5px 10px;
+  &.user-de-active {
+    color: red;
+  }
+  &.user-active {
+    color: #28ba62;
+  }
+}
+
+.profile-name {
+  font-size: 12px; color: $secondary-color; font-weight: 600;
+}
+
+.font-12 {
+  font-size: 12px;
+}
+
+.user-actions {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+}

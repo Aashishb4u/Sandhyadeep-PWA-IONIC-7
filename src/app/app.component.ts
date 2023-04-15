@@ -1,4 +1,4 @@
-import { Component, EnvironmentInjector, inject } from '@angular/core';
+import {Component, EnvironmentInjector, inject, ViewEncapsulation} from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import {HttpClientModule} from "@angular/common/http";

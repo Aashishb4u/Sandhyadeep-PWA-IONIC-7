@@ -32,7 +32,7 @@
             </div>
             <div>
               <ion-button (click)="showPolicy()" expand="block">Continue
-<!--                <ion-spinner class="margin-0-5" name="circles"></ion-spinner>-->
+                <ion-spinner *ngIf="showPhoneSpinner" class="margin-0-5" name="circles"></ion-spinner>
               </ion-button>
             </div>
           </form>
@@ -56,7 +56,7 @@
           </div>
           <div>
             <ion-button (click)="onSubmitOtp()" expand="block">Continue
-<!--              <ion-spinner class="margin-0-5" name="circles"></ion-spinner>-->
+              <ion-spinner *ngIf="showOtpSpinner" class="margin-0-5" name="circles"></ion-spinner>
             </ion-button>
           </div>
         </div>

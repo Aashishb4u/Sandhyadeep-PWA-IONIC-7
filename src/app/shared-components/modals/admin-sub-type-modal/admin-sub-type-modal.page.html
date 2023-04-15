@@ -1,13 +1,32 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>admin-sub-type-modal</ion-title>
-  </ion-toolbar>
+<ion-header>
+  <div class="admin-modal-title-container">
+    <div class="admin-modal-title">{{editMode ? 'Update' : 'Add'}} Service Sub Type</div>
+  </div>
 </ion-header>
+<ion-content>
+  <form [formGroup]='adminComponentForm'>
+    <div class="modal-form-container">
+      <ion-list>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Sub Service Name</ion-label>
+          <ion-input maxlength="20" formControlName="name"></ion-input>
+          <ion-note *ngIf="adminComponentForm.get('name').dirty" slot="error">Please Select Name</ion-note>
+        </ion-item>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">admin-sub-type-modal</ion-title>
-    </ion-toolbar>
-  </ion-header>
+        <ion-item>
+          <ion-label position="floating" class="required-label">Service Type</ion-label>
+          <ion-select formControlName="serviceType" okText="Okay" cancelText="Dismiss">
+            <ng-container *ngFor="let serviceType of serviceTypes">
+              <ion-select-option [value]="serviceType?.id" >{{serviceType?.name}}</ion-select-option>
+            </ng-container>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+  </form>
+  <div class="admin-modal-button-container">
+    <button (click)="onAddValue()"
+            mat-raised-button color="primary">{{editMode ? 'Update' : 'Save'}}
+    </button>
+  </div>
 </ion-content>

@@ -1,0 +1,23 @@
+[
+  {
+    "couponId": "diwali300",
+    "isChecked": false,
+    "discount": 300,
+    "description": " 15% off upto 300 on minimum purchase of 1999.0 ₹",
+    "expiresOn": "10th November 2020"
+  },
+  {
+    "couponId": "diwali20%",
+    "isChecked":  false,
+    "discount": 400,
+    "description": " 25% off upto 300 on minimum purchase of 1999.0 ₹",
+    "expiresOn": "15th November 2020"
+  },
+  {
+    "couponId": "diwali20%",
+    "isChecked":  false,
+    "discount": 400,
+    "description": " 25% off upto 300 on minimum purchase of 1999.0 ₹",
+    "expiresOn": "15th November 2020"
+  }
+]

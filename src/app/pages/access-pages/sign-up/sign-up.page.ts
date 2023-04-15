@@ -28,6 +28,7 @@ export class SignUpPage implements OnInit {
   loginForm!: FormGroup;
   handlerMessage: string = '';
   todaysDate!: any;
+  showButtonSpinner: any = false;
   constructor(private storageService: StorageService, private apiService: ApiService, private alertController: AlertController,
               private sharedService: SharedService,
               private router: Router, private formBuilder: FormBuilder) { }
@@ -40,18 +41,22 @@ export class SignUpPage implements OnInit {
         Validators.required
       ]),
       email: new FormControl({value: '', disabled: false}, [
-        Validators.required
+        Validators.required, Validators.email
       ]),
       isWhatsAppAvailable: new FormControl({value: false, disabled: false}, [
         Validators.required
       ])
     });
-    // setting up todays date
     this.loginForm.get('dob')?.setValue(moment('01/01/2000').format());
     this.todaysDate = moment().format();
   }
 
   async onSignUp() {
+    if(this.showButtonSpinner) { return; }
+    if (this.loginForm.get('email').invalid) {
+      await this.sharedService.presentToast('Please enter valid Email', 'error');
+      return;
+    }
     if (this.loginForm.invalid) {
       await this.sharedService.presentToast('Please fill all the mandatory fields', 'error');
       return;
@@ -62,6 +67,7 @@ export class SignUpPage implements OnInit {
       isWhatsAppAvailable: this.loginForm.get('isWhatsAppAvailable')!.value,
       dateOfBirth: moment(this.loginForm.get('dob')!.value).format('DD/MM/YYYY'),
     };
+    this.showButtonSpinner = true;
     // const userId = this.sharedService.getUserId();
     const userInfo: any = await this.storageService.getStoredValue(appConstants.USER_INFO);
     this.apiService.updateUser(data, userInfo.id).subscribe(
@@ -75,7 +81,7 @@ export class SignUpPage implements OnInit {
 
   updateUserSuccess(res: any) {
     this.storageService.storeValue(appConstants.USER_INFO, res.data.userData);
-    // this.sharedService.presentToast('User information updated!', 'success');
+    this.showButtonSpinner = false;
     this.router.navigate(['/feed']);
   }
 

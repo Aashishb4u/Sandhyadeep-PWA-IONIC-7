@@ -1,13 +1,56 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>coupon-modal</ion-title>
-  </ion-toolbar>
+<ion-header>
+  <div class="admin-modal-title-container">
+    <div class="admin-modal-title">{{editMode ? 'View' : 'Add'}} Coupon</div>
+  </div>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">coupon-modal</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <form [formGroup]='adminComponentForm'>
+    <div class="modal-form-container">
+      <ion-list>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Coupon Name</ion-label>
+          <ion-input maxlength="20" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Coupon Label (keyWord)</ion-label>
+          <ion-input maxlength="20" formControlName="couponLabel"></ion-input>
+        </ion-item>
+        <ion-item class="margin-v-20">
+          <ion-label >Expires On</ion-label>
+          <ion-datetime-button display-format="DD MMM YYYY" datetime="datetime"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime formControlName="expiresOn" [showDefaultButtons]="true" presentation="date" id="datetime"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Minimum Amount (₹)</ion-label>
+          <ion-input maxlength="6" formControlName="minAmount" style="width: 100px" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Maximum Discount Amount (₹)</ion-label>
+          <ion-input maxlength="6" formControlName="maxDiscountAmount" style="width: 100px" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Discount Percentage (%)</ion-label>
+          <ion-input maxlength="6" formControlName="discountPercent" style="width: 100px" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" class="required-label">Service Type</ion-label>
+          <ion-select multiple="true" formControlName="serviceTypes" okText="Okay" cancelText="Dismiss">
+            <ion-select-option [value]="'all'" >All Service Types</ion-select-option>
+            <ng-container *ngFor="let serviceType of serviceTypes">
+              <ion-select-option [value]="serviceType?.id" >{{serviceType?.name}}</ion-select-option>
+            </ng-container>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+  </form>
+  <div class="admin-modal-button-container">
+    <button [disabled]="editMode" (click)="onAddValue()"
+            mat-raised-button color="primary">{{editMode ? 'Coupon can not be updated' : 'Save'}}
+    </button>
+  </div>
 </ion-content>

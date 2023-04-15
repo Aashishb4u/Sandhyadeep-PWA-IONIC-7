@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import {AuthService} from "./shared-services/authentication/auth/auth.service";
 import {inject} from "@angular/core";
+import {AdminInterfacePage} from "./pages/admin-interface/admin-interface.page";
 
 export const routes: Routes = [
   {
@@ -19,7 +20,7 @@ export const routes: Routes = [
   },
   {
     path: 'sign-up',
-    canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
+    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/access-pages/sign-up/sign-up.page').then( m => m.SignUpPage)
   },
   {
@@ -77,41 +78,7 @@ export const routes: Routes = [
     canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/product-details/product-details.page').then( m => m.ProductDetailsPage)
   },
-  {
-    path: 'coupons',
-    canActivate: [async () => await inject(AuthService).isUserAdmin()],
-    loadComponent: () => import('./pages/admin-interface/coupons/coupons.page').then( m => m.CouponsPage)
-  },
-  {
-    path: 'image-assets',
-    canActivate: [async () => await inject(AuthService).isUserAdmin()],
-    loadComponent: () => import('./pages/admin-interface/image-assets/image-assets.page').then( m => m.ImageAssetsPage)
-  },
-  {
-    path: 'admin-packages',
-    canActivate: [async () => await inject(AuthService).isUserAdmin()],
-    loadComponent: () => import('./pages/admin-interface/admin-packages/admin-packages.page').then( m => m.AdminPackagesPage)
-  },
-  {
-    path: 'admin-services',
-    canActivate: [async () => await inject(AuthService).isUserAdmin()],
-    loadComponent: () => import('./pages/admin-interface/admin-services/admin-services.page').then( m => m.AdminServicesPage)
-  },
-  {
-    path: 'admin-service-types',
-    canActivate: [async () => await inject(AuthService).isUserAdmin()],
-    loadComponent: () => import('./pages/admin-interface/admin-service-types/admin-service-types.page').then( m => m.AdminServiceTypesPage)
-  },
-  {
-    path: 'admin-sub-types',
-    canActivate: [async () => await inject(AuthService).isUserAdmin()],
-    loadComponent: () => import('./pages/admin-interface/admin-sub-types/admin-sub-types.page').then( m => m.AdminSubTypesPage)
-  },
-  {
-    path: 'admin-users',
-    canActivate: [async () => await inject(AuthService).isUserAdmin()],
-    loadComponent: () => import('./pages/admin-interface/admin-users/admin-users.page').then( m => m.AdminUsersPage)
-  },
+
   {
     path: 'admin-package-modal',
     loadComponent: () => import('./shared-components/modals/admin-package-modal/admin-package-modal.page').then( m => m.AdminPackageModalPage)
@@ -195,5 +162,43 @@ export const routes: Routes = [
   {
     path: 'payment-failure',
     loadComponent: () => import('./shared-components/modals/payment-failure/payment-failure.page').then( m => m.PaymentFailurePage)
+  },
+  {
+    path: 'admin',
+    component: AdminInterfacePage,
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/admin-interface/admin-service-types/admin-service-types.page').then( m => m.AdminServiceTypesPage)
+      },
+      {
+        path: 'admin-service-types',
+        loadComponent: () => import('./pages/admin-interface/admin-service-types/admin-service-types.page').then( m => m.AdminServiceTypesPage)
+      },
+      {
+        path: 'admin-sub-types',
+        loadComponent: () => import('./pages/admin-interface/admin-sub-types/admin-sub-types.page').then( m => m.AdminSubTypesPage)
+      },
+      {
+        path: 'admin-users',
+        loadComponent: () => import('./pages/admin-interface/admin-users/admin-users.page').then( m => m.AdminUsersPage)
+      },
+      {
+        path: 'coupons',
+        loadComponent: () => import('./pages/admin-interface/coupons/coupons.page').then( m => m.CouponsPage)
+      },
+      {
+        path: 'image-assets',
+        loadComponent: () => import('./pages/admin-interface/image-assets/image-assets.page').then( m => m.ImageAssetsPage)
+      },
+      {
+        path: 'admin-packages',
+        loadComponent: () => import('./pages/admin-interface/admin-packages/admin-packages.page').then( m => m.AdminPackagesPage)
+      },
+      {
+        path: 'admin-services',
+        loadComponent: () => import('./pages/admin-interface/admin-services/admin-services.page').then( m => m.AdminServicesPage)
+      },
+    ]
   },
 ];

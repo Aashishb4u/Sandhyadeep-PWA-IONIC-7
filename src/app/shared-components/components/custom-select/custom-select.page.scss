@@ -1,0 +1,20 @@
+ion-content{
+  --background: transparent;
+}
+.image-zoom-container {
+  ion-slides {
+    width: 100%;
+    .swiper-slide img {
+      width: 100% !important;
+    }
+  }
+  display: flex; justify-content: center; height: 100%;
+}
+
+.cross-icon {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  display: inline-block;
+  float: right;
+}

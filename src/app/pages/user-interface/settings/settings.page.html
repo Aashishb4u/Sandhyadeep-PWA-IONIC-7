@@ -4,7 +4,7 @@
   <div class="profile-image-container">
     <img [src]="userDetails?.imageUrl ? userDetails?.imageUrl : '/assets/icon/profile-icon.png'">
     <div class="profile-text-container">
-      <div class="profile-text"> {{userDetails.name ? userDetails.name : 'User'}}</div>
+      <div class="profile-text"> {{(userDetails.name ? userDetails.name : 'User') | titlecase}} </div>
       <div class="user-type">{{(userDetails?.roleId?.name ? userDetails?.roleId?.name : 'Customer') | titlecase}}</div>
     </div>
   </div>
@@ -19,6 +19,10 @@
     </div>
     <div class="login-menus">
       <div><button (click)="showPolicy()" mat-button color="primary">User Agreement</button></div>
+      <div><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+    </div>
+    <div *ngIf="userRole && userRole === 'admin'" class="login-menus">
+      <div><button [routerLink]="['/admin']" mat-button color="primary">Admin Interface</button></div>
       <div><i class="fa fa-angle-right" aria-hidden="true"></i></div>
     </div>
     <!--        <div class="login-menus">-->

@@ -133,9 +133,6 @@ export class FeedPage implements OnInit, AfterContentChecked {
     this.sharedService.onSettingEvent.next(false);
     this.sharedService.showBackIcon.next(false);
     const userData = this.storageService.getStorageValue(appConstants.USER_INFO);
-    if (userData.roleId.name === 'admin') {
-      this.sharedService.showBackIcon.next(true);
-    }
     setTimeout(() => {
       interval(3000).subscribe(x => {
         if(this.bannerSlide.swiperRef.isEnd) {

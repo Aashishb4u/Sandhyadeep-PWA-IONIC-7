@@ -1,13 +1,80 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>admin-package-modal</ion-title>
-  </ion-toolbar>
+<ion-header>
+  <div class="admin-modal-title-container">
+    <div class="admin-modal-title">{{editMode ? 'Update' : 'Add'}} Package</div>
+  </div>
+  <div class="modal-form-image">
+    <div class="modal-image">
+      <img *ngIf="imageBase64 && !imageUrl" src="{{imageBase64}}" alt="">
+      <img *ngIf="!imageBase64 && !imageUrl" src="/assets/no-image.png" alt="">
+      <img *ngIf="editMode && imageUrl" [src]="imageUrl" alt="">
+    </div>
+    <div class="image-changer">
+      <input accept="image/*" (change)="onFileChange($event)" type="file" id="upload"
+             hidden/>
+      <label style="margin-bottom: 0" for="upload">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </label>
+    </div>
+  </div>
 </ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">admin-package-modal</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <form [formGroup]='packageForm'>
+    <div class="modal-form-container">
+      <ion-list>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Package Name</ion-label>
+          <ion-input maxlength="100" formControlName="name"></ion-input>
+        </ion-item>
+
+        <div class="selected-services-container">
+          <div class="add-services-container">
+            <ion-button (click)="presentModal()" slot="end" size="small">Add Services
+              <ion-icon slot="end" name="add"></ion-icon>
+            </ion-button>
+          </div>
+          <div *ngIf="selectedServices && (selectedServices?.length > 0)" class="selected-services">
+            <div class="each-selected-service" *ngFor="let service of selectedServices">
+              <div>{{service?.name}}</div>
+              <div class="price-label">{{service?.price}} (₹)</div>
+            </div>
+            <hr>
+            <div class="each-selected-service">
+              <div>Total</div>
+              <div style="font-size: 16px">
+                {{totalAmount}} (₹)
+              </div>
+            </div>
+            <div *ngIf="discountAmount > 0" class="each-selected-service discount-row">
+              <div>Discount</div>
+              <div  style="font-size: 16px; color: crimson">
+                {{discountAmount}} (₹)
+              </div>
+            </div>
+            <div *ngIf="discountAmount > 0" class="each-selected-service final-amount-row">
+              <div>Final Amount</div>
+              <div  style="font-size: 16px; color: darkgreen">
+                {{totalAmount - discountAmount}} (₹)
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <ion-item>
+          <ion-label position="floating">Discount (₹)</ion-label>
+          <ion-input [(ngModel)]="discountAmount"  maxlength="6" formControlName="discount" style="width: 100px" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Description</ion-label>
+          <ion-textarea maxlength="240" class="service-textarea" formControlName="description"></ion-textarea>
+        </ion-item>
+        <mat-divider></mat-divider>
+      </ion-list>
+    </div>
+  </form>
+  <div class="admin-modal-button-container">
+    <button (click)="onAddService()"
+            mat-raised-button color="primary">{{editMode ? 'Update' : 'Save'}}
+    </button>
+  </div>
+
 </ion-content>

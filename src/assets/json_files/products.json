@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Product 1 - Some More Desc",
+    "url": "assets/product1.jpg",
+    "price": 345,
+    "discountedPrice": 355,
+    "inCart": false,
+    "addedInCart": 0
+  },
+  {
+    "id": 2,
+    "name": "Product 2 - Some Brand",
+    "url": "assets/product2.jpeg",
+    "price": 45,
+    "discountedPrice": 60,
+    "inCart": false,
+    "addedInCart": 0
+  },
+  {
+    "id": 3,
+    "name": "Product 3 - Beauty Plus - Oily Skin",
+    "url": "assets/product3.jpeg",
+    "price": 126,
+    "discountedPrice": 150,
+    "inCart": false,
+    "addedInCart": 0
+  },
+  {
+    "id": 4,
+    "name": "Product 4 - Some other name also",
+    "url": "assets/product4.jpeg",
+    "price": 324,
+    "discountedPrice": 387,
+    "inCart": false,
+    "addedInCart": 0
+  },
+  {
+    "id": 4,
+    "name": "Product 4",
+    "url": "assets/product1.jpg",
+    "price": 345,
+    "discountedPrice": 355,
+    "inCart": false,
+    "addedInCart": 0
+  },
+  {
+    "id": 5,
+    "name": "Product 5",
+    "url": "assets/product2.jpeg",
+    "price": 45,
+    "discountedPrice": 60,
+    "inCart": false,
+    "addedInCart": 0
+  },
+  {
+    "id": 6,
+    "name": "Product 6",
+    "url": "assets/product3.jpeg",
+    "price": 126,
+    "discountedPrice": 150,
+    "inCart": false,
+    "addedInCart": 0
+  },
+  {
+    "id": 7,
+    "name": "Product 7",
+    "url": "assets/product4.jpeg",
+    "price": 324,
+    "discountedPrice": 387,
+    "inCart": false,
+    "addedInCart": 0
+  }
+]

@@ -22,7 +22,7 @@
       border-bottom: 1px solid lightgray;
 
       .single-day {
-        flex-basis: (100/8);
+        //flex-basis: (100/8);
 
         .date {
           &.active {
@@ -431,7 +431,7 @@
     .price-label {
       width: 90px;
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
       align-items: center;
     }
     .service-label{

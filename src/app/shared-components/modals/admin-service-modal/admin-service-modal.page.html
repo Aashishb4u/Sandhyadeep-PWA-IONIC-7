@@ -1,13 +1,87 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>admin-service-modal</ion-title>
-  </ion-toolbar>
+<ion-header>
+  <div class="admin-modal-title-container">
+    <div class="admin-modal-title">{{editMode ? 'Update' : 'Add'}} Service</div>
+  </div>
+  <div class="modal-form-image">
+    <div class="modal-image">
+      <img *ngIf="imageBase64 && !imageUrl" src="{{imageBase64}}" alt="">
+      <img *ngIf="!imageBase64 && !imageUrl" src="/assets/no-image.png" alt="">
+      <img *ngIf="editMode && imageUrl" [src]="imageUrl" alt="">
+    </div>
+    <div class="image-changer">
+      <input accept="image/*" (change)="onFileChange($event)" type="file" id="upload"
+             hidden/>
+      <label style="margin-bottom: 0" for="upload">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </label>
+    </div>
+  </div>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">admin-service-modal</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <form [formGroup]='servicesForm'>
+    <div class="modal-form-container">
+      <ion-list>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Service Name</ion-label>
+          <ion-input maxlength="100" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Duration (Minutes)</ion-label>
+          <ion-input maxlength="3" formControlName="duration" class="width-100" type="number"></ion-input>
+          <!--        <ion-label class="required-label">Minutes</ion-label>-->
+        </ion-item>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Price (₹)</ion-label>
+          <ion-input maxlength="6" formControlName="price" class="width-100" type="number"></ion-input>
+          <!--        <ion-label class="required-label">₹</ion-label>-->
+        </ion-item>
+        <ion-item>
+          <ion-label class="required-label"  *ngIf="editMode" position="stacked">Service Type</ion-label>
+          <ion-label class="required-label"  *ngIf="!editMode" position="floating">Service Type</ion-label>
+          <ion-select (ionChange)="onChangeServiceType($event)"  formControlName="serviceType" okText="Okay" cancelText="Dismiss">
+            <ion-select-option [value]="serviceType?.id" *ngFor="let serviceType of serviceTypes">{{serviceType?.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="servicesForm?.get('serviceType')?.value">
+          <ion-label *ngIf="editMode" position="stacked">Sub Service</ion-label>
+          <ion-label *ngIf="!editMode" position="floating">Sub Service</ion-label>
+          <ion-select placeholder="Select Sub Service" formControlName="subService" okText="Okay" cancelText="Dismiss">
+            <ion-select-option value="not_applicable">Not Applicable</ion-select-option>
+            <ion-select-option [value]="subService?.id" *ngFor="let subService of filteredSubServices">{{subService?.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Type</ion-label>
+          <ion-select formControlName="type" okText="Okay" cancelText="Dismiss">
+            <ion-select-option value="convincing">Convincing</ion-select-option>
+            <ion-select-option value="frequent">Frequent</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Description</ion-label>
+          <ion-textarea maxlength="240" class="service-textarea" formControlName="description"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Brands Used</ion-label>
+          <ion-select (ionChange)="onChangingBrand($event)"  [multiple]="true" formControlName="brands" okText="Okay" cancelText="Dismiss">
+            <ion-select-option value="no_brands">No Brands</ion-select-option>
+            <ion-select-option *ngFor="let brand of brandsList" value="{{brand?.value}}">{{brand?.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Skin Type</ion-label>
+          <ion-select (ionChange)="onChangingSkinType($event)"  [multiple]="true" formControlName="skinTypes" okText="Okay" cancelText="Dismiss">
+            <ion-select-option value="all">All Skin Types</ion-select-option>
+            <ion-select-option value="not_applicable">No Brands</ion-select-option>
+            <ion-select-option *ngFor="let skinType of skinTypesList" value="{{skinType?.value}}">{{skinType?.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+  </form>
+  <div class="admin-modal-button-container">
+    <button (click)="onAddService()"
+            mat-raised-button color="primary">{{editMode ? 'Update' : 'Save'}}
+    </button>
+  </div>
 </ion-content>

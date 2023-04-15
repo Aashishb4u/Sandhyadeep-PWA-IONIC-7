@@ -1,0 +1,57 @@
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 6px solid #d3d3d37a;
+  .heading-text {
+    font-size: 18px;
+  }
+}
+
+.service-types-image-container {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000000c4;
+  img {
+    height: 200px;
+  }
+}
+
+.service-type-grid {
+  ion-row {
+    padding: 5px;
+    border-radius: 5px;
+  }
+  ion-row:nth-child(2n+1) {
+    background: lightgray;
+  }
+}
+
+.service-type-footer-icons {
+  display: flex; justify-content: flex-start; align-items: center;
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    .mat-button-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.ion-card-header {
+  display: flex;
+  flex-direction: column;
+  .name {
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+}

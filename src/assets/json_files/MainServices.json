@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name":  "Threading",
+    "sequence": 1,
+    "url": "assets/vector-icons/eyebrow.png"
+  },
+  {
+    "id": 2,
+    "name": "waxing",
+    "sequence": 2,
+    "url": "assets/vector-icons/waxing.png"
+  },
+  {
+    "id": 3,
+    "name": "Haircuts",
+    "sequence": 3,
+    "url": "assets/vector-icons/haircuts.png"
+  },
+  {
+    "id": 4,
+    "name": "Facials",
+    "sequence": 4,
+    "url": "assets/vector-icons/facial.png"
+  },
+  {
+    "id": 5,
+    "name": "Bleach",
+    "sequence": 5,
+    "url": "assets/vector-icons/bleach.png"
+  },
+  {
+    "id": 6,
+    "name": "Hairs",
+    "sequence": 6,
+    "url": "assets/vector-icons/hair-straightener.png"
+  },
+  {
+    "id": 7,
+    "name": "Body",
+    "sequence": 7,
+    "url": "assets/vector-icons/body-treatments.png"
+  },
+  {
+    "id": 8,
+    "name": "Makeup",
+    "sequence": 8,
+    "url": "assets/vector-icons/makeup.png"
+  },
+  {
+    "id": 9,
+    "name": "Courses",
+    "sequence": 9,
+    "url": "assets/vector-icons/badge.png"
+  }
+]

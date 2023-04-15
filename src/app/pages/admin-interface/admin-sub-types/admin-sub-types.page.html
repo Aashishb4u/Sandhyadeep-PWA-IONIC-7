@@ -1,13 +1,31 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>admin-sub-types</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">admin-sub-types</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="service-type-container">
+    <div class="service-types-container">
+      <ion-card *ngFor="let subService of subServices">
+        <ion-card-header>
+          <div class="ion-card-header">
+            <div class="service-type-name">{{subService?.name | titlecase}}</div>
+          </div>
+          <ion-card-subtitle>{{subService?.serviceType?.name}}</ion-card-subtitle>
+        </ion-card-header>
+        <mat-divider></mat-divider>
+        <ion-card-content>
+          <div class="service-type-footer-icons">
+            <button (click)="onEdit(subService)" color="primary" mat-mini-fab>
+              <i class="fa fa-pencil-square-o"></i>
+            </button>
+            <button (click)="onDelete(subService)" color="warn" mat-mini-fab>
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="presentModal({})" size="small">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+

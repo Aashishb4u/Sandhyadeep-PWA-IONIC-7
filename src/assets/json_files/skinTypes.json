@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Normal"
+  },
+  {
+    "name": "Dry"
+  },
+  {
+    "name": "Oily"
+  },
+  {
+    "name": "Combination"
+  },
+  {
+    "name": "Mature"
+  },
+  {
+    "name": "Pigmented"
+  },
+  {
+    "name": "Acne Prone"
+  },
+  {
+    "name": "Sensitive"
+  },
+  {
+    "name": "Uneven Toned"
+  },
+  {
+    "name": "Couperose"
+  },
+  {
+    "name": "Crusty"
+  },
+  {
+    "name": "Dull Skin"
+  },
+  {
+    "name": "Dehydrated Skin"
+  },
+  {
+    "name": "Rosacea Skin"
+  }
+]

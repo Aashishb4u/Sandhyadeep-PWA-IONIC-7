@@ -107,6 +107,16 @@ export class ApiService {
     );
   }
 
+  getBrands() {
+    const localUrl = 'assets/json_files/brands.json';
+    return this.http.get(localUrl);
+  }
+
+  getSkinTypes() {
+    const localUrl = 'assets/json_files/skinTypes.json';
+    return this.http.get(localUrl);
+  }
+
   // Store a new access token
   storeAccessToken(accessToken: any) {
     this.currentAccessToken = accessToken;

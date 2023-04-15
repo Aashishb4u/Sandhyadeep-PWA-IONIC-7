@@ -1,13 +1,46 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>image-asset-modal</ion-title>
-  </ion-toolbar>
+<ion-header>
+  <div class="admin-modal-title-container">
+    <div class="admin-modal-title">{{editMode ? 'Update' : 'Add'}} Image Asset</div>
+  </div>
 </ion-header>
+<ion-content>
+  <form [formGroup]='appImagesForm'>
+    <div class="modal-form-image">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">image-asset-modal</ion-title>
-    </ion-toolbar>
-  </ion-header>
+      <div class="modal-image">
+        <img *ngIf="imageBase64 && !imageUrl" src="{{imageBase64}}" alt="">
+        <img *ngIf="!imageBase64 && !imageUrl" src="/assets/no-image.png" alt="">
+        <img *ngIf="editMode && imageUrl" [src]="imageUrl" alt="">
+      </div>
+      <div class="image-changer">
+        <input formControlName="image" accept="image/*" (change)="onFileChange($event)" type="file" id="upload"
+               hidden/>
+        <label style="margin-bottom: 0" for="upload">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-form-container">
+      <ion-list>
+        <ion-item>
+          <ion-label class="required-label" position="floating">Image Asset Name</ion-label>
+          <ion-input maxlength="120" formControlName="name"></ion-input>
+          <ion-note *ngIf="appImagesForm.get('name').dirty" slot="error">Please Select Name</ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="required-label">Asset Location</ion-label>
+          <ion-select formControlName="assetLocation" okText="Okay" cancelText="Dismiss">
+            <ion-select-option *ngFor="let location of assetLocations" [value]="location?.value">{{location?.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+  </form>
+  <div class="admin-modal-button-container">
+    <button (click)="onAddAppImage()"
+            mat-raised-button color="primary">{{editMode ? 'Update' : 'Save'}}
+    </button>
+  </div>
 </ion-content>

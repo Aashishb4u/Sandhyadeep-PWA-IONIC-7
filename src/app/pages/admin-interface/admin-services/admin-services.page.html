@@ -1,13 +1,95 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>admin-services</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">admin-services</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <mat-divider></mat-divider>
+  <div class="service-type-container">
+    <div class="service-types-container">
+      <ion-card *ngFor="let service of services">
+        <div class="service-types-image-container">
+          <img [src]="service?.imageUrl" alt=""/>
+        </div>
+        <ion-card-header>
+          <div class="ion-card-header">
+            <div style="display: flex; align-items: start; flex-basis: 60%; flex-direction: column">
+              <div class="service-type-name">{{service?.name}}</div>
+              <div style="margin-left: 5px">
+                <i style="margin-right: 5px" class="fa fa-clock-o"> </i>{{service?.duration}} Minutes
+              </div>
+            </div>
+            <div style="font-size: 20px">
+              {{service?.price}} ₹
+            </div>
+          </div>
+        </ion-card-header>
+        <ion-card-content>
+          <div style="font-size: 14px">
+            <div *ngIf="service?.serviceType">
+              <div>
+                <div class="text-style-horizontal-line">Service Type</div>
+              </div>
+              <div class="tags-container">
+                <ul class="tags">
+                  <li><div class="tag">{{service?.serviceType?.name | titlecase}}</div></li>
+                </ul>
+              </div>
+            </div>
+            <div *ngIf="service?.subService">
+              <div>
+                <div class="text-style-horizontal-line">Sub Service</div>
+              </div>
+              <div class="tags-container">
+                <ul class="tags">
+                  <li><div class="tag">{{service?.subService?.name | titlecase}}</div></li>
+                </ul>
+              </div>
+            </div>
+            <div *ngIf="service?.description">
+              <div>
+                <div class="text-style-horizontal-line">Description</div>
+              </div>
+              <div style="margin: 5px 0 20px">
+                {{service.description}}
+              </div>
+            </div>
+            <div *ngIf="service?.brands && service?.brands?.length">
+              <div>
+                <div class="text-style-horizontal-line">Brands Used</div>
+              </div>
+              <div class="tags-container">
+                <ul *ngFor="let brand of service?.brands" class="tags">
+                  <li><div class="tag">{{brand}}</div></li>
+                </ul>
+              </div>
+            </div>
+            <div *ngIf="service?.skinTypes && service?.skinTypes?.length">
+              <div>
+                <div class="text-style-horizontal-line">Skin Types</div>
+              </div>
+              <div class="tags-container">
+                <ul *ngFor="let skinType of service?.skinTypes" class="tags">
+                  <li><div class="tag">{{skinType}}</div></li>
+                </ul>
+              </div>
+            </div>
+            <div style="padding: 15px 0;">
+              <mat-divider></mat-divider>
+            </div>
+            <div class="service-type-footer-icons">
+              <button (click)="onEdit(service)" color="primary" mat-mini-fab>
+                <i class="fa fa-pencil-square-o"></i>
+              </button>
+              <button (click)="onDelete(service)" color="warn" mat-mini-fab>
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="presentModal({})" size="small">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+

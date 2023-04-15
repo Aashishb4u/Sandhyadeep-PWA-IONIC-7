@@ -1,0 +1,100 @@
+[
+  {
+    "serviceName": "Eyebrow shaping",
+    "date": "01/12/2024",
+    "ServiceTime": "15 minutes",
+    "price": 30,
+    "timeSlot": {
+      "startTime": "10 AM",
+      "endTime": "11 AM"
+    },
+    "couponApplied": "No",
+    "paymentType": "UPI",
+    "isCancelled": false,
+    "ratings": 4
+  },
+  {
+    "serviceName": "Chin",
+    "date": "02/16/2022",
+     "ServiceTime": "25 minutes",
+    "price": 25,
+    "timeSlot": {
+      "startTime": "1 PM",
+      "endTime": "2 PM"
+    },
+    "couponApplied": "No",
+    "paymentType": "UPI",
+    "isCancelled": false,
+    "ratings": 2
+  },
+  {
+    "serviceName": "Face - Eyebrows Waxing",
+    "date": "02/10/2022",
+     "ServiceTime": "25 minutes",
+    "price": 50,
+    "timeSlot": {
+      "startTime": "11 AM",
+      "endTime": "12 PM"
+    },
+    "couponApplied": "No",
+    "paymentType": "UPI",
+    "isCancelled": false,
+    "ratings": 3
+  },
+  {
+    "serviceName": "Face - Jawline Waxing",
+    "date": "03/15/2021",
+     "ServiceTime": "10 minutes",
+    "price": 25,
+    "timeSlot": {
+      "startTime": "9 AM",
+      "endTime": "10 AM"
+    },
+    "couponApplied": "No",
+    "paymentType": "UPI",
+    "isCancelled": false,
+    "ratings": 5
+  },
+  {
+    "serviceName": "Chin",
+    "date": "01/11/2022",
+     "ServiceTime": "30 minutes",
+    "price": 20,
+    "timeSlot": {
+      "startTime": "10 AM",
+      "endTime": "12 AM"
+    },
+    "couponApplied": "No",
+    "paymentType": "UPI",
+    "isCancelled": true,
+    "ratings": 1
+  },
+  {
+    "serviceName": "Eyebrow shaping",
+    "date": "02/10/2022",
+     "ServiceTime": "15 minutes",
+    "price": 20,
+    "timeSlot": {
+      "startTime": "10 AM",
+      "endTime": "11 AM"
+    },
+    "couponApplied": "No",
+    "paymentType": "UPI",
+    "isCancelled": false,
+    "ratings": 4
+  },
+  {
+    "serviceName": "Eyebrow shaping",
+    "date": "01/09/2030",
+     "ServiceTime": "10 minutes",
+    "price": 20,
+    "timeSlot": {
+      "startTime": "10 AM",
+      "endTime": "11 AM"
+    },
+    "couponApplied": "No",
+    "paymentType": "UPI",
+    "isCancelled": false,
+    "ratings": 2
+  }
+]

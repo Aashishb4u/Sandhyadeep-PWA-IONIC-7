@@ -76,8 +76,9 @@ export class SharedService {
     localStorage.setItem('userName', userName);
   }
 
-  getRole() {
-    return localStorage.getItem('role');
+  getUserRole() {
+    const userData = this.storageService.getStorageValue(appConstants.USER_INFO);
+    return userData && userData.roleId ? userData.roleId.name : '';
   }
 
   getServicesInCart() {
@@ -105,10 +106,6 @@ export class SharedService {
 
   getFranchiseId() {
     return localStorage.getItem('franchiseId');
-  }
-
-  isFranchise() {
-    return this.getRole() === 'franchise';
   }
 
 }

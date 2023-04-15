@@ -1,0 +1,106 @@
+[
+    {
+            "id": 1,
+        "name": "package 1",
+        "duration": "30 minutes",
+        "price": "234",
+        "discount": {
+            "type": "diwali discount",
+            "discount": "34"
+        },
+        "description": " Some Desc",
+        "services" : [2,5,6,4],
+        "images": [{"imgUrl": "assets/f1.png"}, {"imgUrl": "assets/f2.png"}, {"imgUrl": "assets/f3.png"}, {"imgUrl": "assets/f4.png"}],
+        "displayImage": "assets/s1.jpg",
+        "addedInCart": false,
+        "packageIncludes" : ["Waxing - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+        "Some Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+         "Some Other Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+         "New Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"],
+         "brandsUsed": ["onsectetur adipiscing elit", "onsectetur adipiscing elit", "onsectetur adipiscing elit"],
+         "suitableFor": ["Oily Skin", "Dry Skin"]
+    },
+    {
+            "id": 2,
+            "name": "package 2",
+            "duration": "45 minutes",
+            "price": "345",
+            "discount": {
+                "type": "diwali discount",
+                "discount": "34"
+            },
+            "description": " Some Desc",
+            "services" : [2,5,6,4],
+                    "images": [{"imgUrl": "assets/f1.png"}, {"imgUrl": "assets/f2.png"}, {"imgUrl": "assets/f3.png"}, {"imgUrl": "assets/f4.png"}],
+            "addedInCart": false,
+                    "displayImage": "assets/s2.jpg",
+            "packageIncludes" : ["Waxing - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+            "Some Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+             "Some Other Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+             "New Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"],
+             "brandsUsed": ["onsectetur adipiscing elit", "onsectetur adipiscing elit", "onsectetur adipiscing elit"],
+             "suitableFor": ["Oily Skin", "Dry Skin"]
+        },
+        {
+                "id": 3,
+                "name": "package 3",
+                "duration": "50 minutes",
+                "price": "768",
+                "discount": {
+                    "type": "diwali discount",
+                    "discount": "34"
+                },
+                "description": " Some Desc",
+                "services" : [2,5,6,4],
+                        "images": [{"imgUrl": "assets/f1.png"}, {"imgUrl": "assets/f2.png"}, {"imgUrl": "assets/f3.png"}, {"imgUrl": "assets/f4.png"}],
+                "addedInCart": false,
+                        "displayImage": "assets/s3.jpg",
+                "packageIncludes" : ["Waxing - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+                "Some Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+                 "Some Other Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+                 "New Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"],
+                 "brandsUsed": ["onsectetur adipiscing elit", "onsectetur adipiscing elit", "onsectetur adipiscing elit"],
+                 "suitableFor": ["Oily Skin", "Dry Skin"]
+            },{
+  "id": 1,
+  "name": "package 1",
+  "duration": "30 minutes",
+  "price": "234",
+  "discount": {
+    "type": "diwali discount",
+    "discount": "34"
+  },
+  "description": " Some Desc",
+  "services" : [2,5,6,4],
+  "images": [{"imgUrl": "assets/f1.png"}, {"imgUrl": "assets/f2.png"}, {"imgUrl": "assets/f3.png"}, {"imgUrl": "assets/f4.png"}],
+  "displayImage": "assets/s1.jpg",
+  "addedInCart": false,
+  "packageIncludes" : ["Waxing - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "Some Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "Some Other Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "New Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"],
+  "brandsUsed": ["onsectetur adipiscing elit", "onsectetur adipiscing elit", "onsectetur adipiscing elit"],
+  "suitableFor": ["Oily Skin", "Dry Skin"]
+},
+  {
+    "id": 2,
+    "name": "package 2",
+    "duration": "45 minutes",
+    "price": "345",
+    "discount": {
+      "type": "diwali discount",
+      "discount": "34"
+    },
+    "description": " Some Desc",
+    "services" : [2,5,6,4],
+    "images": [{"imgUrl": "assets/f1.png"}, {"imgUrl": "assets/f2.png"}, {"imgUrl": "assets/f3.png"}, {"imgUrl": "assets/f4.png"}],
+    "addedInCart": false,
+    "displayImage": "assets/s2.jpg",
+    "packageIncludes" : ["Waxing - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+      "Some Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+      "Some Other Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+      "New Treatment - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"],
+    "brandsUsed": ["onsectetur adipiscing elit", "onsectetur adipiscing elit", "onsectetur adipiscing elit"],
+    "suitableFor": ["Oily Skin", "Dry Skin"]
+  }
+]
