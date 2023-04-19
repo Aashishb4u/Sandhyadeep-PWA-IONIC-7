@@ -1,7 +1,15 @@
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
-import {AfterContentChecked, AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
 import {Observable, interval} from 'rxjs';
 import {StorageService} from "../../../shared-services/storage.service";
@@ -35,7 +43,7 @@ SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCov
   imports: [IonicModule, CommonModule, FormsModule, SkeletonLoaderPage,
     HeaderComponentPage, FooterComponentPage, RouterModule, SwiperModule]
 })
-export class FeedPage implements OnInit, AfterContentChecked {
+export class FeedPage implements OnInit, AfterContentChecked, OnDestroy {
   @ViewChild('bannerSlide', { static: false }) bannerSlide?: SwiperComponent;
   @ViewChild('packageSlide', { static: false }) packageSlide?: SwiperComponent;
   @ViewChild('feedPageContent') feedPageContent: Content;
@@ -105,11 +113,14 @@ export class FeedPage implements OnInit, AfterContentChecked {
   }
 
   ionViewWillEnter() {
-    this.getPackages();
     this.getServiceTypes();
+    // this.sharedService.showSkeletonSpinner.next(true);
+    this.getPackages();
     this.getAllBannerImages();
     this.todayYear = (new Date()).getFullYear();
   }
+
+
 
   ngAfterContentChecked(): void {
     this.packageSlideOptions = {
@@ -146,7 +157,8 @@ export class FeedPage implements OnInit, AfterContentChecked {
         this.bannerSlide.swiperRef.slideNext(800);
         this.packageSlide.swiperRef.slideNext(800);
       });
-    }, 1000)
+    }, 1000);
+    this.closeSkeleton();
   }
 
   ngOnInit() {
@@ -161,13 +173,11 @@ export class FeedPage implements OnInit, AfterContentChecked {
   }
 
   getPackages() {
-    this.sharedService.showSkeletonSpinner.next(true);
-    this.adminService.getAllPackages().subscribe(
-        res => this.getServicePackageSuccess(res),
-        error => {
-          this.adminService.commonError(error);
-        }
-    );
+    this.showSkeleton();
+    this.sharedService.packages$.subscribe((res: any) => {
+      this.packageList = res;
+      this.closeSkeleton();
+    });
   }
 
   getServicePackageSuccess(res) {
@@ -178,8 +188,18 @@ export class FeedPage implements OnInit, AfterContentChecked {
     });
   }
 
-  getAllBannerImages() {
+  closeSkeleton() {
+    setTimeout(() => {
+      this.sharedService.showSkeletonSpinner.next(false);
+    }, 1000)
+  }
+
+  showSkeleton() {
     this.sharedService.showSkeletonSpinner.next(true);
+  }
+
+  getAllBannerImages() {
+    // this.showSkeleton();
     this.adminService.getAllBannerImages().subscribe(
         res => this.getAllBannerImagesSuccess(res),
         error => {
@@ -189,6 +209,7 @@ export class FeedPage implements OnInit, AfterContentChecked {
   }
 
   getAllBannerImagesSuccess(res) {
+    this.closeSkeleton();
     this.banners = res;
     this.banners = this.banners.map((banner) => {
       banner.imageUrl = `${appConstants.domainUrlApi}${banner.imageUrl}?${new Date().getTime()}`;
@@ -197,23 +218,14 @@ export class FeedPage implements OnInit, AfterContentChecked {
   }
 
   getServiceTypes() {
-    this.sharedService.showSkeletonSpinner.next(true);
-    this.adminService.getAllServiceTypes().subscribe(
-        res => this.getAllServiceTypesSuccess(res),
-        error => {
-          this.adminService.commonError(error);
-        }
-    );
+   this.sharedService.serviceTypes$.subscribe((res: any) => {
+     this.serviceTypesList = res;
+     this.closeSkeleton();
+   })
   }
 
   getAllServiceTypesSuccess(res) {
-    this.serviceTypesList = res;
-    this.serviceTypesList = this.serviceTypesList.map((ser) => {
-      // Adding the api url and also updating image with timestamp
-      ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
-      return ser;
-    });
-    this.sharedService.showSkeletonSpinner.next(false);
+
   }
 
   onClickPackage(id) {
@@ -230,5 +242,9 @@ export class FeedPage implements OnInit, AfterContentChecked {
 
   onUpdateCounter(data, index) {
     this.productImages[index].addedInCart = data;
+  }
+
+  ngOnDestroy(): void {
+    this.closeSkeleton();
   }
 }

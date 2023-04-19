@@ -97,14 +97,18 @@ export class ScheduleAppointmentPage implements OnInit {
   }
 
   getServicesData() {
-    const services$ = this.adminService.getAllServices();
-    const packages$ = this.adminService.getAllPackages();
-    forkJoin([services$, packages$]).subscribe(results => {
-      this.services = results[0];
-      this.packages = results[1];
-      this.updateSelectedServices();
-      this.updateSelectedPackages();
-      this.updateFooter();
+    // getting Packages
+    this.sharedService.packages$.subscribe((responsePackages: any) => {
+      this.packages = responsePackages;
+      // getting Services
+      this.sharedService.services$.subscribe((responseServices: any) => {
+        this.services = responseServices;
+        if(this.services.length > 0 && this.packages.length > 0) {
+          this.updateSelectedServices();
+          this.updateSelectedPackages();
+          this.updateFooter();
+        }
+      });
     });
   }
 
@@ -171,16 +175,6 @@ export class ScheduleAppointmentPage implements OnInit {
             counter: val.counter ? val.counter : 1,
           };
         }) : [];
-
-    this.packages = this.packages.map((pack) => {
-      pack.imageUrl = `${appConstants.domainUrlApi}${pack.imageUrl}?${new Date().getTime()}`;
-      pack.totalAmount = pack.services.map(v => +v.price).reduce((a, b) => a + b);
-      pack.finalAmount = +pack.totalAmount - +pack.discount;
-      pack.totalDuration = pack.services.map(v => +v.duration).reduce((a, b) => a + b);
-      pack.counter = 1;
-      pack.showIncludes = false;
-      return pack;
-    });
 
     this.selectedPackages = packageIds && packageIds.length ? this.packages.filter((val) => {
       return packageIds.find(ser => ser.packageId === val.id);

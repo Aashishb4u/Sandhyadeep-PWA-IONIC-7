@@ -45,32 +45,10 @@ export class PackagesPage implements OnInit {
   }
 
   getPackages() {
-    this.adminService.getAllPackages().subscribe(
-        res => this.getAllPackagesSuccess(res),
-        error => {
-          this.adminService.commonError(error);
-        }
-    );
-  }
-
-  getAllPackagesSuccess(res) {
-    this.packageList = res;
-    if (this.packageList && this.packageList.length) {
-      this.packageList = this.packageList.map((pack) => {
-        pack.imageUrl = `${appConstants.domainUrlApi}${pack.imageUrl}?${new Date().getTime()}`;
-        pack.totalAmount = pack.services.map(v => +v.price).reduce((a, b) => a + b);
-        pack.finalAmount = +pack.totalAmount - +pack.discount;
-        pack.totalDuration = pack.services.map(v => +v.duration).reduce((a, b) => a + b);
-        if (pack.services && pack.services.length > 0) {
-          pack.services = pack.services.map((ser) => {
-            ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
-            return ser;
-          });
-        }
-        return pack;
-      });
+    this.sharedService.packages$.subscribe((res) => {
+      this.packageList = res;
       this.generateSelectedPackages();
-    }
+    })
   }
 
   generateSelectedPackages() {

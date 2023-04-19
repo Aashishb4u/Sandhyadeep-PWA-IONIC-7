@@ -14,6 +14,7 @@ export class SharedService {
   showSpinner = new BehaviorSubject<boolean>(false);
   selectedProduct = new BehaviorSubject<any>([]);
   showSkeletonSpinner = new BehaviorSubject<any>(false);
+  showServicesSkeletonSpinner = new BehaviorSubject<any>(false);
   updateCart = new BehaviorSubject<any>(0);
   onLoadToken = new BehaviorSubject<any>('');
   updateServiceTotal = new BehaviorSubject<any>(0);
@@ -22,8 +23,36 @@ export class SharedService {
   appLogoImage = '/assets/theme-images/Sandhyadeep_logo.png';
   profileIcon = 'assets/icon/profile-icon.png';
 
+  // One Time Data -
+  servicesSubject = new BehaviorSubject<any>([]);
+  services$ = this.servicesSubject.asObservable();
+  serviceTypesSubject = new BehaviorSubject<any>([]);
+  serviceTypes$ = this.serviceTypesSubject.asObservable();
+  subServicesSubject = new BehaviorSubject<any>([]);
+  subServices$ = this.subServicesSubject.asObservable();
+  packagesSubject = new BehaviorSubject<any>([]);
+  packages$ = this.packagesSubject.asObservable();
   constructor(public storageService: StorageService, public toastController: ToastController) { }
 
+  getServiceTypes$() {
+    const serviceTypes$ = this.serviceTypesSubject;
+    return serviceTypes$.value;
+  }
+
+  getServices$() {
+    const services$ = this.servicesSubject;
+    return services$.value;
+  }
+
+  getSubServices$() {
+    const subServices$ = this.subServicesSubject;
+    return subServices$.value;
+  }
+
+  getPackages$() {
+    const packages$ = this.packagesSubject;
+    return packages$.value;
+  }
 
   onUpdateCart() {
     const selectedServices = this.storageService.getStorageValue(appConstants.SELECTED_SERVICES) ?

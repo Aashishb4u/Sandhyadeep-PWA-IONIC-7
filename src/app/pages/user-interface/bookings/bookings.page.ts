@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {AlertController, IonicModule, ModalController, PopoverController, ToastController} from '@ionic/angular';
@@ -21,6 +21,7 @@ import {RouterModule} from "@angular/router";
 import {BookingPopoverPage} from "../../../shared-components/popovers/booking-popover";
 import {BookingDetailsPage} from "../../../shared-components/modals/booking-details/booking-details.page";
 import {MatButtonModule} from "@angular/material/button";
+import {SkeletonLoaderPage} from "../../../shared-components/components/skeleton-loader/skeleton-loader.page";
 
 @Component({
   selector: 'app-bookings',
@@ -39,9 +40,10 @@ import {MatButtonModule} from "@angular/material/button";
       MatButtonModule,
     BookingPopoverPage,
     MatSnackBarModule,
+      SkeletonLoaderPage,
     MatTabsModule]
 })
-export class BookingsPage implements OnInit {
+export class BookingsPage implements OnInit, OnDestroy {
   tab = 'first';
   tabName = 'New Bookings';
   starRating = 0;
@@ -87,6 +89,8 @@ export class BookingsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.sharedService.showSkeletonSpinner.next(false);
+    this.sharedService.showServicesSkeletonSpinner.next(true);
     this.getBookings();
   }
 
@@ -124,6 +128,8 @@ export class BookingsPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.sharedService.showSkeletonSpinner.next(false);
+    this.sharedService.showServicesSkeletonSpinner.next(true);
     this.sharedService.showBackIcon.next(true);
     this.getBookings();
   }
@@ -202,6 +208,9 @@ export class BookingsPage implements OnInit {
           }
         });
     this.showCancelledBookings(this.selectedToggle);
+    setTimeout(() => {
+      this.sharedService.showServicesSkeletonSpinner.next(false);
+    }, 1000);
   }
 
   showCancelledBookings(event) {
@@ -259,4 +268,7 @@ export class BookingsPage implements OnInit {
     this.transformBookingData();
   }
 
+  ngOnDestroy(): void {
+    this.sharedService.showServicesSkeletonSpinner.next(false);
+  }
 }

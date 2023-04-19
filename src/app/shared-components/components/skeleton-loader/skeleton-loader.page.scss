@@ -5,7 +5,9 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  padding: 80px 15px 20px;
+  &.add-padding {
+    padding: 30px 15px 20px;
+  }
 }
 
 .middle-box {

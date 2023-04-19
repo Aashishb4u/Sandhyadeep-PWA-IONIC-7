@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -10,6 +10,7 @@ import {appConstants} from "../../../../assets/constants/app-constants";
 import {ServiceListPage} from "../service-list/service-list.page";
 import {LogoSpinnerPage} from "../../../shared-components/components/logo-spinner/logo-spinner.page";
 import {HeaderComponentPage} from "../../../shared-components/components/header-component/header-component.page";
+import {Content} from "@ionic/core/dist/types/components/content/content";
 
 @Component({
   selector: 'app-services',
@@ -26,6 +27,7 @@ export class ServicesPage {
   selectedServices = [];
   isRefreshed = false;
   refreshRate: any = 0;
+  @ViewChild('pageContentRef') pageContentRef: Content;
 
   ionViewWillEnter() {
     this.sharedService.showSearchBox.next(true);
@@ -34,6 +36,7 @@ export class ServicesPage {
 
   ionViewDidEnter() {
     this.selectedServices = this.storageService.getStorageValue(appConstants.SELECTED_SERVICES);
+    this.pageContentRef.scrollToTop();
   }
 
   ionViewWillLeave() {

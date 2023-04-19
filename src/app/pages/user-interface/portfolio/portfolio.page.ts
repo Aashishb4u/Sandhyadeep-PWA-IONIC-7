@@ -8,13 +8,14 @@ import {HeaderComponentPage} from "../../../shared-components/components/header-
 import {LogoSpinnerPage} from "../../../shared-components/components/logo-spinner/logo-spinner.page";
 import {appConstants} from "../../../../assets/constants/app-constants";
 import {ImageRendererModalPage} from "../../../shared-components/modals/image-renderer-modal/image-renderer-modal.page";
+import {FooterComponentPage} from "../../../shared-components/components/footer-component/footer-component.page";
 
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.page.html',
   styleUrls: ['./portfolio.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, HeaderComponentPage, LogoSpinnerPage]
+  imports: [IonicModule, CommonModule, FormsModule, HeaderComponentPage, LogoSpinnerPage, FooterComponentPage]
 })
 export class PortfolioPage implements OnInit {
 
@@ -66,7 +67,9 @@ export class PortfolioPage implements OnInit {
       component: ImageRendererModalPage,
       componentProps: {
         "imageUrl": image,
-      }
+      },
+      initialBreakpoint: 0.75,
+      breakpoints: [0, 0.75],
     });
 
     modal.onDidDismiss().then((dataReturned) => {

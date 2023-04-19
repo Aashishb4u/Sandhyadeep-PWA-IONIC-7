@@ -25,7 +25,8 @@
                 <div style="padding: 15px" *ngIf="subService.services?.length === 0">
                   We dont have any services available
                 </div>
-                <div *ngFor="let service of subService.services; let index = index" (click)="onSelectServices(service)" class="sub-item-container">
+                <div *ngFor="let service of subService.services; let index = index"
+                     (click)="onSelectServices(service); $event.stopPropagation()" class="sub-item-container">
                   <div class="sub-item-name">
                     <label class="name">{{service.name}}</label>
                     <div class="time"><i
@@ -37,7 +38,7 @@
                     {{service.price}} ₹
                   </div>
                   <div class="sub-item-checkbox">
-                    <mat-checkbox [(ngModel)]="service.isChecked" color="primary"></mat-checkbox>
+                    <mat-checkbox [(ngModel)]="service.isChecked" (change)="onSelectServices(service)" color="primary"></mat-checkbox>
                   </div>
                 </div>
               </mat-expansion-panel>
@@ -46,19 +47,20 @@
 
           <!--                    If No Sub Service is there -->
           <ng-container *ngIf="mainService.services && mainService.services.length > 0" >
-            <div *ngFor="let service of mainService.services; let index = index" (click)="onSelectServices(service)" class="sub-item-container">
-              <div class="sub-item-name">
-                <label class="name">{{service.name}}</label>
-                <div class="time"><i
-                        class="fa fa-clock-o"></i> {{service.duration ? service.duration + ' Minutes' : ''}}
+            <div *ngFor="let service of mainService.services; let index = index"
+                 (click)="onSelectServices(service); $event.stopPropagation()" class="sub-item-container">
+                <div class="sub-item-name">
+                  <label class="name">{{service.name}}</label>
+                  <div class="time"><i
+                          class="fa fa-clock-o"></i> {{service.duration ? service.duration + ' Minutes' : ''}}
+                  </div>
                 </div>
-              </div>
-              <div class="sub-item-price">
-                <div class="color-666">Price:</div>
-                {{service.price}} ₹
-              </div>
+                <div class="sub-item-price">
+                  <div class="color-666">Price:</div>
+                  {{service.price}} ₹
+                </div>
               <div class="sub-item-checkbox">
-                <mat-checkbox [(ngModel)]="service.isChecked" color="primary"></mat-checkbox>
+                <mat-checkbox [(ngModel)]="service.isChecked" (change)="onSelectServices(service)" color="primary"></mat-checkbox>
               </div>
             </div>
           </ng-container>
@@ -67,6 +69,8 @@
     </ng-container>
   </mat-accordion>
 </div>
+<app-skeleton-loader></app-skeleton-loader>
+
 
 
 

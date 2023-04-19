@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Router} from '@angular/router';
-import {forkJoin} from 'rxjs';
+import {forkJoin, lastValueFrom} from 'rxjs';
 import {appConstants} from "../../../../assets/constants/app-constants";
 import {StorageService} from "../../../shared-services/storage.service";
 import {SharedService} from "../../../shared-services/shared.service";
@@ -11,6 +11,7 @@ import {ApiService} from "../../../shared-services/api.service";
 import {MatListModule} from "@angular/material/list";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {SkeletonLoaderPage} from "../../../shared-components/components/skeleton-loader/skeleton-loader.page";
 @Component({
   selector: 'service-list',
   templateUrl: './service-list.page.html',
@@ -19,6 +20,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
   imports: [IonicModule, CommonModule, FormsModule,
     MatExpansionModule,
     MatListModule,
+    SkeletonLoaderPage,
     MatCheckboxModule]
 })
 export class ServiceListPage implements OnInit {
@@ -40,7 +42,7 @@ export class ServiceListPage implements OnInit {
   apiCalled = 0;
 
   ngOnInit() {
-    this.getAllDataAtOnce();
+    this.sharedService.showServicesSkeletonSpinner.next(true);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -58,22 +60,16 @@ export class ServiceListPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.sharedService.showServicesSkeletonSpinner.next(true);
     this.getAllDataAtOnce();
   }
 
   getAllDataAtOnce() {
-    const serviceTypes$ = this.adminService.getAllServiceTypes();
-    const subServices$ = this.adminService.getAllSubService();
-    const services$ = this.adminService.getAllServices();
-    forkJoin([serviceTypes$, subServices$, services$]).subscribe(results => {
+    this.mainServices = this.sharedService.getServiceTypes$();
+    this.subServices = this.sharedService.getSubServices$();
+    this.services = this.sharedService.getServices$();
+    if(this.mainServices.length > 0 && this.subServices.length > 0 && this.services.length > 0) {
       this.apiCalled = this.apiCalled + 1;
-      this.mainServices = results[0];
-      this.subServices = results[1];
-      this.services = results[2];
-      this.mainServices = this.mainServices.map((ser) => {
-        ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
-        return ser;
-      });
       const selectedServices = this.storageService.getStorageValue(appConstants.SELECTED_SERVICES);
       const selectedServiceIds = selectedServices && selectedServices.length ?
           selectedServices.map(v => v.id) : [];
@@ -100,7 +96,10 @@ export class ServiceListPage implements OnInit {
       });
       this.amountPurchased = this.calculateTotalAmount();
       this.sharedService.updateServiceTotal.next(this.amountPurchased);
-    });
+    }
+    setTimeout(() => {
+      this.sharedService.showServicesSkeletonSpinner.next(false);
+    }, 1000)
   }
 
   calculateTotalAmount() {
