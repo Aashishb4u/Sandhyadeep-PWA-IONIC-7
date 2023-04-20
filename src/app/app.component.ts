@@ -11,12 +11,13 @@ import {appConstants} from "../assets/constants/app-constants";
 import {MatButtonModule} from "@angular/material/button";
 import {forkJoin} from "rxjs";
 import {ApiService} from "./shared-services/api.service";
+import {LogoSpinnerPage} from "./shared-components/components/logo-spinner/logo-spinner.page";
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, HttpClientModule, MatButtonModule],
+  imports: [IonicModule, CommonModule, HttpClientModule, MatButtonModule, LogoSpinnerPage],
 })
 export class AppComponent {
   public environmentInjector = inject(EnvironmentInjector);
@@ -51,6 +52,7 @@ export class AppComponent {
   }
 
   getAllDataAtOnce() {
+    this.sharedService.showSpinner.next(true);
     const serviceTypes$ = this.adminService.getAllServiceTypes();
     const subServices$ = this.adminService.getAllSubService();
     const services$ = this.adminService.getAllServices();
@@ -83,6 +85,7 @@ export class AppComponent {
       this.sharedService.subServicesSubject.next(results[1]);
       this.sharedService.servicesSubject.next(results[2]);
       this.sharedService.packagesSubject.next(packages);
+      this.sharedService.showSpinner.next(false);
     });
   }
 }
