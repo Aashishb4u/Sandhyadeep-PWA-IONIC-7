@@ -64,7 +64,6 @@ export class ScheduleAppointmentPage implements OnInit {
 
   ngOnInit() {
     this.getAllDates();
-    this.getServicesData();
   }
 
   getAllDates() {
@@ -103,11 +102,16 @@ export class ScheduleAppointmentPage implements OnInit {
       // getting Services
       this.sharedService.services$.subscribe((responseServices: any) => {
         this.services = responseServices;
-        if(this.services.length > 0 && this.packages.length > 0) {
+        if(this.services.length > 0) {
           this.updateSelectedServices();
-          this.updateSelectedPackages();
-          this.updateFooter();
         }
+
+        if(this.packages.length > 0) {
+          this.updateSelectedPackages();
+        }
+
+        this.updateFooter();
+
       });
     });
   }
@@ -426,7 +430,6 @@ export class ScheduleAppointmentPage implements OnInit {
   }
 
   applyCouponsSuccess(res) {
-    console.log(res);
     this.selectedCouponDetails = res.data.coupon;
     this.serviceDiscount = res.data.discountAmount ? res.data.discountAmount : 0;
     this.sharedService.presentToast(res.message, 'success');

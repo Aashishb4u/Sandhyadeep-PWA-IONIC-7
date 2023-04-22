@@ -119,11 +119,9 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
   }
 
   ionViewWillEnter() {
-    // this.getServiceTypes();
-    // this.getPackages();
-    // this.getAllBannerImages();
-    // this.getAllDataAtOnce();
+    this.showSkeleton();
     this.todayYear = (new Date()).getFullYear();
+    this.closeSkeleton();
   }
 
 
@@ -193,10 +191,12 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
 
   refreshPage(event) {
     setTimeout(() => {
+      this.showSkeleton();
       this.getServiceTypes();
       this.getPackages();
       this.getAllBannerImages();
       event.target.complete();
+      this.closeSkeleton();
     }, 1000);
   }
 
