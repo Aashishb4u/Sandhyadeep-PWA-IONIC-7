@@ -42,7 +42,6 @@ export class AppComponent {
         this.status = "OFFLINE";
       }
     });
-    this.getAllDataAtOnce();
   }
   status = 'ONLINE';
   isConnected: any = true;
@@ -51,41 +50,4 @@ export class AppComponent {
     this.router.navigate(['']);
   }
 
-  getAllDataAtOnce() {
-    this.sharedService.showSpinner.next(true);
-    const serviceTypes$ = this.adminService.getAllServiceTypes();
-    const subServices$ = this.adminService.getAllSubService();
-    const services$ = this.adminService.getAllServices();
-    const packages$ = this.adminService.getAllPackages();
-    forkJoin([serviceTypes$, subServices$, services$, packages$]).subscribe(results => {
-      let serviceTypes: any = results[0];
-      serviceTypes = serviceTypes.map((ser) => {
-        ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
-        return ser;
-      });
-
-      let packages: any = results[3];
-      packages = packages.map((pack) => {
-        pack.imageUrl = `${appConstants.domainUrlApi}${pack.imageUrl}?${new Date().getTime()}`;
-        pack.totalAmount = pack.services.map(v => +v.price).reduce((a, b) => a + b);
-        pack.finalAmount = +pack.totalAmount - +pack.discount;
-        pack.totalDuration = pack.services.map(v => +v.duration).reduce((a, b) => a + b);
-        pack.counter = 1;
-        pack.showIncludes = false;
-        if (pack.services && pack.services.length > 0) {
-          pack.services = pack.services.map((ser) => {
-            ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
-            return ser;
-          });
-        }
-        return pack;
-      });
-
-      this.sharedService.serviceTypesSubject.next(serviceTypes);
-      this.sharedService.subServicesSubject.next(results[1]);
-      this.sharedService.servicesSubject.next(results[2]);
-      this.sharedService.packagesSubject.next(packages);
-      this.sharedService.showSpinner.next(false);
-    });
-  }
 }

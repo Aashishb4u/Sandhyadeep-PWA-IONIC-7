@@ -54,6 +54,10 @@ export class SharedService {
     return packages$.value;
   }
 
+  getUniqueUrl(myUrl) {
+    return `${appConstants.domainUrlApi}${myUrl}?${new Date().getTime()}`;
+  }
+
   onUpdateCart() {
     const selectedServices = this.storageService.getStorageValue(appConstants.SELECTED_SERVICES) ?
         this.storageService.getStorageValue(appConstants.SELECTED_SERVICES) : [];

@@ -3,7 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 import {
   AfterContentChecked,
-  AfterViewInit,
+  AfterViewChecked,
   Component,
   OnDestroy,
   OnInit,
@@ -11,7 +11,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
-import {Observable, interval} from 'rxjs';
+import {interval, Observable} from 'rxjs';
 import {StorageService} from "../../../shared-services/storage.service";
 import {SharedService} from "../../../shared-services/shared.service";
 import {ApiService} from "../../../shared-services/api.service";
@@ -28,9 +28,14 @@ import SwiperCore, {
   EffectCube,
   EffectFade,
   EffectFlip,
-  Keyboard, Navigation, Pagination, Scrollbar, SwiperOptions,
+  Keyboard,
+  Navigation,
+  Pagination,
+  Scrollbar,
+  SwiperOptions,
 } from 'swiper';
 import {Content} from "@ionic/core/dist/types/components/content/content";
+import {forkJoin} from "rxjs";
 
 
 SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCoverflow, EffectFade, EffectCards, EffectCube, EffectFlip, EffectCreative]);
@@ -43,11 +48,12 @@ SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCov
   imports: [IonicModule, CommonModule, FormsModule, SkeletonLoaderPage,
     HeaderComponentPage, FooterComponentPage, RouterModule, SwiperModule]
 })
-export class FeedPage implements OnInit, AfterContentChecked, OnDestroy {
+export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterViewChecked {
   @ViewChild('bannerSlide', { static: false }) bannerSlide?: SwiperComponent;
   @ViewChild('packageSlide', { static: false }) packageSlide?: SwiperComponent;
   @ViewChild('feedPageContent') feedPageContent: Content;
   autoPlay: boolean =  true;
+  uiRendered: boolean =  false;
   bannerSlideConfig: SwiperOptions = {
     loop: true,
     initialSlide: 1,
@@ -113,10 +119,10 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy {
   }
 
   ionViewWillEnter() {
-    this.getServiceTypes();
-    // this.sharedService.showSkeletonSpinner.next(true);
-    this.getPackages();
-    this.getAllBannerImages();
+    // this.getServiceTypes();
+    // this.getPackages();
+    // this.getAllBannerImages();
+    // this.getAllDataAtOnce();
     this.todayYear = (new Date()).getFullYear();
   }
 
@@ -139,6 +145,16 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy {
     };
   }
 
+  getAllDataAtOnce() {
+    const subServices$ = this.adminService.getAllSubService();
+    const services$ = this.adminService.getAllServices();
+    forkJoin([subServices$, services$]).subscribe(results => {
+      this.sharedService.subServicesSubject.next(results[0]);
+      this.sharedService.servicesSubject.next(results[1]);
+      this.sharedService.showSpinner.next(false);
+    });
+  }
+
   ionViewDidEnter() {
     this.feedPageContent.scrollToTop();
     this.sharedService.onSettingEvent.next(false);
@@ -158,26 +174,59 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy {
         this.packageSlide.swiperRef.slideNext(800);
       });
     }, 1000);
-    this.closeSkeleton();
   }
 
   ngOnInit() {
+    console.log('I am in oninit');
+    this.getServiceTypes();
+    this.getPackages();
     this.getAllBannerImages();
+  }
+
+  // when all view is rendered and checked (including images)
+  ngAfterViewChecked() {
+    if (!this.uiRendered) {
+      this.closeSkeleton();
+      this.uiRendered = true;
+    }
   }
 
   refreshPage(event) {
     setTimeout(() => {
       this.getServiceTypes();
+      this.getPackages();
+      this.getAllBannerImages();
       event.target.complete();
     }, 1000);
   }
 
   getPackages() {
     this.showSkeleton();
-    this.sharedService.packages$.subscribe((res: any) => {
-      this.packageList = res;
-      this.closeSkeleton();
-    });
+    this.adminService.getAllPackages().subscribe(
+        res => this.getAllPackagesSuccess(res),
+        error => {
+          this.adminService.commonError(error);
+        }
+    );
+  }
+
+  getAllPackagesSuccess(res) {
+    this.packageList = res && res.length > 0 ? res.map((pack) => {
+      pack.imageUrl = this.sharedService.getUniqueUrl(pack.imageUrl);
+      pack.totalAmount = pack.services.map(v => +v.price).reduce((a, b) => a + b);
+      pack.finalAmount = +pack.totalAmount - +pack.discount;
+      pack.totalDuration = pack.services.map(v => +v.duration).reduce((a, b) => a + b);
+      pack.counter = 1;
+      pack.showIncludes = false;
+      if (pack.services && pack.services.length > 0) {
+        pack.services = pack.services.map((ser) => {
+          ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
+          return ser;
+        });
+      }
+      return pack;
+    }) : [];
+    this.sharedService.packagesSubject.next(this.packageList);
   }
 
   getServicePackageSuccess(res) {
@@ -209,7 +258,6 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy {
   }
 
   getAllBannerImagesSuccess(res) {
-    this.closeSkeleton();
     this.banners = res;
     this.banners = this.banners.map((banner) => {
       banner.imageUrl = `${appConstants.domainUrlApi}${banner.imageUrl}?${new Date().getTime()}`;
@@ -218,14 +266,24 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy {
   }
 
   getServiceTypes() {
-   this.sharedService.serviceTypes$.subscribe((res: any) => {
-     this.serviceTypesList = res;
-     this.closeSkeleton();
-   })
+    this.showSkeleton();
+    this.adminService.getAllServiceTypes().subscribe(
+        res => this.getAllServiceTypesSuccess(res),
+        error => {
+          this.adminService.commonError(error);
+        }
+    );
   }
 
   getAllServiceTypesSuccess(res) {
-
+    let serviceTypes: any = res;
+    serviceTypes = serviceTypes.map((ser) => {
+      ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
+      return ser;
+    });
+    this.serviceTypesList = serviceTypes;
+    this.sharedService.serviceTypesSubject.next(serviceTypes);
+    this.getAllDataAtOnce();
   }
 
   onClickPackage(id) {
