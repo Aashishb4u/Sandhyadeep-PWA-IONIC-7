@@ -13,6 +13,7 @@
     "add-ios": "ionic capacitor add ios",
     "build-ios": "ionic capacitor build ios",
     "remove-ios": "rm -rf ios",
+    "app-sync": "npx cap sync",
     "ios-live": "ionic capacitor run ios -l --host=0.0.0.0",
     "add-android": "ionic capacitor add android",
     "build-android": "ionic capacitor build android",
