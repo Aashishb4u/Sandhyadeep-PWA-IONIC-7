@@ -43,18 +43,20 @@
     }
 
     .slot-container {
-      padding: 5px 0;
+      padding: 5px;
       display: flex;
       overflow-x: scroll;
       border-bottom: 1px solid lightgray;
-
+      flex-wrap: wrap;
+      justify-content: space-around;
       &::-webkit-scrollbar {
         display: none;
       }
 
       .time-slot {
+        width: 22%;
         .single-slot {
-          width: 61px;
+          width: 100%;
           margin: 5px;
           padding: 2px;
           border: 1px solid $secondary-color;
@@ -70,6 +72,11 @@
           &.active {
             background: $secondary-color;
             color: white;
+          }
+          &.disabled {
+            background: lightgray;
+            color: black;
+            cursor: not-allowed;
           }
         }
       }
