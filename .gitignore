@@ -1,6 +1,4 @@
 /node_modules
-/android
 /www
 /.idea
-/ios
 .angular/
