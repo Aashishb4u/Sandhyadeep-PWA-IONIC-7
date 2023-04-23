@@ -7,6 +7,7 @@ import {Router, RouterModule} from "@angular/router";
 import {SharedService} from "../../../shared-services/shared.service";
 import {MatIconModule} from "@angular/material/icon";
 import {MatBadgeModule} from "@angular/material/badge";
+import {Capacitor} from "@capacitor/core";
 
 @Component({
   selector: 'sandhyadeep-header',
@@ -21,10 +22,13 @@ export class HeaderComponentPage implements OnInit {
   searchTerm: any = '';
   showSearchBox: any = false;
   @Input() showBackIcon: any = false;
+  runningPlatform: any;
   // sandhyadeepLogoImage = '/assets/theme-images/Sandhyadeep_logo.png';
   // profileIcon = 'assets/icon/profile-icon.png';
   constructor(private storageService: StorageService, private router: Router, private navCtrl: NavController,
-              public sharedService: SharedService) { }
+              public sharedService: SharedService) {
+    this.runningPlatform = this.sharedService.getAppPlatform();
+  }
 
   setFilteredItems(event) {
     console.log(event);

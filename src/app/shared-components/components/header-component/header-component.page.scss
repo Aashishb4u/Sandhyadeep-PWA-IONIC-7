@@ -1,9 +1,23 @@
 @import "../../../../theme/sandhyadeep-theme";
 
-.header-container {
+.sandhyadeep-header-container {
     background: white;
     box-shadow: 0 3px 11px 0 #6c757d3d;
 }
+
+.header-container {
+  display: flex; align-items: center; justify-content: space-between; margin-right: 10px; padding: 5px 0;
+  &.ios {
+    padding: 40px 0 10px;
+  }
+  .header-logo {
+    width: 100%; display: flex; align-items: center;
+    .sandhyadeep-logo {
+      width: 65px; overflow: hidden; display: inline-block;
+    }
+  }
+}
+
 .logo-container {
   display: flex;
   flex-direction: column;
@@ -41,5 +55,9 @@
   mat-icon {
     font-size: 25px;
   }
+}
+
+.logo-icon {
+  display: flex; justify-content: space-between; align-items: center;
 }
 

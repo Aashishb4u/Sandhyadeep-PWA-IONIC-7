@@ -3,6 +3,7 @@ import {BehaviorSubject} from 'rxjs';
 import {ToastController} from '@ionic/angular';
 import {appConstants} from '../../assets/constants/app-constants';
 import {StorageService} from './storage.service';
+import {Capacitor} from "@capacitor/core";
 
 @Injectable({
   providedIn: 'root'
@@ -139,6 +140,10 @@ export class SharedService {
 
   getFranchiseId() {
     return localStorage.getItem('franchiseId');
+  }
+
+  getAppPlatform() {
+    return Capacitor.getPlatform();
   }
 
 }

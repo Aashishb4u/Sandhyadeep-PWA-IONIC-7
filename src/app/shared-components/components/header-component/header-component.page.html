@@ -1,14 +1,14 @@
-  <ion-header class="header-container">
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-right: 10px; padding: 40px 0 10px">
-      <div style="width: 100%; display: flex; align-items: center;">
+  <ion-header class="sandhyadeep-header-container">
+    <div class="header-container" [ngClass]="{'ios' : runningPlatform === 'ios'}">
+      <div class="header-logo">
         <div *ngIf="showBackIcon" (click)="backClicked()" class="header-back">
           <i class="fa fa-angle-left"></i>
         </div>
-        <div *ngIf="!showSearchBox" [routerLink]="['/feed']" style="width: 65px; overflow: hidden; display: inline-block;">
+        <div *ngIf="!showSearchBox" [routerLink]="['/feed']" class="sandhyadeep-logo">
           <img src="{{sharedService?.appLogoImage}}">
         </div>
         <ng-container *ngIf="showSearchBox">
-          <div style="width: 100%">
+          <div class="width-100">
             <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems($event)"></ion-searchbar>
           </div>
         </ng-container>
@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div class="logo-icon">
         <div *ngIf="(sharedService.updateCart | async) > 0" class="demo-section">
           <mat-icon [routerLink]="['/schedule-appointment']"  color="primary" matBadge="{{sharedService.updateCart | async}}" matBadgeColor="warn">shopping_cart</mat-icon>
         </div>
