@@ -69,7 +69,7 @@ export const routes: Routes = [
       loadComponent: () => import('./pages/user-interface/schedule-appointment/schedule-appointment.page').then( m => m.ScheduleAppointmentPage)
   },
   {
-    path: 'packages-details',
+    path: 'package-details',
     canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/packages-details/packages-details.page').then( m => m.PackagesDetailsPage)
   },

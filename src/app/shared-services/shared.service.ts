@@ -146,4 +146,8 @@ export class SharedService {
     return Capacitor.getPlatform();
   }
 
+  getMinutesToHour(n) {
+    return `${n / 60 ^ 0}`.slice(-2) + ':' + ('0' + n % 60).slice(-2) + ' hrs';
+  }
+
 }

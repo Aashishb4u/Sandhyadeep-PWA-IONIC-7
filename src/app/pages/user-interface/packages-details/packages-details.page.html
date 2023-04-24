@@ -1,13 +1,90 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>packages-details</ion-title>
-  </ion-toolbar>
-</ion-header>
+<!--<back-logo-header></back-logo-header>-->
+<sandhyadeep-header [showBackIcon]="true" class="z-index-99"></sandhyadeep-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">packages-details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <swiper #bannerSlide [config]="slideOpts">
+    <ng-template swiperSlide>
+      <div class="ion-text-center ion-slides-container">
+        <img src="{{singlePackage?.imageUrl}}" alt="">
+      </div>
+    </ng-template>
+  </swiper>
+  <div class="main-container">
+    <div class="package-details-container">
+      <div class="package-title-details">
+        <div class="package-name">{{singlePackage?.name}}</div>
+        <div class="package-price">{{singlePackage?.totalAmount}} ₹</div>
+        <div class="package-duration"><i class="fa fa-clock-o"></i>{{sharedService.getMinutesToHour(singlePackage?.totalDuration)}}</div>
+      </div>
+      <div *ngIf="!singlePackage?.addedInCart" class="add-button">
+        <div (click)="addToCart(singlePackage?.id)" class="primary-add-button">
+          <button> Add</button>
+        </div>
+      </div>
+      <div *ngIf="singlePackage?.addedInCart">
+        <div (click)="addToCart(singlePackage?.id)" class="booked-button">
+          <img src="assets/icon/green-tick.png" alt="">
+          <div>Added</div>
+        </div>
+      </div>
+    </div>
+    <div class="details-blocks">
+      <div class="details-title">Safety Measures</div>
+      <div  class="details-list">
+        <ul>
+          <ng-container *ngFor="let measure of safetyMeasures">
+            <li>{{measure}}</li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+
+    <div class="details-blocks">
+      <div class="details-title">Package Includes</div>
+      <div  class="details-list">
+        <ul>
+          <ng-container *ngFor="let service of singlePackage?.services">
+            <li>{{service?.name}}</li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+
+    <div class="details-blocks">
+      <div class="details-title">Suitable For</div>
+      <div  class="details-list">
+        <ul>
+          <ng-container *ngFor="let skin of skinTypes">
+            <li>{{skin | titlecase}}</li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+
+    <div class="details-blocks">
+      <div class="details-title">Brands Used</div>
+      <div  class="details-list">
+        <ul>
+          <ng-container *ngFor="let singleBrand of brands">
+            <li>{{singleBrand | titlecase}}</li>
+          </ng-container>
+          {{singlePackage?.addedIncart}}
+
+        </ul>
+      </div>
+    </div>
+  </div>
 </ion-content>
+<ion-footer style="box-shadow: 4px 17px 20px 20px #6c757d3d;" *ngIf="singlePackage?.addedInCart" class="ion-no-border">
+  <ion-toolbar>
+    <div class="coupon-footer">
+      <div class="coupon-button-container">
+        <div class="coupon-discount">{{singlePackage?.discount}} ₹</div>
+        <div class="details">{{singlePackage?.services?.length}} Services Included</div>
+      </div>
+      <ion-button [routerLink]="['/schedule-appointment']" expand="block">
+        Book Now
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
