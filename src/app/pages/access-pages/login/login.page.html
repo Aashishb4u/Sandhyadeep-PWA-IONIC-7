@@ -1,5 +1,11 @@
 <ion-content [fullscreen]="true">
-  <div class="login-main-container">
+  <div #loginImageContainer class="login-main-container">
+<!--    Added to avoid flickering of image -->
+    <ng-container>
+      <div style="display: none" *ngFor="let img of imageArray">
+        <img [src]="img" alt="">
+      </div>
+    </ng-container>
     <div class="login-container">
       <div (click)="onBackButton()" *ngIf="showBackButton" class="back-container">
         <div class="back-button">

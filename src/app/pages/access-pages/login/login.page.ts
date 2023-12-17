@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AlertController, IonicModule, ModalController} from '@ionic/angular';
@@ -29,7 +29,7 @@ import {UserAgreementPolicyPage} from "../../../shared-components/modals/user-ag
     MatIconModule, MatInputModule, MatCheckboxModule,
     ReactiveFormsModule, NgxMatIntlTelInputComponent, NgOtpInputModule, CountDownPipePipe]
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   phoneForm!: FormGroup;
   otpForm!: FormGroup;
   separateDialCode = false;
@@ -43,9 +43,21 @@ export class LoginPage implements OnInit {
   selectedOtp: any = null;
   showOtpSpinner: any = false;
   showPhoneSpinner: any = false;
+  imageArray: string[] = [
+    '/assets/theme-images/login-bg-1.jpg',
+    '/assets/theme-images/login-bg-3.jpg',
+    '/assets/theme-images/login-bg-2.jpg',
+    '/assets/theme-images/login-bg-4.jpg',
+    '/assets/theme-images/login-bg-6.jpg',
+    '/assets/theme-images/login-bg-5.jpg',
+    // Add more image URLs as needed
+  ];
+  currentIndex = 0;
+  intervalId: any;
+  @ViewChild('loginImageContainer') loginImageContainer: ElementRef;
   @ViewChild('ngOtpInput', {static: false}) ngOtpInputRef: any;
   constructor(private modalController: ModalController, private alertController: AlertController, private storageService: StorageService, private sharedService: SharedService,
-              private adminService: ApiService, private router: Router, private formBuilder: FormBuilder) {
+              private adminService: ApiService, private renderer: Renderer2, private router: Router, private formBuilder: FormBuilder) {
     this.phoneForm = new FormGroup({
       mobileNumber: new FormControl(undefined, [Validators.required]),
     });
@@ -57,6 +69,24 @@ export class LoginPage implements OnInit {
   otpSubmitted = false;
   startCountDown() {
     this.counter = 300;
+  }
+
+  ngAfterViewInit() {
+    this.startImageChangeInterval();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.intervalId);
+  }
+
+  startImageChangeInterval() {
+    this.intervalId = setInterval(() => {
+      // This logic is best
+      this.currentIndex = (this.currentIndex + 1) % this.imageArray.length;
+      const imageUrl = this.imageArray[this.currentIndex];
+      this.renderer.setStyle(this.loginImageContainer.nativeElement, 'background', `url(${imageUrl})`);
+      this.renderer.setStyle(this.loginImageContainer.nativeElement, 'background-size', `cover`);
+    }, 4000); // Change image every 2 seconds
   }
 
   loginNumber() {

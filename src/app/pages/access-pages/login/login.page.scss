@@ -33,7 +33,7 @@ ion-datetime.default {
 .login-main-container {
   /*background: linear-gradient(214deg, rgba(40, 29, 232, 1) -25%, rgb(147, 18, 152) 63%);*/
   //background: linear-gradient(214deg, rgba(40, 29, 232, 1) -25%, rgb(81, 36, 82) 63%);
-  background: url("../../../../assets/theme-images/login-bg.jpg");
+  background: url("../../../../assets/theme-images/login-bg-5.jpg");
   height: 100%;
   display: flex;
   font-size: $regular-font-size;
@@ -41,13 +41,24 @@ ion-datetime.default {
   justify-content: center;
   align-content: center;
   background-size: cover;
+  transition: background-image 1s ease-in-out;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: black;
+    opacity: 0.5; /* Adjust the opacity as needed */
+  }
 }
 
 .login-main-container .login-container {
   width: 80%;
   padding: 15px;
   z-index: 9999;
-  background: #f3f3f342;
+  background: #ffffffb3;
   mix-blend-mode: normal;
   border: 1px solid #E3E3E3;
   box-shadow: 3px 4px 9px 10px rgb(0 0 0 / 10%);
@@ -71,17 +82,30 @@ ion-datetime.default {
   background-size: cover;
   border-radius: 50%;
   background-position: center center;
+
+}
+
+/* Define a keyframes animation for the zoom-in effect */
+@keyframes zoomIn {
+  0% {
+    transform: scale(1); /* Initial scale */
+  }
+  100% {
+    transform: scale(1.2); /* Zoom-in scale */
+  }
 }
 
 .login-main-container .login-container .logo-container .slogan-text {
-  color: $secondary-color;
+  //color: $secondary-color;
+  color: #000;
   margin-bottom: 10%;
   font-size: 12px;
 }
 
 .login-main-container .login-container .logo-container .logo-text {
   font-size: 30px;
-  color: $secondary-color;
+  //color: $secondary-color;
+  color: #000;
   font-weight: 700;
 }
 
