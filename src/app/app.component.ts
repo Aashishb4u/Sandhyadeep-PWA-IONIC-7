@@ -12,6 +12,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {forkJoin} from "rxjs";
 import {ApiService} from "./shared-services/api.service";
 import {LogoSpinnerPage} from "./shared-components/components/logo-spinner/logo-spinner.page";
+import {FetchDataService} from "./shared-services/fetch-data.service";
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -27,7 +28,8 @@ export class AppComponent {
       private ConnectionServiceService: ConnectionService,
       private storageService: StorageService,
       private sharedService: SharedService,
-      private adminService: ApiService,
+      private adminService: ApiService, // Do not Remove this
+      private fetchData: FetchDataService, // Do not Remove this
   ) {
     this.storageService.getStoredValue(appConstants.ACCESS_TOKEN_KEY).then((token) => {
       this.sharedService.onLoadToken.next(token);

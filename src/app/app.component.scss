@@ -318,6 +318,9 @@ hr {
   justify-content: space-between;
   margin: 20px 0;
   .otpInput {
+    border: 2px solid gray !important;
+    background: #d3d3d3 !important;
+    color: #333 !important;
     height: 50px !important;
     width: 50px !important;
   }

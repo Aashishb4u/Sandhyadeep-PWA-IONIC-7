@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import {ToastController} from '@ionic/angular';
 import {appConstants} from '../../assets/constants/app-constants';
 import {StorageService} from './storage.service';
@@ -20,7 +20,7 @@ export class SharedService {
   onLoadToken = new BehaviorSubject<any>('');
   updateServiceTotal = new BehaviorSubject<any>(0);
   updatePackageTotal = new BehaviorSubject<any>(0);
-  selectedServicesCount = new BehaviorSubject<any>(0);
+  cancelRequest$ = new Subject<void>();
   appLogoImage = '/assets/theme-images/Sandhyadeep_logo.png';
   profileIcon = 'assets/icon/profile-icon.png';
 

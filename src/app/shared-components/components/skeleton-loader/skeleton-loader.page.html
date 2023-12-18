@@ -1,4 +1,4 @@
-<div class="skeleton-container add-padding" *ngIf="showSkeletonSpinner">
+<div class="skeleton-container add-padding" *ngIf="sharedServiceService.showSkeletonSpinner | async">
 
   <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '100px'}"
   ></ngx-skeleton-loader>
@@ -48,7 +48,7 @@
   </div>
 </div>
 
-<div class="skeleton-container add-padding" *ngIf="showServicesSkeletonSpinner">
+<div class="skeleton-container add-padding" *ngIf="sharedServiceService.showServicesSkeletonSpinner | async">
 <!--<div class="skeleton-container add-padding">-->
 
     <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"

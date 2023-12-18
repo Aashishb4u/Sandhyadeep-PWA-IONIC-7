@@ -31,6 +31,7 @@ export class ServicesPage {
 
   ionViewWillEnter() {
     this.sharedService.showSearchBox.next(true);
+    this.sharedService.showBackIcon.next(true);
     this.refreshRate = Math.random();
   }
 

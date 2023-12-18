@@ -37,7 +37,7 @@
                     <div class="color-666">Price:</div>
                     {{service.price}} ₹
                   </div>
-                  <div class="sub-item-checkbox">
+                  <div *ngIf="!hideCheckBox" class="sub-item-checkbox">
                     <mat-checkbox [(ngModel)]="service.isChecked" (change)="onSelectServices(service)" color="primary"></mat-checkbox>
                   </div>
                 </div>
@@ -59,7 +59,7 @@
                   <div class="color-666">Price:</div>
                   {{service.price}} ₹
                 </div>
-              <div class="sub-item-checkbox">
+              <div  *ngIf="!hideCheckBox" class="sub-item-checkbox">
                 <mat-checkbox [(ngModel)]="service.isChecked" (change)="onSelectServices(service)" color="primary"></mat-checkbox>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {IonicModule, NavController} from '@ionic/angular';
@@ -17,8 +17,7 @@ import {Capacitor} from "@capacitor/core";
   imports: [IonicModule, CommonModule, FormsModule, RouterModule, MatIconModule,
     MatBadgeModule,]
 })
-export class HeaderComponentPage implements OnInit {
-  hideProfileIcon: any = false;
+export class HeaderComponentPage implements OnInit, OnDestroy {
   searchTerm: any = '';
   showSearchBox: any = false;
   @Input() showBackIcon: any = false;
@@ -35,19 +34,18 @@ export class HeaderComponentPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sharedService.onSettingEvent.subscribe((res) => {
-      this.hideProfileIcon = res;
-    });
-
-    this.sharedService.showSearchBox.subscribe((res) => {
-      this.showSearchBox = res;
-      this.showBackIcon = res;
-    });
 
     this.sharedService.showBackIcon.subscribe((res) => {
       this.showBackIcon = res;
     });
+
     this.sharedService.onUpdateCart();
+  }
+
+  ngOnDestroy() {
+    // this.sharedService.onSettingEvent.unsubscribe();
+    // this.sharedService.showSearchBox.unsubscribe();
+    // this.sharedService.showBackIcon.unsubscribe();
   }
 
   backClicked() {

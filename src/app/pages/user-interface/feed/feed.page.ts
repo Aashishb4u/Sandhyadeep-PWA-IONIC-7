@@ -36,6 +36,7 @@ import SwiperCore, {
 } from 'swiper';
 import {Content} from "@ionic/core/dist/types/components/content/content";
 import {forkJoin} from "rxjs";
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 
 
 SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCoverflow, EffectFade, EffectCards, EffectCube, EffectFlip, EffectCreative]);
@@ -46,7 +47,7 @@ SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCov
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [IonicModule, CommonModule, FormsModule, SkeletonLoaderPage,
-    HeaderComponentPage, FooterComponentPage, RouterModule, SwiperModule]
+    HeaderComponentPage, FooterComponentPage, RouterModule, SwiperModule, NgxSkeletonLoaderModule]
 })
 export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterViewChecked {
   @ViewChild('bannerSlide', { static: false }) bannerSlide?: SwiperComponent;
@@ -119,6 +120,9 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
   }
 
   ionViewWillEnter() {
+    this.sharedService.onSettingEvent.next(false);
+    this.sharedService.showSearchBox.next(false);
+    this.sharedService.showBackIcon.next(false);
     this.showSkeleton();
     this.todayYear = (new Date()).getFullYear();
     this.closeSkeleton();
@@ -155,8 +159,6 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
 
   ionViewDidEnter() {
     this.feedPageContent.scrollToTop();
-    this.sharedService.onSettingEvent.next(false);
-    this.sharedService.showBackIcon.next(false);
     const userData = this.storageService.getStorageValue(appConstants.USER_INFO);
     setTimeout(() => {
       interval(3000).subscribe(x => {
@@ -175,7 +177,6 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
   }
 
   ngOnInit() {
-    console.log('I am in oninit');
     this.getServiceTypes();
     this.getPackages();
     this.getAllBannerImages();
@@ -240,7 +241,7 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
   closeSkeleton() {
     setTimeout(() => {
       this.sharedService.showSkeletonSpinner.next(false);
-    }, 1000)
+    }, 400)
   }
 
   showSkeleton() {
@@ -260,6 +261,7 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
   getAllBannerImagesSuccess(res) {
     this.banners = res;
     this.banners = this.banners.map((banner) => {
+      banner.loaded = false;
       banner.imageUrl = `${appConstants.domainUrlApi}${banner.imageUrl}?${new Date().getTime()}`;
       return banner;
     });
@@ -267,6 +269,7 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
 
   getServiceTypes() {
     this.showSkeleton();
+    this.sharedService.cancelRequest$.next();
     this.adminService.getAllServiceTypes().subscribe(
         res => this.getAllServiceTypesSuccess(res),
         error => {

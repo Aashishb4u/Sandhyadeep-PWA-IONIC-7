@@ -27,6 +27,7 @@ export class ServiceListPage implements OnInit {
   @Output() updateAmount = new EventEmitter<object>();
   @Input() isRefreshed;
   @Input() refreshRate;
+  @Input() hideCheckBox = false;
 
   constructor(private storageService: StorageService, public sharedService: SharedService,
               private router: Router, private adminService: ApiService) {
@@ -42,6 +43,9 @@ export class ServiceListPage implements OnInit {
   apiCalled = 0;
 
   ngOnInit() {
+    if(this.mainServices.length === 0 || this.services.length === 0 || this.subServices.length === 0) {
+      this.getAllDataAtOnce();
+    }
     this.sharedService.showServicesSkeletonSpinner.next(true);
   }
 
@@ -99,7 +103,7 @@ export class ServiceListPage implements OnInit {
     }
     setTimeout(() => {
       this.sharedService.showServicesSkeletonSpinner.next(false);
-    }, 1000)
+    }, 400)
   }
 
   calculateTotalAmount() {

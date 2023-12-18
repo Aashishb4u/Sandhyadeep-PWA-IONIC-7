@@ -8,7 +8,15 @@
     <swiper #bannerSlide [config]="bannerSlideConfig">
         <ng-template *ngFor="let banner of banners" swiperSlide>
             <div class="ion-text-center ion-slides-container">
-                <img src="{{banner?.imageUrl}}" alt="">
+                <img style="display: none" (load)="banner.loaded = true" src="{{banner?.imageUrl}}" alt="">
+                <ng-container *ngIf="banner.loaded; else loader">
+                    <img src="{{banner?.imageUrl}}" alt="">
+                </ng-container>
+                <ng-template #loader>
+                    <div style="padding: 1rem 1rem 0">
+                        <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '180px'}"></ngx-skeleton-loader>
+                    </div>
+                </ng-template>
             </div>
         </ng-template>
     </swiper>
@@ -33,7 +41,13 @@
             <swiper #packageSlide [config]="packageSlideOptions">
                 <ng-template *ngFor="let packageData of packageList" swiperSlide>
                     <ion-card (click)="onClickPackage(packageData?.id)">
-                        <img src="{{packageData?.imageUrl}}" alt="">
+                        <img (load)="packageData.loaded = true" style="display: none" src="{{packageData?.imageUrl}}" alt="">
+                        <ng-container *ngIf="packageData.loaded; else packageLoader">
+                            <img src="{{packageData?.imageUrl}}" alt="">
+                        </ng-container>
+                        <ng-template #packageLoader>
+                            <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '160px'}"></ngx-skeleton-loader>
+                        </ng-template>
                     </ion-card>
                 </ng-template>
             </swiper>

@@ -1,31 +1,35 @@
   <ion-header class="sandhyadeep-header-container">
     <div class="header-container" [ngClass]="{'ios' : runningPlatform === 'ios'}">
       <div class="header-logo">
-        <div *ngIf="showBackIcon" (click)="backClicked()" class="header-back">
+        <div *ngIf="sharedService.showBackIcon | async" (click)="backClicked()" class="header-back">
           <i class="fa fa-angle-left"></i>
         </div>
-        <div *ngIf="!showSearchBox" [routerLink]="['/feed']" class="sandhyadeep-logo">
-          <img src="{{sharedService?.appLogoImage}}">
-        </div>
-        <ng-container *ngIf="showSearchBox">
+
+        <ng-container *ngIf="sharedService.showSearchBox | async; else logo">
           <div class="width-100">
             <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems($event)"></ion-searchbar>
           </div>
         </ng-container>
-        <div *ngIf="!showSearchBox" class="logo-container">
-          <div class="logo-text">
-            Sandhyadeep
+        <ng-template #logo>
+          <div [routerLink]="['/feed']" class="sandhyadeep-logo">
+            <img src="{{sharedService?.appLogoImage}}">
           </div>
-          <div class="slogan-text">
-            Have a hair affair with us
+          <div class="logo-container">
+            <div class="logo-text">
+              Sandhyadeep
+            </div>
+            <div class="slogan-text">
+              Have a hair affair with us
+            </div>
           </div>
-        </div>
+        </ng-template>
+
       </div>
       <div class="logo-icon">
         <div *ngIf="(sharedService.updateCart | async) > 0" class="demo-section">
           <mat-icon [routerLink]="['/schedule-appointment']"  color="primary" matBadge="{{sharedService.updateCart | async}}" matBadgeColor="warn">shopping_cart</mat-icon>
         </div>
-        <div *ngIf="!hideProfileIcon" [routerLink]="['/settings']" class="profileIcon">
+        <div *ngIf="!(sharedService.onSettingEvent | async)" [routerLink]="['/settings']" class="profileIcon">
           <img src="{{sharedService?.profileIcon}}" alt="">
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AlertController, IonicModule} from '@ionic/angular';
 import {MatButtonModule} from "@angular/material/button";
@@ -23,14 +23,26 @@ import * as moment from "moment";
     MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule,
     MatCheckboxModule, ReactiveFormsModule]
 })
-export class SignUpPage implements OnInit {
+export class SignUpPage implements OnInit, AfterViewInit, OnDestroy {
 
   loginForm!: FormGroup;
   handlerMessage: string = '';
   todaysDate!: any;
   showButtonSpinner: any = false;
+  imageArray: string[] = [
+    '/assets/theme-images/login-bg-1.jpg',
+    '/assets/theme-images/login-bg-3.jpg',
+    '/assets/theme-images/login-bg-2.jpg',
+    '/assets/theme-images/login-bg-4.jpg',
+    '/assets/theme-images/login-bg-6.jpg',
+    '/assets/theme-images/login-bg-5.jpg',
+    // Add more image URLs as needed
+  ];
+  currentIndex = 0;
+  intervalId: any;
+  @ViewChild('loginImageContainer') loginImageContainer: ElementRef;
   constructor(private storageService: StorageService, private apiService: ApiService, private alertController: AlertController,
-              private sharedService: SharedService,
+              private sharedService: SharedService, private renderer: Renderer2,
               private router: Router, private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -49,6 +61,24 @@ export class SignUpPage implements OnInit {
     });
     this.loginForm.get('dob')?.setValue(moment('01/01/2000').format());
     this.todaysDate = moment().format();
+  }
+
+  ngAfterViewInit() {
+    this.startImageChangeInterval();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.intervalId);
+  }
+
+  startImageChangeInterval() {
+    this.intervalId = setInterval(() => {
+      // This logic is best
+      this.currentIndex = (this.currentIndex + 1) % this.imageArray.length;
+      const imageUrl = this.imageArray[this.currentIndex];
+      this.renderer.setStyle(this.loginImageContainer.nativeElement, 'background', `url(${imageUrl})`);
+      this.renderer.setStyle(this.loginImageContainer.nativeElement, 'background-size', `cover`);
+    }, 4000); // Change image every 2 seconds
   }
 
   async onSignUp() {

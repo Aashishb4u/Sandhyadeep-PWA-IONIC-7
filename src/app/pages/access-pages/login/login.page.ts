@@ -59,7 +59,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   constructor(private modalController: ModalController, private alertController: AlertController, private storageService: StorageService, private sharedService: SharedService,
               private adminService: ApiService, private renderer: Renderer2, private router: Router, private formBuilder: FormBuilder) {
     this.phoneForm = new FormGroup({
-      mobileNumber: new FormControl(undefined, [Validators.required]),
+      mobileNumber: new FormControl(undefined),
     });
 
     this.otpForm = this.formBuilder.group({
@@ -121,6 +121,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   ionViewWillEnter() {
     this.selectedOtp = null;
     this.otpSubmitted = false;
+    this.showBackButton = false;
     this.phoneNumberSubmitted = false;
     this.phoneForm.get('mobileNumber')!.setValue('');
     // this.phoneForm.get('isWhatsAppAvailable')!.setValue(false);
@@ -238,12 +239,17 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async showPolicy() {
-    if (this.showPhoneSpinner) { return; }
-    this.showPhoneSpinner = true;
-    if (this.phoneForm.invalid) {
+    if (this.showPhoneSpinner) return;
+    let number = '';
+    if(this.phoneForm.get('mobileNumber')!.value) {
+      number = this.phoneForm.get('mobileNumber')!.value.replace(/\D/g, '').slice(-10);
+    }
+    if (number.length !== 10) {
       this.sharedService.presentToast('Please Enter Valid Phone Number', 'error').then();
+      this.showPhoneSpinner = false;
       return;
     }
+    this.showPhoneSpinner = true;
     const modal = await this.modalController.create({
       component: UserAgreementPolicyPage,
       cssClass: 'admin-modal-class',

@@ -31,7 +31,7 @@ ion-datetime.default {
 }
 
 .login-main-container {
-  background: url("../../../../assets/theme-images/login-bg.jpg");
+  background: url("../../../../assets/theme-images/login-bg-5.jpg");
   height: 100%;
   display: flex;
   font-size: $regular-font-size;
@@ -39,13 +39,24 @@ ion-datetime.default {
   justify-content: center;
   align-content: center;
   background-size: cover;
+  transition: background-image 1s ease-in-out;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: black;
+    opacity: 0.5; /* Adjust the opacity as needed */
+  }
 }
 
 .login-main-container .login-container {
   width: 80%;
   padding: 15px;
   z-index: 9999;
-  background: #f3f3f342;
+  background: #ffffffb3;
   mix-blend-mode: normal;
   border: 1px solid #E3E3E3;
   box-shadow: 3px 4px 9px 10px rgb(0 0 0 / 10%);

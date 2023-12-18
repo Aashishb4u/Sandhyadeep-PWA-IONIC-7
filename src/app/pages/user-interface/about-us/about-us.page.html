@@ -83,7 +83,7 @@
                 </div>
                 <div *ngIf="selectedMenu === 'services'" class="services-container">
                     <div class="page-container">
-                        <service-list (updateAmount)="updateData($event)"></service-list>
+                        <service-list [hideCheckBox]="true" (updateAmount)="updateData($event)"></service-list>
                     </div>
                 </div>
                 <div *ngIf="selectedMenu === 'owner'" class="owner-container">

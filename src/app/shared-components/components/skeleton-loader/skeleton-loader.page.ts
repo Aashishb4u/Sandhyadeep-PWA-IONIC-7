@@ -12,22 +12,9 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, NgxSkeletonLoaderModule]
 })
-export class SkeletonLoaderPage implements OnInit, OnDestroy {
+export class SkeletonLoaderPage {
   showSkeletonSpinner: any = false;
   showServicesSkeletonSpinner: any = false;
-  constructor(private sharedServiceService: SharedService) { }
-
-  ngOnInit() {
-    this.sharedServiceService.showSkeletonSpinner.subscribe((res) => {
-      this.showSkeletonSpinner = res;
-    });
-    this.sharedServiceService.showServicesSkeletonSpinner.subscribe((res) => {
-      this.showServicesSkeletonSpinner = res;
-    });
-  }
-
-  ngOnDestroy(): void {
-    console.log('destroed');
-  }
+  constructor(public sharedServiceService: SharedService) { }
 
 }

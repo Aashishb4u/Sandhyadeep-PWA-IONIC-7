@@ -24,6 +24,7 @@
       <div *ngIf="!otpSubmitted || !phoneNumberSubmitted" class="login-buttons">
         <ng-container *ngIf="!phoneNumberSubmitted">
           <form class="width-100" [formGroup]='phoneForm'>
+            <div class="mb-2 text-center">Enter Phone Number</div>
             <div class="phone-container">
                 <mat-form-field class="ngx-phone-number" appearance="outline">
                     <ngx-mat-intl-tel-input formControlName="mobileNumber"
@@ -33,7 +34,7 @@
                                             [enablePlaceholder]="true" [enableSearch]="true"
                                             name="phone" #phone>
                     </ngx-mat-intl-tel-input>
-                    <mat-error *ngIf="phoneForm.get('mobileNumber')?.invalid">Please enter valid phone number</mat-error>
+<!--                    <mat-error *ngIf="phoneForm.get('mobileNumber').touched && phoneForm.get('mobileNumber')?.invalid">Please enter valid phone number</mat-error>-->
                 </mat-form-field>
             </div>
             <div>

@@ -159,7 +159,10 @@ export class AboutUsPage implements OnInit, AfterViewInit {
 
   onSelectMenu(key) {
     this.selectedMenu = key;
+    this.sharedService.showServicesSkeletonSpinner.next(false);
+    this.sharedService.showSkeletonSpinner.next(false);
   }
+
   ngOnInit() {
   }
 

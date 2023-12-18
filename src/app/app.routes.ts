@@ -4,11 +4,13 @@ import {inject} from "@angular/core";
 import {AdminInterfacePage} from "./pages/admin-interface/admin-interface.page";
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  // {
+  //   path: '',
+  //   canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
+  //   loadComponent: () => import('./pages/access-pages/slides/slides.page').then( m => m.SlidesPage)
+  // },
   {
-    path: '',
-    canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
-    loadComponent: () => import('./pages/access-pages/slides/slides.page').then( m => m.SlidesPage)
-  },{
     path: 'slides',
     canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
     loadComponent: () => import('./pages/access-pages/slides/slides.page').then( m => m.SlidesPage)
@@ -200,5 +202,5 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/admin-interface/admin-services/admin-services.page').then( m => m.AdminServicesPage)
       },
     ]
-  },
+  }
 ];

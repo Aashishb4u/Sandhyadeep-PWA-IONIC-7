@@ -1,5 +1,10 @@
 <ion-content [fullscreen]="true">
-  <div class="login-main-container">
+  <div #loginImageContainer class="login-main-container">
+      <ng-container>
+          <div style="display: none" *ngFor="let img of imageArray">
+              <img [src]="img" alt="">
+          </div>
+      </ng-container>
     <div class="login-container">
       <div (click)="onBackButton()" class="back-container">
         <div class="back-button">
