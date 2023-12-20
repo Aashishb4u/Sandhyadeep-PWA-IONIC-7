@@ -24,7 +24,8 @@ import {ProductListPage} from "../product-list/product-list.page";
 import {FooterComponentPage} from "../../../shared-components/components/footer-component/footer-component.page";
 import {LogoSpinnerPage} from "../../../shared-components/components/logo-spinner/logo-spinner.page";
 import {ImageRendererModalPage} from "../../../shared-components/modals/image-renderer-modal/image-renderer-modal.page";
-import {interval} from "rxjs";
+import {BehaviorSubject, interval} from "rxjs";
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 
 SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCoverflow, EffectFade, EffectCards, EffectCube, EffectFlip, EffectCreative]);
 
@@ -36,7 +37,7 @@ SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCov
   imports: [IonicModule, CommonModule, FormsModule,
     HeaderComponentPage, SwiperModule, ServiceListPage, MatRippleModule,
       SlickCarouselModule, ProductListPage, HeaderComponentPage,
-    FooterComponentPage, LogoSpinnerPage]
+    FooterComponentPage, LogoSpinnerPage, NgxSkeletonLoaderModule]
 })
 export class AboutUsPage implements OnInit, AfterViewInit {
   @ViewChild('aboutUsSlide', { static: false }) aboutUsSlide?: SwiperComponent;
@@ -95,11 +96,11 @@ export class AboutUsPage implements OnInit, AfterViewInit {
   ];
 
   parlourSlides = [
-    {imageUrl: "assets/owner-images/sandhyadeep1.png"},
-    {imageUrl: "assets/owner-images/sandhyadeep2.png"},
-    {imageUrl: "assets/owner-images/sandhyadeep3.png"},
-    {imageUrl: "assets/owner-images/sandhyadeep4.png"},
-    {imageUrl: "assets/owner-images/sandhyadeep5.png"}
+    {loaded: false, imageUrl: "assets/owner-images/sandhyadeep1.png"},
+    {loaded: false, imageUrl: "assets/owner-images/sandhyadeep2.png"},
+    {loaded: false, imageUrl: "assets/owner-images/sandhyadeep3.png"},
+    {loaded: false, imageUrl: "assets/owner-images/sandhyadeep4.png"},
+    {loaded: false, imageUrl: "assets/owner-images/sandhyadeep5.png"}
   ];
 
   slideConfig = {

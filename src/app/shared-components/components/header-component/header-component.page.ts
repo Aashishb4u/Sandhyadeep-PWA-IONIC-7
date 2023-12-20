@@ -8,6 +8,7 @@ import {SharedService} from "../../../shared-services/shared.service";
 import {MatIconModule} from "@angular/material/icon";
 import {MatBadgeModule} from "@angular/material/badge";
 import {Capacitor} from "@capacitor/core";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'sandhyadeep-header',
@@ -15,7 +16,7 @@ import {Capacitor} from "@capacitor/core";
   styleUrls: ['./header-component.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, RouterModule, MatIconModule,
-    MatBadgeModule,]
+    MatBadgeModule, MatButtonModule]
 })
 export class HeaderComponentPage implements OnInit, OnDestroy {
   searchTerm: any = '';

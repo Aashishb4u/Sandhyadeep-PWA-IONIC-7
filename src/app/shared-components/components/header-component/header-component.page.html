@@ -2,7 +2,9 @@
     <div class="header-container" [ngClass]="{'ios' : runningPlatform === 'ios'}">
       <div class="header-logo">
         <div *ngIf="sharedService.showBackIcon | async" (click)="backClicked()" class="header-back">
-          <i class="fa fa-angle-left"></i>
+          <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+            <i class="fa fa-chevron-left"></i>
+          </button>
         </div>
 
         <ng-container *ngIf="sharedService.showSearchBox | async; else logo">

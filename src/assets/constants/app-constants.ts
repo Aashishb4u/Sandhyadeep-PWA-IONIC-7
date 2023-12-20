@@ -15,9 +15,9 @@ export const appConstants = {
         NOTES: '',
         CURRENCY: 'INR'
     },
-    // baseAuthUrl: 'http://localhost:3000/api/v1/auth/',
-    // baseURLAdminAPIs: 'http://localhost:3000/api/v1/',
-    // domainUrlApi: 'http://localhost:3000/api/',
+    // baseAuthUrl: 'http://localhost:3001/api/v1/auth/',
+    // baseURLAdminAPIs: 'http://localhost:3001/api/v1/',
+    // domainUrlApi: 'http://localhost:3001/api/',
     baseAuthUrl: 'https://www.sandhyadeep.in/api/v1/auth/',
     baseURLAdminAPIs: 'https://www.sandhyadeep.in/api/v1/',
     domainUrlApi: 'https://www.sandhyadeep.in/api/',

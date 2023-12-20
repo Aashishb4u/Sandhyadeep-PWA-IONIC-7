@@ -185,7 +185,6 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
 
   verifyOtpSuccess(res: any) {
     this.selectedOtp = null;
-    this.sharedService.presentToast(res.message, 'success').then();
     this.sharedService.showSpinner.next(false);
     this.otpSubmitted = true;
     this.showLogo = true;

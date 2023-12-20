@@ -239,9 +239,7 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
   }
 
   closeSkeleton() {
-    setTimeout(() => {
-      this.sharedService.showSkeletonSpinner.next(false);
-    }, 400)
+    this.sharedService.showSkeletonSpinner.next(false);
   }
 
   showSkeleton() {

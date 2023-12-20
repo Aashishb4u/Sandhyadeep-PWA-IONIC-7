@@ -303,7 +303,7 @@ ion-grid {
     background: linear-gradient(to right, #2f3032d1, #2f30327a, transparent, transparent, transparent);
   }
   &.arrow-right {
-    justify-content: flex-end;
+    justify-content: end;
     background: linear-gradient(to left, #2f3032d1, #2f30327a, transparent, transparent, transparent);
     left: 50%;
   }

@@ -6,8 +6,14 @@
                 <div class="parlour-slide">
                     <swiper #aboutUsSlide [config]="bannerSlideConfig">
                         <ng-template *ngFor="let packageData of parlourSlides" swiperSlide>
+                            <img (load)="packageData.loaded = true" style="display: none" src="{{packageData?.imageUrl}}" alt="">
                             <ion-card>
-                                <img src="{{packageData?.imageUrl}}" alt="">
+                                <ng-container *ngIf="packageData?.loaded; else packImg">
+                                    <img src="{{packageData?.imageUrl}}" alt="">
+                                </ng-container>
+                                <ng-template #packImg>
+                                    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '100%'}"></ngx-skeleton-loader>
+                                </ng-template>
                             </ion-card>
                         </ng-template>
                     </swiper>

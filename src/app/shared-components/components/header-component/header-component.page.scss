@@ -6,7 +6,8 @@
 }
 
 .header-container {
-  display: flex; align-items: center; justify-content: space-between; margin-right: 10px; padding: 5px 0;
+  display: flex; align-items: center;
+  justify-content: space-between; margin: 0 10px; padding: 5px 0;
   &.ios {
     padding: 40px 0 10px;
   }
@@ -23,7 +24,8 @@
   flex-direction: column;
   line-height: 1.1;
   .logo-text {
-    font-size: 25px; font-weight: 700;
+    font-size: 20px;
+    font-weight: 700;
   }
   .slogan-text {
     font-size: 10px;
@@ -45,7 +47,9 @@
 }
 
 .header-back {
-  padding: 10px; font-size: 30px; color: #666;
+  display: flex;
+  align-items: center;
+  color: #666;
 }
 
 .demo-section {

@@ -24,8 +24,16 @@
     <div class="menu-container">
         <div class="quick_menus">
             <ng-container *ngFor="let treatment of serviceTypesList; let index = index">
+                <img (load)="treatment.loaded = true" src="{{treatment.imageUrl}}" alt="" style="display: none">
                 <div (click)="goServices()" class="menu-container">
-                    <div class="menu-image"><img src="{{treatment.imageUrl}}" alt=""></div>
+                    <div class="menu-image">
+                        <ng-container *ngIf="treatment.loaded; else imgLoad">
+                            <img src="{{treatment.imageUrl}}" alt="">
+                        </ng-container>
+                        <ng-template #imgLoad>
+                            <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '100%'}"></ngx-skeleton-loader>
+                        </ng-template>
+                    </div>
                     <div class="menu-text">{{treatment.name}}</div>
                 </div>
             </ng-container>

@@ -32,6 +32,7 @@ export class SharedService {
   subServicesSubject = new BehaviorSubject<any>([]);
   subServices$ = this.subServicesSubject.asObservable();
   packagesSubject = new BehaviorSubject<any>([]);
+  fetchDataComplete = new BehaviorSubject<any>(false);
   packages$ = this.packagesSubject.asObservable();
   constructor(public storageService: StorageService, public toastController: ToastController) { }
 
