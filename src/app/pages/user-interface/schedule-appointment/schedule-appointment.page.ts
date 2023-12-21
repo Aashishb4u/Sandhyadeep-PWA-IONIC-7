@@ -31,7 +31,7 @@ import {SwiperModule} from "swiper/angular";
     RouterModule
   ]
 })
-export class ScheduleAppointmentPage implements OnInit {
+export class ScheduleAppointmentPage implements OnInit, OnDestroy {
 
   constructor(private alertController: AlertController,
               private modalController: ModalController, private winRef: WindowRefService,
@@ -61,6 +61,7 @@ export class ScheduleAppointmentPage implements OnInit {
   selectedCouponDetails: any = '';
   couponList = [];
   handlerMessage = '';
+  showBtnSpinner: any = false;
 
   ngOnInit() {
     this.getAllDates();
@@ -85,6 +86,7 @@ export class ScheduleAppointmentPage implements OnInit {
 
   ionViewWillLeave() {
     this.sharedService.showBackIcon.next(false);
+    this.showBtnSpinner = false;
   }
 
   onChangeDate(day) {
@@ -223,6 +225,8 @@ export class ScheduleAppointmentPage implements OnInit {
       return;
     }
 
+    this.showBtnSpinner = true;
+
     const data = {
       paymentAmount: this.checkoutAmount - (this.packageDiscount + this.serviceDiscount),
       paymentStatus: 'ongoing',
@@ -252,6 +256,7 @@ export class ScheduleAppointmentPage implements OnInit {
   makeOfflinePaymentSuccess(res) {
     this.paymentId = res.data.id;
     this.createBooking();
+    this.showBtnSpinner = false;
   }
 
   onlinePaymentFlow(data) {
@@ -483,5 +488,9 @@ export class ScheduleAppointmentPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  ngOnDestroy() {
+    this.showBtnSpinner = false;
   }
 }

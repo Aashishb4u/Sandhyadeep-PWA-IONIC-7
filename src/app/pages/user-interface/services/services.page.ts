@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnDestroy, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -19,13 +19,14 @@ import {Content} from "@ionic/core/dist/types/components/content/content";
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, ServiceListPage, LogoSpinnerPage, HeaderComponentPage]
 })
-export class ServicesPage {
+export class ServicesPage implements OnDestroy {
 
   constructor(private storageService: StorageService, public sharedService: SharedService, private router: Router, private adminService: ApiService) {
   }
   amountPurchased = 0;
   selectedServices = [];
   isRefreshed = false;
+  showBtnSpinner = false;
   refreshRate: any = 0;
   @ViewChild('pageContentRef') pageContentRef: Content;
 
@@ -41,6 +42,7 @@ export class ServicesPage {
   }
 
   ionViewWillLeave() {
+    this.showBtnSpinner = false;
     this.sharedService.showSearchBox.next(false);
   }
 
@@ -53,13 +55,19 @@ export class ServicesPage {
   }
 
   onBookAppointment() {
+    this.showBtnSpinner = true;
     const storedServices = this.storageService.getStorageValue(appConstants.SELECTED_SERVICES);
     if (!storedServices || storedServices.length === 0) {
       this.sharedService.presentToast('Please add service to Book Appointment', 'error');
+      this.showBtnSpinner = false;
       return;
     }
     this.sharedService.onUpdateCart();
     this.router.navigate(['/schedule-appointment']);
+  }
+
+  ngOnDestroy() {
+    this.showBtnSpinner = false;
   }
 
   updateData(data) {

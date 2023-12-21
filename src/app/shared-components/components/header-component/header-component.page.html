@@ -28,7 +28,7 @@
 
       </div>
       <div class="logo-icon">
-        <div *ngIf="(sharedService.updateCart | async) > 0" class="demo-section">
+        <div *ngIf="(sharedService.showCart | async) && (sharedService.updateCart | async) > 0" class="demo-section">
           <mat-icon [routerLink]="['/schedule-appointment']"  color="primary" matBadge="{{sharedService.updateCart | async}}" matBadgeColor="warn">shopping_cart</mat-icon>
         </div>
         <div *ngIf="!(sharedService.onSettingEvent | async)" [routerLink]="['/settings']" class="profileIcon">

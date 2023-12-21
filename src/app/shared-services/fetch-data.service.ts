@@ -11,7 +11,8 @@ export class FetchDataService {
 
     constructor(public sharedService: SharedService,
                 public adminService: ApiService) {
-        this.getServiceTypes();
+        const isAuthenticated: boolean = this.adminService.isAuthenticated.value;
+        if (isAuthenticated) this.getServiceTypes();
     }
 
     getServiceTypes() {

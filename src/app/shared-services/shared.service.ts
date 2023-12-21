@@ -17,6 +17,7 @@ export class SharedService {
   showSkeletonSpinner = new BehaviorSubject<any>(false);
   showServicesSkeletonSpinner = new BehaviorSubject<any>(false);
   updateCart = new BehaviorSubject<any>(0);
+  showCart = new BehaviorSubject<any>(true);
   onLoadToken = new BehaviorSubject<any>('');
   updateServiceTotal = new BehaviorSubject<any>(0);
   updatePackageTotal = new BehaviorSubject<any>(0);
