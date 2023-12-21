@@ -3,13 +3,9 @@ import {AuthService} from "./shared-services/authentication/auth/auth.service";
 import {inject} from "@angular/core";
 import {AdminInterfacePage} from "./pages/admin-interface/admin-interface.page";
 
+// Here we are using Lazy loading with Pre load all modules - Check in Main.ts
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  // {
-  //   path: '',
-  //   canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
-  //   loadComponent: () => import('./pages/access-pages/slides/slides.page').then( m => m.SlidesPage)
-  // },
   {
     path: 'slides',
     canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
