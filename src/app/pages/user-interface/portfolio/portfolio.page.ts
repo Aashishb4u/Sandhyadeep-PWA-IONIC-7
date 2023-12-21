@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {IonicModule, ModalController} from '@ionic/angular';
+import {IonicModule, IonInfiniteScroll, IonInfiniteScrollContent, ModalController} from '@ionic/angular';
 import {ApiService} from "../../../shared-services/api.service";
 import {SharedService} from "../../../shared-services/shared.service";
 import {HeaderComponentPage} from "../../../shared-components/components/header-component/header-component.page";
@@ -9,6 +9,7 @@ import {LogoSpinnerPage} from "../../../shared-components/components/logo-spinne
 import {appConstants} from "../../../../assets/constants/app-constants";
 import {ImageRendererModalPage} from "../../../shared-components/modals/image-renderer-modal/image-renderer-modal.page";
 import {FooterComponentPage} from "../../../shared-components/components/footer-component/footer-component.page";
+import {InfiniteScrollCustomEvent} from "@ionic/core";
 
 @Component({
   selector: 'app-portfolio',
@@ -17,20 +18,41 @@ import {FooterComponentPage} from "../../../shared-components/components/footer-
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, HeaderComponentPage, LogoSpinnerPage, FooterComponentPage]
 })
-export class PortfolioPage implements OnInit {
+export class PortfolioPage implements OnInit, OnDestroy {
 
   constructor(private adminService: ApiService, private sharedService: SharedService, public modalController: ModalController) { }
   dataReturned: any;
   changeToggleAnim: any = false;
   portfolios: any = [];
-
+  limit: any = 2;
+  page: any = 1;
+  totalPages: any = 0;
+  scrollEvent: InfiniteScrollCustomEvent;
   ngOnInit() {
     this.getAllPortFolioImages();
   }
 
+  ngOnDestroy() {
+    this.portfolios = [];
+    this.page = 1;
+    this.totalPages = 0;
+  }
+
+  onIonInfinite(ev) {
+    if(ev) {
+      ev.target.disabled = this.totalPages === this.page;
+      if(ev.target.disabled) return;
+    }
+    this.page +=1;
+    this.getAllPortFolioImages();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
+  }
+
   getAllPortFolioImages() {
     this.sharedService.showSkeletonSpinner.next(true);
-    this.adminService.getAllPortfolioImages().subscribe(
+    this.adminService.getAllPortfolioImages(this.page, this.limit).subscribe(
         res => this.getAllPortFolioImagesSuccess(res),
         error => {
           this.adminService.commonError(error);
@@ -38,20 +60,18 @@ export class PortfolioPage implements OnInit {
     );
   }
 
-  getAllPortFolioImagesSuccess(res) {
-    this.portfolios = res;
-    this.portfolios = this.portfolios.map((portfolio) => {
-      portfolio.imageUrl = `${appConstants.domainUrlApi}${portfolio.imageUrl}?${new Date().getTime()}`;
-      return portfolio;
-    });
+  getAllPortFolioImagesSuccess(res: any) {
+    this.totalPages = res.totalPages;
+    if(res.images && res.images.length) {
+      this.portfolios = this.portfolios.concat([...res.images].map((portfolio) => {
+        portfolio.imageUrl = `${appConstants.domainUrlApi}${portfolio.imageUrl}?${new Date().getTime()}`;
+        return portfolio;
+      }));
+    }
   }
 
   ionViewDidEnter() {
-    this.sharedService.showSpinner.next(true);
     this.sharedService.showBackIcon.next(true);
-    setTimeout(() => {
-      this.sharedService.showSpinner.next(false);
-    }, 1000);
   }
 
   ionViewWillLeave() {

@@ -257,7 +257,7 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
   }
 
   getAllBannerImagesSuccess(res) {
-    this.banners = res;
+    this.banners = res.images;
     this.banners = this.banners.map((banner) => {
       banner.loaded = false;
       banner.imageUrl = `${appConstants.domainUrlApi}${banner.imageUrl}?${new Date().getTime()}`;

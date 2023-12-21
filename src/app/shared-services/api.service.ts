@@ -223,16 +223,16 @@ export class ApiService {
     return this.http.patch(`${this.baseURL}appImages/${id}`, data, {});
   }
 
-  getAllAppImages() {
-    return this.http.get(`${this.baseURL}appImages`, {});
+  getAllAppImages(page, limit) {
+    return this.http.get(`${this.baseURL}appImages?page=${page}&limit=${limit}`, {});
   }
 
   getAllBannerImages() {
     return this.http.get(`${this.baseURL}appImages?assetLocation=banner`, {});
   }
 
-  getAllPortfolioImages() {
-    return this.http.get(`${this.baseURL}appImages?assetLocation=portfolio`, {});
+  getAllPortfolioImages(page = 1, limit = 5) {
+    return this.http.get(`${this.baseURL}appImages?assetLocation=portfolio&page=${page}&limit=${limit}`, {});
   }
 
   makeOnlinePayment(data: any) {
@@ -351,11 +351,11 @@ export class ApiService {
     const errCode = err.status;
     let errorMessage = err.error.message;
     switch (errCode) {
-      case 401: {
-        this.sharedService.removeAllUserDetails();
-        this.router.navigate(['login']);
-        break;
-      }
+      // case 401: {
+      //   this.sharedService.removeAllUserDetails();
+      //   this.router.navigate(['login']);
+      //   break;
+      // }
       case 0: {
         errorMessage = 'No Internet Connection';
         break;

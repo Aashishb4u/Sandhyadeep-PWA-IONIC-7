@@ -11,6 +11,7 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {InfiniteScrollCustomEvent} from "@ionic/core";
 
 @Component({
   selector: 'app-image-assets',
@@ -32,6 +33,9 @@ export class ImageAssetsPage implements OnInit {
   appImages: any = [];
   selectedAppImage: any = null;
   assetLocations: any = ['Banner', 'PortFolio', 'parlour Images', 'Owner Images'];
+  limit: any = 3;
+  page: any = 1;
+  scrollEvent: InfiniteScrollCustomEvent;
 
   async presentModal(componentData) {
     const modal = await this.modalController.create({
@@ -115,7 +119,7 @@ export class ImageAssetsPage implements OnInit {
   }
 
   getAppImages() {
-    this.adminService.getAllAppImages().subscribe(
+    this.adminService.getAllAppImages(this.page, this.limit).subscribe(
         res => this.getAllAppImagesSuccess(res),
         error => {
           this.adminService.commonError(error);
@@ -124,13 +128,33 @@ export class ImageAssetsPage implements OnInit {
   }
 
   getAllAppImagesSuccess(res) {
-    this.appImages = res;
-    if (this.appImages && this.appImages.length) {
-      this.appImages = this.appImages.map((ser) => {
-        // Adding the api url and also updating image with timestamp
-        ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
-        return ser;
-      });
+    // this.appImages = res.images;
+    // if (this.appImages && this.appImages.length) {
+    //   this.appImages = this.appImages.map((ser) => {
+    //     // Adding the api url and also updating image with timestamp
+    //     ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
+    //     return ser;
+    //   });
+    // }
+    if(res.images && res.images.length) {
+      this.appImages = this.appImages.concat([...res.images].map((portfolio) => {
+        portfolio.imageUrl = `${appConstants.domainUrlApi}${portfolio.imageUrl}?${new Date().getTime()}`;
+        return portfolio;
+      }));
+
+      if(this.scrollEvent) {
+        this.scrollEvent.target.disabled = res.totalPages === this.page;
+      }
     }
+
+  }
+
+  onIonInfinite(ev) {
+    this.page +=1;
+    this.scrollEvent = ev;
+    this.getAppImages();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
   }
 }
