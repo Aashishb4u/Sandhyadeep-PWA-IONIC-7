@@ -177,6 +177,7 @@ export class BookingsPage implements OnInit, OnDestroy {
 
   transformBookingData() {
     this.bookings = this.bookings.map((val) => {
+      console.log(val);
       val.allPackagesTotalAmount = 0;
       val.allPackagesDiscount = 0;
       val.allPackagesFinalAmount = 0;
@@ -192,6 +193,10 @@ export class BookingsPage implements OnInit, OnDestroy {
       val.checkoutFinalAmount = val.allPackagesFinalAmount + val.allServicesAmount;
       val.checkoutAmount = val.allPackagesTotalAmount + val.allServicesAmount;
       val.checkoutDiscount = val.allPackagesDiscount;
+      if(val.couponId) {
+        val.checkoutFinalAmount = val.checkoutAmount - val.couponDiscount;
+        val.checkoutDiscount += val.couponDiscount;
+      }
       val.dateString = `${moment(val.bookingDate).format('DD MMM YYYY')} @${val.timeSlot}`;
       val.showSpinner = false;
       val.isRatingAdded = false;

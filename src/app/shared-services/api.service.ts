@@ -247,8 +247,17 @@ export class ApiService {
     return this.http.patch(`${this.baseURL}payments/${id}`, data, {});
   }
 
-  verifyPayment(data: any, id: any) {
-    return this.http.post(`${this.baseURL}payments/verify/${id}`, data, {});
+  verifyPayment(data: any) {
+    return this.http.post(`${this.baseURL}payments/verify`, data, {});
+  }
+
+  // New Payment Flow -
+  initiatePayment(data: any) {
+    return this.http.post(`${this.baseURL}payments/initiate`, data, {});
+  }
+
+  createTransactionLog(data: any) {
+    return this.http.post(`${this.baseURL}payments/transaction-log`, data, {});
   }
 
   getAllBookings() {

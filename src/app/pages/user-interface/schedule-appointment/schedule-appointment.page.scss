@@ -559,3 +559,9 @@
 .book-now-button {
   width: 50%;
 }
+
+.disableSlot {
+  background: #d3d3d3 !important;
+  cursor: not-allowed;
+  color: gray !important;
+}

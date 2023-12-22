@@ -24,7 +24,7 @@
       <div *ngIf="!otpSubmitted || !phoneNumberSubmitted" class="login-buttons">
         <ng-container *ngIf="!phoneNumberSubmitted">
           <form class="width-100" [formGroup]='phoneForm'>
-            <div class="mb-2 text-center">Enter Phone Number</div>
+            <div class="mb-2 login-header">Login / Signup</div>
             <div class="phone-container">
                 <mat-form-field class="ngx-phone-number" appearance="outline">
                     <ngx-mat-intl-tel-input formControlName="mobileNumber"

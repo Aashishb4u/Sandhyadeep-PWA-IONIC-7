@@ -182,7 +182,11 @@ ion-datetime.default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  .login-header {
+    font-size: 16px;
+    font-weight: 800;
+    margin: 0 1rem;
+  }
   .create-account-button {
     padding: 6px;
     width: 90%;

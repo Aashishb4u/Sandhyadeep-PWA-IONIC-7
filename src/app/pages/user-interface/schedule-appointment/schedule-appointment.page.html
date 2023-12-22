@@ -20,11 +20,11 @@
       </div>
       <div class="slot-container">
         <ng-container *ngFor="let slot of timeSlots">
-          <div (click)="onChangeSlot(slot)" class="time-slot">
-            <div [class.active]="selectedTimeSlot === slot"
+          <div  (click)="onChangeSlot(slot)" class="time-slot">
+            <div [ngClass]="{'disableSlot': slot.disabled}" [class.active]="selectedTimeSlot === slot?.time"
                  class="single-slot">
               <ion-ripple-effect></ion-ripple-effect>
-              {{slot}}
+              {{slot?.time}}
             </div>
           </div>
         </ng-container>

@@ -63,6 +63,7 @@ export class HttpTokenInterceptorsService {
     if (this.apiService.currentAccessToken) {
       return req.clone({
         headers: new HttpHeaders({
+          "ngrok-skip-browser-warning": "69420",
           Authorization: `Bearer ${this.apiService.currentAccessToken}`
         })
       });
