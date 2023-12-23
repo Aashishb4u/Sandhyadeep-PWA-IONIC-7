@@ -6,15 +6,18 @@
       <div class="month-name">
         {{monthName | titlecase}} {{todayYear}}
       </div>
-      <div class="days-container">
+      <div class="days-container pb-3">
         <ng-container *ngFor="let singleDay of daysArray">
           <div (click)="onChangeDate(singleDay)" class="single-day">
             <div [class.bold-text]="selectedDate === singleDay" class="day">
               {{singleDay | date: 'EEE'}}
             </div>
-            <div [class.active]="selectedDate.isSame(singleDay, 'day')" class="date">
+            <button class="date-btn" [class.active]="selectedDate.isSame(singleDay, 'day')"  mat-mini-fab>
               {{singleDay | date: 'dd'}}
-            </div>
+            </button>
+<!--            <div [class.active]="selectedDate.isSame(singleDay, 'day')" class="date">-->
+<!--              {{singleDay | date: 'dd'}}-->
+<!--            </div>-->
           </div>
         </ng-container>
       </div>
@@ -37,7 +40,7 @@
             <ion-icon slot="end" name="add"></ion-icon>
           </ion-button>
         </div>
-        <div style="padding: 15px; width: 100%" *ngIf="selectedServices.length === 0">
+        <div class="w-100 p-2" *ngIf="selectedServices.length === 0">
           No Services Added
         </div>
         <div *ngIf="selectedServices && selectedServices.length > 0" class="summary-container">
@@ -67,10 +70,10 @@
 
               </div>
             </div>
-            <div *ngIf="service?.showIncludes" style="display: flex; flex-direction: column; width: 100%;">
+            <div *ngIf="service?.showIncludes" class="d-flex flex-column w-100">
               <div>
                 <div class="include-title">Description</div>
-                <div style="text-align: left; padding: 10px;">{{service?.description}}</div>
+                <div class="p-2 text-left">{{service?.description}}</div>
               </div>
             </div>
           </div>
@@ -84,21 +87,21 @@
             <ion-icon slot="end" name="add"></ion-icon>
           </ion-button>
         </div>
-        <div style="padding: 15px; width: 100%" *ngIf="selectedPackages.length === 0">
+        <div class="w-100 p-2" *ngIf="selectedPackages.length === 0">
           No Packages Added
         </div>
         <div *ngIf="selectedPackages && selectedPackages.length > 0" class="summary-container">
           <div class="summary-service" *ngFor="let servicePackage of selectedPackages; let index = index">
-            <div style="display: flex; justify-content: space-between; width: 100%;">
+            <div class="d-flex justify-content-between w-100">
               <div style="flex-basis: 60%">
-                <div style="text-align: left;"> {{servicePackage.name}} &nbsp;</div>
+                <div class="text-left"> {{servicePackage.name}} &nbsp;</div>
                 <div class="price-label-container">
                   <div class="price-label">
                     ₹ {{servicePackage?.totalAmount}} &nbsp;
                   </div>
                 </div>
                 <div (click)="servicePackage.showIncludes = !servicePackage.showIncludes"
-                     style="width: 100%; align-items: center; text-align: left; color: gray; display: flex;">
+                class="d-flex align-items-center w-100 text-left" style="color: gray">
                   <ion-icon name="alert-circle-outline"></ion-icon> &nbsp; More Info
                 </div>
               </div>

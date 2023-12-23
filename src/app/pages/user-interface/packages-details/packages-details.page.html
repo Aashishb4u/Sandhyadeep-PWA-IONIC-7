@@ -95,7 +95,7 @@
   <ion-toolbar>
     <div class="coupon-footer">
       <div class="coupon-button-container">
-        <div class="coupon-discount">{{singlePackage?.discount}} ₹</div>
+        <div class="coupon-discount">{{singlePackage?.finalAmount}} ₹</div>
         <div class="details">{{singlePackage?.services?.length}} Services Included</div>
       </div>
       <ion-button [routerLink]="['/schedule-appointment']" expand="block">

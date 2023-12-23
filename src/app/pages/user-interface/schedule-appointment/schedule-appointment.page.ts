@@ -14,6 +14,7 @@ import {PaymentFailurePage} from "../../../shared-components/modals/payment-fail
 import {AddButtonComponent} from "../../../shared-components/components/add-button/add-button.component";
 import {appConstants} from "../../../../assets/constants/app-constants";
 import {HeaderComponentPage} from "../../../shared-components/components/header-component/header-component.page";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
     selector: 'app-schedule-appointment',
@@ -22,7 +23,7 @@ import {HeaderComponentPage} from "../../../shared-components/components/header-
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule, ApplyCouponPage,
         PaymentSuccessPage, PaymentFailurePage, AddButtonComponent, HeaderComponentPage,
-        RouterModule
+        RouterModule, MatButtonModule
     ]
 })
 export class ScheduleAppointmentPage implements OnInit, OnDestroy {
