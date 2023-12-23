@@ -5,15 +5,27 @@
   <swiper #bannerSlide [config]="slideOpts">
     <ng-template swiperSlide>
       <div class="ion-text-center ion-slides-container">
-        <img src="{{singlePackage?.imageUrl}}" alt="">
+        <img class="display-none" (load)="singlePackage.loaded = true" src="{{singlePackage?.imageUrl}}" alt="image">
+        <ng-container *ngIf="singlePackage?.loaded; else imageLoader">
+          <img class="pckg-img" (load)="singlePackage.loaded = true" src="{{singlePackage?.imageUrl}}" alt="">
+        </ng-container>
+        <ng-template #imageLoader>
+          <ion-skeleton-text style="height: 200px;" [animated]="true"></ion-skeleton-text>
+        </ng-template>
+
       </div>
     </ng-template>
   </swiper>
   <div class="main-container">
     <div class="package-details-container">
-      <div class="package-title-details">
+      <div class="package-title-details d-flex flex-column gap-2">
         <div class="package-name">{{singlePackage?.name}}</div>
-        <div class="package-price">{{singlePackage?.totalAmount}} ₹</div>
+        <div class="package-price">
+          <div class="style-1 d-flex align-items-center gap-2">
+            <div class="amount-highlight">₹{{singlePackage?.totalAmount - singlePackage?.discount}}</div>
+            <div class="amount">₹{{singlePackage?.totalAmount}}</div>
+          </div>
+        </div>
         <div class="package-duration"><i class="fa fa-clock-o"></i>{{sharedService.getMinutesToHour(singlePackage?.totalDuration)}}</div>
       </div>
       <div *ngIf="!singlePackage?.addedInCart" class="add-button">

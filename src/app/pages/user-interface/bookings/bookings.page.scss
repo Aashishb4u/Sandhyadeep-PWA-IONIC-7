@@ -89,7 +89,11 @@
         }
       }
       .booking-more-info {
-        display: flex; align-items: center; color: gray;
+        display: flex;
+        align-items: center;
+        color: gray;
+        font-size: 16px;
+        margin: 0.5rem 0 0;
         ion-icon {
           margin: 0 3px
         }

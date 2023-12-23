@@ -22,6 +22,12 @@
     </swiper>
 
     <div class="menu-container">
+        <div class="feed-heading">
+            <div class="heading-text">
+                <b>Treatments</b>
+            </div>
+            <div [routerLink]="['/services']" class="know-more">See All <i class="fa fa-angle-right"></i></div>
+        </div>
         <div class="quick_menus">
             <ng-container *ngFor="let treatment of serviceTypesList; let index = index">
                 <img (load)="treatment.loaded = true" src="{{treatment.imageUrl}}" alt="" style="display: none">
@@ -49,13 +55,33 @@
             <swiper #packageSlide [config]="packageSlideOptions">
                 <ng-template *ngFor="let packageData of packageList" swiperSlide>
                     <ion-card (click)="onClickPackage(packageData?.id)">
-                        <img (load)="packageData.loaded = true" style="display: none" src="{{packageData?.imageUrl}}" alt="">
-                        <ng-container *ngIf="packageData.loaded; else packageLoader">
-                            <img src="{{packageData?.imageUrl}}" alt="">
-                        </ng-container>
-                        <ng-template #packageLoader>
-                            <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '160px'}"></ngx-skeleton-loader>
-                        </ng-template>
+                        <img (load)="packageData.loaded = true" style="display: none" src="{{packageData?.imageUrl}}"
+                             alt="">
+                        <div>
+                            <ng-container *ngIf="packageData.loaded; else packageLoader">
+                                <img src="{{packageData?.imageUrl}}" alt="image">
+                            </ng-container>
+                            <ng-template #packageLoader>
+                                <ngx-skeleton-loader appearance="line"
+                                                     [theme]="{width: '100%', height: '160px'}"></ngx-skeleton-loader>
+                            </ng-template>
+                            <div class="pt-2 pb-3 px-2 d-flex flex-column gap-1">
+                                <div class="mb-1 package-title">{{packageData?.name | titlecase}}</div>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="gap-2 d-flex align-items-center">
+                                        <div class="final-amount-tab">
+                                            {{packageData?.finalAmount}}
+                                        </div>
+                                        <div class="discounted-amount text-decoration-line-through">
+                                            {{packageData?.totalAmount}}
+                                        </div>
+                                    </div>
+                                    <div class="know-more-link">
+                                        Book Now <i class="fa fa-angle-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </ion-card>
                 </ng-template>
             </swiper>

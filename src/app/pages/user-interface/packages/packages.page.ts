@@ -46,8 +46,15 @@ export class PackagesPage implements OnInit {
 
   getPackages() {
     this.sharedService.packages$.subscribe((res) => {
-      this.packageList = res;
-      this.generateSelectedPackages();
+      if(res && res.length) {
+        this.packageList = [...res].map((v) => {
+          v.loaded = false;
+          v.skelImageUrl = `${v.imageUrl}?rand=${Math.random()}`;
+          return v
+        });
+        this.generateSelectedPackages();
+      }
+
     })
   }
 

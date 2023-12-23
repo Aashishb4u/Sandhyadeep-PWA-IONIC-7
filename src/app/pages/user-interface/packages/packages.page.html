@@ -7,23 +7,32 @@
     </div>
   </div>
   <div class="package-list">
-    <div *ngFor="let singlePackage of packageList, let index = index" class="package border-spacing-top">
+    <div *ngFor="let singlePackage of packageList, let index = index" class="package">
       <div *ngIf="singlePackage?.discount && singlePackage?.discount?.type" class="package-tag">
         {{singlePackage?.discount?.type}}
       </div>
       <div class="package-img">
-        <div class="image-container" *ngFor="let singleService of singlePackage?.services">
-          <img (click)="showImage(singleService?.imageUrl)" src="{{singleService?.imageUrl}}" alt="">
+        <img class="display-none" (load)="singlePackage.loaded = true" [src]="singlePackage?.skelImageUrl" alt="">
+        <div class="image-container w-100">
+          <ng-container *ngIf="singlePackage.loaded; else imgLoader">
+            <img [src]="singlePackage?.imageUrl" alt="">
+          </ng-container>
+          <ng-template #imgLoader>
+            <ion-skeleton-text style="height: 200px;" [animated]="true"></ion-skeleton-text>
+          </ng-template>
         </div>
+<!--        <div class="image-container" *ngFor="let singleService of singlePackage?.services">-->
+<!--          <img (click)="showImage(singleService?.imageUrl)" src="{{singleService?.imageUrl}}" alt="">-->
+<!--        </div>-->
       </div>
       <div class="package-details-container">
         <div class="package-title-details">
-          <div class="package-name">{{singlePackage.name}}</div>
+          <div class="package-name">{{singlePackage.name | titlecase}}</div>
           <div class="package-duration"><i class="fa fa-clock-o"></i>{{singlePackage?.totalDuration}} Minutes</div>
           <div class="package-price">
-            <div class="style-1">
-              <del><span class="amount">₹{{singlePackage?.totalAmount}}</span></del>
-              <ins><span class="amount">₹{{singlePackage?.totalAmount - singlePackage?.discount}}</span></ins>
+            <div class="style-1 d-flex align-items-center gap-2">
+              <div class="amount-highlight">₹{{singlePackage?.totalAmount - singlePackage?.discount}}</div>
+              <div class="amount">₹{{singlePackage?.totalAmount}}</div>
             </div>
           </div>
         </div>
@@ -40,8 +49,18 @@
         </div>
       </div>
       <div class="package-details">
-        <div>{{singlePackage?.description}}</div>
-        <div (click)="onShowDetails(singlePackage.id)" class="show-details"><u>Show Details</u></div>
+        <div class="my-1">{{singlePackage?.description}}</div>
+        <div (click)="onShowDetails(singlePackage.id)" class="show-details">
+          <div class="btn btn-primary custom-button">
+<!--            width: 100%;-->
+<!--            padding: 1rem;-->
+<!--            text-align: center;-->
+<!--            background: #265791;-->
+<!--            color: #fff;-->
+<!--            border-radius: 5px;-->
+            Show Details
+          </div>
+        </div>
       </div>
     </div>
   </div>

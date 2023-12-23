@@ -53,7 +53,6 @@ export class PackagesDetailsPage implements OnInit {
 
   ionViewWillEnter() {
     this.sharedService.showBackIcon.next(true);
-    this.getPackages();
   }
 
   ngOnInit() {
@@ -69,15 +68,17 @@ export class PackagesDetailsPage implements OnInit {
       return val;
     });
     this.singlePackage = this.packageList.find(v => v.id === this.packageId);
-    this.brands = this.singlePackage.services.reduce((acc, service) => {
-      acc.push(...service.brands.filter((brand) => !acc.includes(brand)));
-      return acc;
-    }, []);
-    this.skinTypes = this.singlePackage.services.reduce((acc, service) => {
-      acc.push(...service.skinTypes.filter((skinType) => !acc.includes(skinType)));
-      return acc;
-    }, []);
 
+    if (this.singlePackage) {
+      this.brands = this.singlePackage.services.reduce((acc, service) => {
+        acc.push(...service.brands.filter((brand) => !acc.includes(brand)));
+        return acc;
+      }, []);
+      this.skinTypes = this.singlePackage.services.reduce((acc, service) => {
+        acc.push(...service.skinTypes.filter((skinType) => !acc.includes(skinType)));
+        return acc;
+      }, []);
+    }
     // this.selectedPackages = this.packageList.filter(v => packageIDs.includes(v.id));
   }
 
