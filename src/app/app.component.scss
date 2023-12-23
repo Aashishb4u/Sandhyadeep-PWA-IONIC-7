@@ -91,7 +91,7 @@ ion-content, ion-button, ion-header, ion-searchbar, ion-toolbar, ion-item, ion-l
   justify-content: center;
   text-align: center;
   background: white;
-  height: 45px;
+  height: 35px;
   border: 1px solid $primary-color;
   padding: 0 10px;
   button {
@@ -333,6 +333,7 @@ hr {
   //background: linear-gradient(225deg, $primary-color 2%, $secondary-color 63%);
   font-size: 16px !important;
   font-weight: 400 !important;
+  color: #fff;
 }
 
 .custom-button:disabled, .custom-button[disabled] {

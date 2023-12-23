@@ -17,8 +17,8 @@
     </ng-template>
   </swiper>
   <div class="main-container">
-    <div class="package-details-container">
-      <div class="package-title-details d-flex flex-column gap-2">
+    <div class="package-details-container flex-column">
+      <div class="w-100 package-title-details d-flex flex-column gap-2">
         <div class="package-name">{{singlePackage?.name}}</div>
         <div class="package-price">
           <div class="style-1 d-flex align-items-center gap-2">
@@ -28,17 +28,21 @@
         </div>
         <div class="package-duration"><i class="fa fa-clock-o"></i>{{sharedService.getMinutesToHour(singlePackage?.totalDuration)}}</div>
       </div>
-      <div *ngIf="!singlePackage?.addedInCart" class="add-button">
-        <div (click)="addToCart(singlePackage?.id)" class="primary-add-button">
-          <button> Add</button>
+      <div *ngIf="!singlePackage?.addedInCart; else addedCart" class="w-100 add-button">
+        <div (click)="addToCart(singlePackage?.id)" class="w-50 primary-add-button">
+          <button>
+            Add to Cart <i class="ps-2 fa fa-shopping-cart"></i>
+          </button>
         </div>
       </div>
-      <div *ngIf="singlePackage?.addedInCart">
-        <div (click)="addToCart(singlePackage?.id)" class="booked-button">
-          <img src="assets/icon/green-tick.png" alt="">
-          <div>Added</div>
+      <ng-template #addedCart>
+        <div class="w-100">
+          <div (click)="addToCart(singlePackage?.id)" class="w-50 booked-button">
+            <img src="assets/icon/green-tick.png" alt="">
+            <div>Added</div>
+          </div>
         </div>
-      </div>
+      </ng-template>
     </div>
     <div class="details-blocks">
       <div class="details-title">Safety Measures</div>

@@ -1,5 +1,8 @@
 <sandhyadeep-header class="z-index-999"></sandhyadeep-header>
 
+<!-- preload-->
+<img src="assets/icon/green-tick.png" alt="" class="display-none">
+
 <ion-content>
   <div class="page-heading">
     <div class="heading-text">
@@ -25,8 +28,8 @@
 <!--          <img (click)="showImage(singleService?.imageUrl)" src="{{singleService?.imageUrl}}" alt="">-->
 <!--        </div>-->
       </div>
-      <div class="package-details-container">
-        <div class="package-title-details">
+      <div class="package-details-container flex-column">
+        <div class="package-title-details w-100">
           <div class="package-name">{{singlePackage.name | titlecase}}</div>
           <div class="package-duration"><i class="fa fa-clock-o"></i>{{singlePackage?.totalDuration}} Minutes</div>
           <div class="package-price">
@@ -36,17 +39,20 @@
             </div>
           </div>
         </div>
-        <div *ngIf="!singlePackage.addedInCart" class="add-button">
-          <div (click)="addToCart(index)" class="primary-add-button">
-            <button> Add</button>
+        <div *ngIf="!singlePackage.addedInCart; else addedCart" class="w-100">
+          <div (click)="addToCart(index)" class="w-50 primary-add-button">
+            <button>Add to Cart <i class="ps-2 fa fa-shopping-cart"></i>
+            </button>
           </div>
         </div>
-        <div *ngIf="singlePackage.addedInCart">
-          <div (click)="addToCart(index)" class="booked-button">
-            <img src="assets/icon/green-tick.png" alt="">
-            <div>Added</div>
+        <ng-template #addedCart>
+          <div class="w-100">
+            <div (click)="addToCart(index)" class="w-50 booked-button">
+              <img src="assets/icon/green-tick.png" alt="">
+              <div>Added</div>
+            </div>
           </div>
-        </div>
+        </ng-template>
       </div>
       <div class="package-details">
         <div class="my-1">{{singlePackage?.description}}</div>
@@ -79,7 +85,7 @@
           {{sharedService?.updatePackageTotal | async}} ₹
         </div>
       </div>
-      <div style="margin: 10px 0; width: 100%">
+      <div class="my-2 w-100">
         <button (click)="onBookAppointment()" class="custom-button"
                 mat-raised-button color="primary">Book Appointment
         </button>
