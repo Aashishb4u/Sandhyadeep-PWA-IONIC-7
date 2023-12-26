@@ -47,18 +47,24 @@ export class ServiceListPage implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        this.mainServices = this.sharedService.getServiceTypes$();
-        this.subServices = this.sharedService.getSubServices$();
-        this.services = this.sharedService.getServices$();
-        if (this.mainServices.length === 0 || this.services.length === 0 || this.subServices.length === 0) {
-            this.sharedService.fetchDataComplete.subscribe((res) => {
-                if (res) {
-                    this.getAllDataAtOnce();
-                }
-            });
-        } else {
+        // console.log("called onInit");
+        // this.getAllDataAtOnce();
+        // if (this.mainServices.length === 0 || this.services.length === 0 || this.subServices.length === 0) {
+        //     this.sharedService.fetchDataComplete.subscribe((res) => {
+        //         if (res) {
+        //             this.getAllDataAtOnce();
+        //         }
+        //     });
+        // } else {
+        //     this.getAllDataAtOnce();
+        // }
+        setTimeout(() => {
+            console.log("called init");
+            this.mainServices = this.sharedService.getServiceTypes$();
+            this.subServices = this.sharedService.getSubServices$();
+            this.services = this.sharedService.getServices$();
             this.getAllDataAtOnce();
-        }
+        }, 500);
         this.sharedService.showServicesSkeletonSpinner.next(true);
     }
 
@@ -66,24 +72,26 @@ export class ServiceListPage implements OnInit, OnDestroy {
         this.sharedService.fetchDataComplete.unsubscribe();
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        for (const propName in changes) {
-            if (changes.hasOwnProperty(propName)) {
-                switch (propName) {
-                    case 'refreshRate': {
-                        setTimeout(() => {
-                            this.getAllDataAtOnce();
-                        }, 500);
-                    }
-                }
-            }
-        }
-    }
+    // ngOnChanges(changes: SimpleChanges) {
+    //     for (const propName in changes) {
+    //         if (changes.hasOwnProperty(propName)) {
+    //             switch (propName) {
+    //                 case 'refreshRate': {
+    //                     setTimeout(() => {
+    //                         console.log("called changes");
+    //                         this.getAllDataAtOnce();
+    //                     }, 500);
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
-    ionViewWillEnter() {
-        this.sharedService.showServicesSkeletonSpinner.next(true);
-        this.getAllDataAtOnce();
-    }
+    // ionViewWillEnter() {
+    //     this.sharedService.showServicesSkeletonSpinner.next(true);
+    //     console.log("called enter");
+    //     this.getAllDataAtOnce();
+    // }
 
     getAllDataAtOnce() {
         this.mainServices = this.sharedService.getServiceTypes$();
