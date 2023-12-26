@@ -4,14 +4,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AlertController, IonicModule, ModalController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
-import { ToastController } from '@ionic/angular';
 import {NgOtpInputModule} from 'ng-otp-input';
 import {Subscription, timer} from 'rxjs';
 import {ApiService} from '../../../shared-services/api.service';
 import {SharedService} from '../../../shared-services/shared.service';
 import {StorageService} from '../../../shared-services/storage.service';
 import {appConstants} from '../../../../assets/constants/app-constants';
-import {CountDownPipePipe} from "../../../shared-pipes/count-down-pipe.pipe";
 import {NgxMatIntlTelInputComponent} from "ngx-mat-intl-tel-input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -19,6 +17,9 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {UserAgreementPolicyPage} from "../../../shared-components/modals/user-agreement-policy/user-agreement-policy.page";
+import {CountDownPipePipe} from "../../../shared-pipes/count-down-pipe.pipe";
+import * as moment from "moment";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -31,18 +32,17 @@ import {UserAgreementPolicyPage} from "../../../shared-components/modals/user-ag
 })
 export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   phoneForm!: FormGroup;
-  otpForm!: FormGroup;
-  separateDialCode = false;
+  loginForm!: FormGroup;
+  todaysDate!: any;
   showBackButton = false;
-  userId = '';
-  showLogo = true;
   countDown: Subscription = new Subscription();
   counter = 300;
   tick = 1000;
-  phoneNumberSubmitted: any = false;
   selectedOtp: any = null;
+  showButtonSpinner: any = false;
   showOtpSpinner: any = false;
   showPhoneSpinner: any = false;
+  oneTimeKey: any = null;
   imageArray: string[] = [
     '/assets/theme-images/login-bg-1.jpg',
     '/assets/theme-images/login-bg-3.jpg',
@@ -54,19 +54,33 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   ];
   currentIndex = 0;
   intervalId: any;
+  viewMode: any = 'login';
+  onlyMobileNumber: any = '';
+  isEmailAlertOpen = false;
   @ViewChild('loginImageContainer') loginImageContainer: ElementRef;
   @ViewChild('ngOtpInput', {static: false}) ngOtpInputRef: any;
-  constructor(private modalController: ModalController, private alertController: AlertController, private storageService: StorageService, private sharedService: SharedService,
+  constructor(private modalController: ModalController, private alertController: AlertController, private storageService: StorageService,
+              public sharedService: SharedService,
               private adminService: ApiService, private renderer: Renderer2, private router: Router, private formBuilder: FormBuilder) {
     this.phoneForm = new FormGroup({
       mobileNumber: new FormControl(undefined),
     });
 
-    this.otpForm = this.formBuilder.group({
-      mobileOtp: new FormControl({disabled: false}, [Validators.required]),
+    this.loginForm = this.formBuilder.group({
+      name : new FormControl({value: '', disabled: false}, [
+        Validators.required
+      ]),
+      dob: new FormControl({value: '', disabled: false}, [
+        Validators.required
+      ]),
+      email: new FormControl({value: '', disabled: false}, [
+        Validators.required, Validators.email
+      ])
     });
+    this.loginForm.get('dob')?.setValue(moment('01/01/2000'));
+    this.todaysDate = moment().format();
   }
-  otpSubmitted = false;
+
   startCountDown() {
     this.counter = 300;
   }
@@ -76,6 +90,13 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.viewMode = 'login';
+    this.loginForm.reset();
+    this.phoneForm.reset();
+    this.selectedOtp = null;
+    this.showButtonSpinner = false;
+    this.showOtpSpinner = false;
+    this.showPhoneSpinner = false;
     clearInterval(this.intervalId);
   }
 
@@ -89,131 +110,149 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     }, 4000); // Change image every 2 seconds
   }
 
-  loginNumber() {
+  loginWithOtp() {
     this.sharedService.showSpinner.next(true);
     // Logic to remove the country code
-    const onlyMobileNumber = this.phoneForm.get('mobileNumber')!.value.replace(/\D/g, '').slice(-10)
+    this.onlyMobileNumber = this.phoneForm.get('mobileNumber')!.value.replace(/\D/g, '').slice(-10)
     const data = {
-      mobileNo: onlyMobileNumber,
+      mobileNo: this.onlyMobileNumber,
     };
     this.adminService.loginWithOtp(data).subscribe(
-        res => this.signInApiSuccess(res),
-        error => {
-          this.adminService.commonError(error);
-          this.sharedService.showSpinner.next(false);
-        }
+      res => this.signInApiSuccess(res),
+      error => {
+        this.adminService.commonError(error);
+        this.sharedService.showSpinner.next(false);
+      }
     );
   }
 
   signInApiSuccess(res: any) {
-    this.selectedOtp = null;
-    this.phoneNumberSubmitted = true;
-    this.showPhoneSpinner = false;
-    this.showLogo = false;
+    this.viewMode = 'otp';
     this.showBackButton = true;
+    this.oneTimeKey = res.data.oneTimeKey;
     this.startCountDown();
-    this.userId = res.data.user.id;
-    this.otpSubmitted = false;
     this.sharedService.showSpinner.next(false);
-    this.phoneForm.reset();
   }
 
   ionViewWillEnter() {
+    this.viewMode = 'login';
+    this.loginForm.reset();
+    this.phoneForm.reset();
     this.selectedOtp = null;
-    this.otpSubmitted = false;
+    this.showButtonSpinner = false;
+    this.showOtpSpinner = false;
+    this.showPhoneSpinner = false;
     this.showBackButton = false;
-    this.phoneNumberSubmitted = false;
-    this.phoneForm.get('mobileNumber')!.setValue('');
-    // this.phoneForm.get('isWhatsAppAvailable')!.setValue(false);
     this.sharedService.onSettingEvent.next(true);
     this.sharedService.onUpdateCart();
     this.storageService.removeStoredItem(appConstants.SELECTED_SERVICES);
   }
 
   ngOnInit() {
+    this.viewMode = 'login';
+    this.loginForm.reset();
+    this.phoneForm.reset();
     this.selectedOtp = null;
+    this.showButtonSpinner = false;
+    this.showBackButton = false;
+    this.showOtpSpinner = false;
+    this.showPhoneSpinner = false;
     this.sharedService.onSettingEvent.next(true);
     this.countDown = timer(0, this.tick).subscribe(() => --this.counter);
-
+    this.phoneForm.get('mobileNumber')!.setValue('');
   }
 
   onOtpInput(event: any) {
     this.selectedOtp = event;
   }
 
-  onBackButton() {
-    if (!this.otpSubmitted && this.phoneNumberSubmitted) {
-      this.phoneNumberSubmitted = false;
-      this.showLogo = true;
-      this.showBackButton = false;
-    }
-
-    if (this.otpSubmitted && this.phoneNumberSubmitted) {
-      this.phoneNumberSubmitted = true;
-      this.showLogo = false;
-      this.showBackButton = true;
-      this.startCountDown();
-    }
-  }
-
-  onSubmitOtp() {
-    if(this.showOtpSpinner) { return; }
+  verifyOtp() {
     if (!this.selectedOtp) {
-      this.sharedService.presentToast('Please Enter Valid OTP', 'error').then();
+      this.sharedService.presentToast('Please Enter Valid OTP', 'error');
       return;
     }
-    this.showOtpSpinner = true;
-    this.verifyOtp();
-  }
-
-  verifyOtp() {
+    if (this.showOtpSpinner) { return; }
     this.sharedService.showSpinner.next(true);
+    this.showOtpSpinner = true;
     const data = {
-      userId: this.userId,
+      mobileNo: this.onlyMobileNumber,
       otp: this.selectedOtp
     };
     this.adminService.verifyOtp(data).subscribe(
-        res => this.verifyOtpSuccess(res),
-        error => {
-          this.adminService.commonError(error);
-          this.sharedService.showSpinner.next(false);
-          this.showOtpSpinner = false;
-          this.ngOtpInputRef.setValue('');
-        }
+      res => this.verifyOtpSuccess(res),
+      error => {
+        this.adminService.commonError(error);
+        this.sharedService.showSpinner.next(false);
+        this.showOtpSpinner = false;
+        this.ngOtpInputRef.setValue('');
+        this.sharedService.presentToast('Please Enter Valid OTP', 'error');
+      }
     );
   }
 
   verifyOtpSuccess(res: any) {
     this.selectedOtp = null;
     this.sharedService.showSpinner.next(false);
-    this.otpSubmitted = true;
-    this.showLogo = true;
     this.showOtpSpinner = false;
-    const userData = res.data.user;
-    if (!userData.isRegistered) {
-      this.router.navigate(['sign-up']);
-      return;
+    const userData: any = res.data;
+    if (userData.verification.isRegistered) {
+      this.router.navigate(['/feed']);
+    } else {
+      this.viewMode = 'signup';
     }
-    this.router.navigate(['/feed']);
   }
 
 
   async reasonAlert() {
     const alert = await this.alertController.create({
-      header: 'Do you want to resend the OTP?',
+      header: 'Do you want to restart login?',
       cssClass: 'alert-popup',
       buttons: [
         {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            this.ngOtpInputRef.setValue('');
+            //nothing
           },
         },
         {
           text: 'OK',
           role: 'confirm',
           handler: () => {
+            this.viewMode = 'login';
+            this.loginForm.reset();
+            this.phoneForm.reset();
+            this.selectedOtp = null;
+            this.showButtonSpinner = false;
+            this.showOtpSpinner = false;
+            this.showPhoneSpinner = false;
+            this.showBackButton = false;
+          },
+        },
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async resendOtpAlert() {
+    const alert = await this.alertController.create({
+      header: 'Do you want to resend OTP?',
+      cssClass: 'alert-popup',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            //nothing
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: () => {
+            this.selectedOtp = null;
+            this.showOtpSpinner = false;
             this.resendOtp();
           },
         },
@@ -224,16 +263,22 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   resendOtp() {
-    this.adminService.resendOtp(this.userId).subscribe(
-        res => {
-          this.startCountDown();
-          this.ngOtpInputRef.setValue('');
-          this.sharedService.presentToast('OTP Resent successfully.', 'success');
-        },
-        error => {
-          this.adminService.commonError(error);
-          this.sharedService.showSpinner.next(false);
-        }
+    let mobileNo = '';
+    if(this.phoneForm.get('mobileNumber')!.value) {
+      mobileNo = this.phoneForm.get('mobileNumber')!.value.replace(/\D/g, '').slice(-10);
+    }
+    this.adminService.resendOtp({mobileNo: mobileNo}).subscribe(
+      res => {
+        this.startCountDown();
+        this.ngOtpInputRef.setValue('');
+        this.sharedService.presentToast('OTP Resent successfully.', 'success');
+        this.showOtpSpinner = false;
+      },
+      error => {
+        this.adminService.commonError(error);
+        this.showOtpSpinner = false;
+        this.sharedService.showSpinner.next(false);
+      }
     );
   }
 
@@ -257,11 +302,48 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     });
     modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned!.data === 'approved') {
-        this.loginNumber();
+        this.loginWithOtp();
         return;
       }
       this.showPhoneSpinner = false;
     });
     return await modal.present();
   }
+
+  async onSignUp() {
+    if(this.showButtonSpinner) return;
+    if (this.loginForm.get('email').invalid) {
+      await this.sharedService.presentToast('Please enter valid Email', 'error');
+      return;
+    }
+    if (this.loginForm.invalid) {
+      await this.sharedService.presentToast('Please fill all the mandatory fields', 'error');
+      return;
+    }
+    const data = {
+      name: this.loginForm.get('name')!.value,
+      email: this.loginForm.get('email')!.value,
+      mobileNo: this.onlyMobileNumber,
+      dateOfBirth: moment(this.loginForm.get('dob')!.value),
+    };
+    this.showButtonSpinner = true;
+    this.adminService.signUpUser(data, this.oneTimeKey).subscribe(
+      res => this.updateUserSuccess(res),
+      error => {
+        this.showButtonSpinner = false;
+        this.sharedService.showSpinner.next(false);
+        if (error.status === 409) {
+          this.isEmailAlertOpen = true;
+        } else {
+          this.adminService.commonError(error);
+        }
+      }
+    );
+  }
+
+  updateUserSuccess(res: any) {
+    this.showButtonSpinner = false;
+    this.router.navigate(['/feed']);
+  }
+
 }

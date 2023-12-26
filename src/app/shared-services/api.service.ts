@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {StorageService} from './storage.service';
 import { BehaviorSubject, from, Observable, of } from 'rxjs';
 import {appConstants} from '../../assets/constants/app-constants';
+import {environment} from "../../../../sandhyadeep-ionic-7-angular-16/sandhyadeep/src/environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -48,9 +49,23 @@ export class ApiService {
     );
   }
 
+  signUpUser(data: any, oneTimeKey: string) {
+    return this.http.post(`${this.baseURL}auth/signup/${oneTimeKey}`, data, {})
+        .pipe(
+            tap((response: any) => {
+              console.log(response);
+              if (response.data && response.data.user) {
+                this.storageService.storeValue(environment.USER_INFO, response!.data!.user);
+                this.storageService.storeValue(environment.ACCESS_TOKEN_KEY, response!.data!.tokens.access.token);
+                this.storageService.storeValue(environment.REFRESH_TOKEN_KEY, response!.data!.tokens.refresh.token);
+              }
+              this.isAuthenticated.next(true);
+            })
+        );
+  }
 
-  resendOtp(userId: string) {
-    return this.http.post(`${this.authUrl}resendOtp`, {userId: userId}).pipe(map((res: any) => {
+  resendOtp(data) {
+    return this.http.post(`${this.authUrl}resendOtp`, data).pipe(map((res: any) => {
       return res;
     }));
   }

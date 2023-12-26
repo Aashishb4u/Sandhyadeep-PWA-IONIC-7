@@ -26,7 +26,7 @@
 
     <ng-container *ngIf="accessMode === 'write'">
       <hr>
-      <ion-item lines="none" (click)="agreedToTerms = !agreedToTerms; $event.preventDefault()">
+      <ion-item class="bg-transparent" lines="none">
         <ion-checkbox slot="start" [(ngModel)]="agreedToTerms"></ion-checkbox>
         <ion-label style="white-space: normal;">I have read and agree to the above terms and conditions</ion-label>
       </ion-item>

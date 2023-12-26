@@ -17,11 +17,6 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/access-pages/login/login.page').then( m => m.LoginPage)
   },
   {
-    path: 'sign-up',
-    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
-    loadComponent: () => import('./pages/access-pages/sign-up/sign-up.page').then( m => m.SignUpPage)
-  },
-  {
     path: 'feed',
     canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/feed/feed.page').then( m => m.FeedPage)

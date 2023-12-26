@@ -29,6 +29,10 @@
 @import 'swiper/css/bundle';
 //@import "@ionic/angular/css/ionic-swiper";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 // Import App scss
 @import "app/app.component";
 @import "theme/sandhyadeep-theme";

@@ -1,41 +1,47 @@
 <ion-content [fullscreen]="true">
-  <div #loginImageContainer class="login-main-container">
-<!--    Added to avoid flickering of image -->
+  <div #loginImageContainer
+       class="h-100 d-flex align-items-center justify-content-center
+        align-items-center bg-cover text-sm
+        text-base login-main-container">
+    <!--    Added to avoid flickering of image -->
     <ng-container>
-      <div style="display: none" *ngFor="let img of imageArray">
+      <div class="d-none" *ngFor="let img of imageArray">
         <img [src]="img" alt="">
       </div>
     </ng-container>
-    <div class="login-container">
-      <div (click)="onBackButton()" *ngIf="showBackButton" class="back-container">
-        <div class="back-button">
+    <div class="login-container rounded-3xl p-4 w-4/5">
+      <div (click)="reasonAlert()" *ngIf="showBackButton" class="back-container">
+        <div class="back-button text-3xl rounded d-inline-block">
           <i class="fa fa-angle-left"></i>
         </div>
       </div>
-      <div *ngIf="showLogo" class="logo-container">
-        <div class="logo-image"></div>
-        <div class="logo-text">
+      <div class="logo-container
+      align-items-center justify-content-center text-sm
+      d-flex flex-column ">
+        <div class="logo-image bg-no-repeat rounded-full bg-cover"></div>
+        <div class="logo-text text-black text-3xl font-bold">
           Sandhyadeep
         </div>
-        <div class="slogan-text">
+        <div class="slogan-text text-black text-xs">
           Have a hair affair with us
         </div>
       </div>
-      <div *ngIf="!otpSubmitted || !phoneNumberSubmitted" class="login-buttons">
-        <ng-container *ngIf="!phoneNumberSubmitted">
-          <form class="width-100" [formGroup]='phoneForm'>
-            <div class="mb-2 login-header">Login / Signup</div>
-            <div class="phone-container">
-                <mat-form-field class="ngx-phone-number" appearance="outline">
-                    <ngx-mat-intl-tel-input formControlName="mobileNumber"
-                                            [preferredCountries]="['in']"
-                                            [cssClass]="'custom-tel'"
-                                            maxLength="10"
-                                            [enablePlaceholder]="true" [enableSearch]="true"
-                                            name="phone" #phone>
-                    </ngx-mat-intl-tel-input>
-<!--                    <mat-error *ngIf="phoneForm.get('mobileNumber').touched && phoneForm.get('mobileNumber')?.invalid">Please enter valid phone number</mat-error>-->
-                </mat-form-field>
+      <div [ngSwitch]="viewMode" class="d-flex justify-content-center align-items-center
+           flex-column login-buttons" >
+        <ng-container *ngSwitchCase="'login'">
+          <form class="w-100" [formGroup]='phoneForm'>
+            <div class="mb-2 text-base font-extrabold my-4 login-header">Login / Signup</div>
+            <div class="phone-container mb-3">
+              <mat-form-field class="ngx-phone-number w-100" appearance="outline">
+                <ngx-mat-intl-tel-input formControlName="mobileNumber"
+                                        [preferredCountries]="['in']"
+                                        [cssClass]="'custom-tel'"
+                                        maxLength="10"
+                                        [enablePlaceholder]="true" [enableSearch]="true"
+                                        name="phone" #phone>
+                </ngx-mat-intl-tel-input>
+                <!--                    <mat-error *ngIf="phoneForm.get('mobileNumber').touched && phoneForm.get('mobileNumber')?.invalid">Please enter valid phone number</mat-error>-->
+              </mat-form-field>
             </div>
             <div>
               <ion-button (click)="showPolicy()" expand="block">Continue
@@ -44,31 +50,64 @@
             </div>
           </form>
         </ng-container>
-
-
-        <div *ngIf="phoneNumberSubmitted" class="otp-box">
-          <div style="padding: 0 10px; display: flex; flex-direction: column; text-align: center;">
-            <h3>Enter Verification Code</h3>
+        <div *ngSwitchCase="'otp'" class="otp-box">
+          <div class="d-flex flex-column px-3 text-center">
+            <h3 class="font-bold">Enter Verification Code</h3>
             <div>We have sent you a 4 digit verification code on the given mobile number.</div>
           </div>
-          <div style="display: flex; justify-content: center;">
+          <div class="d-flex justify-content-center">
             <ng-otp-input #ngOtpInput (onInputChange)="onOtpInput($event)"
                           [config]="{allowNumbersOnly: true, length:4,inputClass: 'otpInput', containerClass: 'otpContainer'}"></ng-otp-input>
           </div>
-          <div (click)="reasonAlert()" class="resend-otp-title">
+          <div (click)="resendOtpAlert()" class="d-flex justify-center
+          text-sm mb-6
+          resend-otp-title">
             <u>Resend OTP</u>
           </div>
-          <div class="resend-otp-counter">
+          <div class="d-flex justify-center text-center
+          text-base font-medium
+          resend-otp-counter">
             {{counter | countDownPipe}}
           </div>
           <div>
-            <ion-button (click)="onSubmitOtp()" expand="block">Continue
+            <ion-button (click)="verifyOtp()" expand="block">Continue
               <ion-spinner *ngIf="showOtpSpinner" class="margin-0-5" name="circles"></ion-spinner>
             </ion-button>
           </div>
         </div>
-      </div>
+        <div *ngSwitchCase="'signup'" class="form-main-container d-flex justify-center w-100">
+          <form class="w-11/12" [formGroup]='loginForm'>
+            <div class="mb-5">
+              <div class="mb-3 form-group">
+                <label class="mb-1 text-gray-700 font-bold text-xs" for="firstName">First Name:</label>
+                <input formControlName="name"  type="text" class="text-sm p-2 form-control" id="firstName" placeholder="Name">
+              </div>
 
+              <div class="mb-3 form-group">
+                <label class="mb-1 text-gray-700 font-bold text-xs" for="firstName">Email:</label>
+                <input formControlName="email"  type="text" class="text-sm p-2 form-control" placeholder="Email Address">
+              </div>
+
+              <div class="mb-3 form-group">
+                <label class="mb-1 text-gray-700 font-bold text-xs" for="firstName">Date of Birth:</label>
+                <input formControlName="dob" type="date"  class="text-sm p-2 form-control me-2 input-border h-100" id="date">
+              </div>
+
+            </div>
+            <ion-button (click)="onSignUp()" expand="block">Continue
+              <ion-spinner *ngIf="showButtonSpinner" class="margin-0-5" name="circles"></ion-spinner>
+            </ion-button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
+  <ion-alert
+    trigger="email-taken"
+    [isOpen]="isEmailAlertOpen"
+    header="Email Already Taken"
+    message="The email address you provided is already associated with an existing account. Please use another email address or log in with the registered mobile number associated with this email."
+    [buttons]="['Okay']"
+    (didDismiss)="isEmailAlertOpen = false"
+  ></ion-alert>
 </ion-content>
