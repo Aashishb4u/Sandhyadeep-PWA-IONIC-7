@@ -8,7 +8,7 @@
     <swiper #bannerSlide [config]="bannerSlideConfig">
         <ng-template *ngFor="let banner of banners" swiperSlide>
             <div class="ion-text-center ion-slides-container">
-                <img style="display: none" (load)="banner.loaded = true" src="{{banner?.imageUrl}}" alt="">
+                <img class="d-none" (load)="banner.loaded = true" src="{{banner?.imageUrl}}" alt="">
                 <ng-container *ngIf="banner.loaded; else loader">
                     <img src="{{banner?.imageUrl}}" alt="">
                 </ng-container>

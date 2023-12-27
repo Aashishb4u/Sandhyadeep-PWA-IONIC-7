@@ -60,7 +60,7 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
     initialSlide: 1,
     keyboard: { enabled: true },
     scrollbar: { draggable: true },
-    effect: 'coverflow',
+    effect: 'coverflow'
   };
   packageSlideOptions: SwiperOptions = {
     loop: true,
@@ -161,19 +161,19 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
     this.feedPageContent.scrollToTop();
     const userData = this.storageService.getStorageValue(appConstants.USER_INFO);
     setTimeout(() => {
-      interval(3000).subscribe(x => {
+      interval(5000).subscribe(x => {
         if(this.bannerSlide.swiperRef.isEnd) {
-          this.bannerSlide.swiperRef.slideTo(0);
+          this.bannerSlide.swiperRef.slideTo(0, 800);
           return;
         }
         if(this.packageSlide.swiperRef.isEnd) {
-          this.packageSlide.swiperRef.slideTo(0);
+          this.packageSlide.swiperRef.slideTo(0, 800);
           return;
         }
         this.bannerSlide.swiperRef.slideNext(800);
         this.packageSlide.swiperRef.slideNext(800);
       });
-    }, 1000);
+    }, 3000);
   }
 
   ngOnInit() {
