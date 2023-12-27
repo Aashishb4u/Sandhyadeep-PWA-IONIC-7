@@ -1,20 +1,19 @@
-@import "../../../../theme/sandhyadeep-theme";
 
 .add-item {
   .custom-add-button {
     display: flex; justify-content: space-between;
-    align-items: center; border: 1px solid $secondary-color;
+    align-items: center; border: 1px solid var(--ion-color-sandhyadeep-blue);
     border-radius: 5px;
     .add-text {
       padding: 0 5px;
-      color: $secondary-color;
+      color: var(--ion-color-sandhyadeep-blue);
       background: #fff;
     }
     i.fa.fa-plus {
       padding: 5px;
       background: #d3d3d31a;
-      color: $secondary-color;
-      border-left: 1px solid $secondary-color;
+      color: var(--ion-color-sandhyadeep-blue);
+      border-left: 1px solid var(--ion-color-sandhyadeep-blue);
       font-size: 10px;
     }
   }
@@ -22,29 +21,29 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid $secondary-color;
+    border: 1px solid var(--ion-color-sandhyadeep-blue);
     border-radius: 5px;
     .add-text {
       padding: 2px 5px;
-      color: $secondary-color;
+      color: var(--ion-color-sandhyadeep-blue);
     }
     .in-cart-box {
       padding: 10px;
-      color: $primary-color;
+      color: var(--ion-color-sandhyadeep-pink);
       background: #fff;
       font-weight: bold;
     }
     i.fa.fa-plus {
       padding: 6px;
       background: #d3d3d31a;
-      color: $secondary-color;
+      color: var(--ion-color-sandhyadeep-blue);
       font-size: 10px;
 
     }
     i.fa.fa-minus {
       padding: 6px;
       background: #d3d3d31a;
-      color: $secondary-color;
+      color: var(--ion-color-sandhyadeep-blue);
       font-size: 10px;
 
     }

@@ -14,7 +14,6 @@
 // -------------
 
 @import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400';
-@import "../../../../theme/sandhyadeep-theme";
 
 %reset { margin: 0; padding: 0; }
 %flex { display: flex; justify-content: center;	align-items: center; }
@@ -34,7 +33,7 @@ body{
   font-family: 'Open Sans', sans-serif;
   width: 100%;
   min-height: 100%;
-  background: $secondary-color;
+  background: var(--ion-color-sandhyadeep-blue);
   font-size: 16px;
   overflow: hidden;
 }
@@ -61,7 +60,7 @@ body{
     display: block;
     width: 149px;
     height: 324px;
-    background: $secondary-color;
+    background: var(--ion-color-sandhyadeep-blue);
     position: absolute;
     -webkit-animation: rotatemagic 0.75s cubic-bezier(0.425, 1.04, 0.47, 1.105) 1s both;
     animation: rotatemagic 0.75s cubic-bezier(0.425, 1.04, 0.47, 1.105) 1s both;
@@ -120,7 +119,7 @@ body{
     width: 200px;
     h1{ font-size: 1.8em;}
     h3{ font-size: 1.2em;
-      color: $secondary-color;
+      color: var(--ion-color-sandhyadeep-blue);
       font-style: italic;
     }
     p.bio{
@@ -183,7 +182,7 @@ body{
 }
 
 .profile-name {
-  font-size: 12px; color: $secondary-color; font-weight: 600;
+  font-size: 12px; color: var(--ion-color-sandhyadeep-blue); font-weight: 600;
 }
 
 .font-12 {

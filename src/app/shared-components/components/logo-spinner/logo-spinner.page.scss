@@ -1,4 +1,3 @@
-@import "../../../../theme/sandhyadeep-theme";
 
 /* KEYFRAMES */
 
@@ -145,8 +144,8 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background: $primary-color;
-  background: linear-gradient(0deg, $secondary-color 33%, $primary-color 100%);
+  background: var(--ion-color-sandhyadeep-pink);
+  background: linear-gradient(0deg, var(--ion-color-sandhyadeep-blue) 33%, var(--ion-color-sandhyadeep-pink) 100%);
   animation: spin .8s linear 0s infinite;
 }
 
@@ -330,5 +329,5 @@ body {
 }
 
 .sandhyadeep-title-spinner {
-  font-size: 13px; color: $secondary-color; z-index: 999; font-weight: 900
+  font-size: 13px; color: var(--ion-color-sandhyadeep-blue); z-index: 999; font-weight: 900
 }

@@ -5,7 +5,7 @@
   <swiper #bannerSlide [config]="slideOpts">
     <ng-template swiperSlide>
       <div class="ion-text-center ion-slides-container">
-        <img class="display-none" (load)="singlePackage.loaded = true" src="{{singlePackage?.imageUrl}}" alt="image">
+        <img class="d-none" (load)="singlePackage.loaded = true" src="{{singlePackage?.imageUrl}}" alt="image">
         <ng-container *ngIf="singlePackage?.loaded; else imageLoader">
           <img class="pckg-img" (load)="singlePackage.loaded = true" src="{{singlePackage?.imageUrl}}" alt="">
         </ng-container>

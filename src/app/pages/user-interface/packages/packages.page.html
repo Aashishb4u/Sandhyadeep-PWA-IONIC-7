@@ -1,7 +1,7 @@
 <sandhyadeep-header class="z-index-999"></sandhyadeep-header>
 
 <!-- preload-->
-<img src="assets/icon/green-tick.png" alt="" class="display-none">
+<img src="assets/icon/green-tick.png" alt="" class="d-none">
 
 <ion-content>
   <div class="page-heading">
@@ -15,7 +15,7 @@
         {{singlePackage?.discount?.type}}
       </div>
       <div class="package-img">
-        <img class="display-none" (load)="singlePackage.loaded = true" [src]="singlePackage?.skelImageUrl" alt="">
+        <img class="d-none" (load)="singlePackage.loaded = true" [src]="singlePackage?.skelImageUrl" alt="">
         <div class="image-container w-100">
           <ng-container *ngIf="singlePackage.loaded; else imgLoader">
             <img [src]="singlePackage?.imageUrl" alt="">

@@ -60,7 +60,7 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
     initialSlide: 1,
     keyboard: { enabled: true },
     scrollbar: { draggable: true },
-    effect: 'cards'
+    effect: 'coverflow'
   };
   packageSlideOptions: SwiperOptions = {
     loop: true,
@@ -141,7 +141,7 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
       initialSlide: 1,
       keyboard: { enabled: true },
       scrollbar: { draggable: true },
-      effect: 'cards',
+      effect: 'coverflow',
     };
   }
 

@@ -8,7 +8,7 @@
         </div>
 
         <ng-container *ngIf="sharedService.showSearchBox | async; else logo">
-          <div class="width-100">
+          <div class="w-100">
             <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems($event)"></ion-searchbar>
           </div>
         </ng-container>

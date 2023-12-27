@@ -8,7 +8,7 @@
   <div style="border-bottom: 10px solid #d3d3d37a;"></div>
   <div class="grid-container">
     <div *ngFor="let image of portfolios; let index = index">
-      <img (load)="image.loaded = true" class='display-none grid-item grid-item-1' src="{{image.imageUrl}}" >
+      <img (load)="image.loaded = true" class='d-none grid-item grid-item-1' src="{{image.imageUrl}}" >
       <ng-container *ngIf="image.loaded; else loader">
         <img (click)="showImage(image.imageUrl)" class='grid-item grid-item-1' src="{{image.imageUrl}}" alt=''>
       </ng-container>

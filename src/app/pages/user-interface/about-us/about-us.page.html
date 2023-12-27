@@ -1,6 +1,6 @@
 <sandhyadeep-header class="z-index-999"></sandhyadeep-header>
 <ion-content>
-    <div class="about-us-container">
+    <div class="about-us-container px-3">
         <div class="image-container">
             <div class="about-us-image">
                 <div class="parlour-slide">
@@ -18,21 +18,23 @@
                         </ng-template>
                     </swiper>
                 </div>
-
             </div>
-            <div class="about-us-heading">
-                <div class="heading-text">
+            <div class="about-us-heading d-flex justify-content-between
+                align-items-center flex-column my-4 mx-1
+            ">
+                <div class="heading-text text-base">
                     <b>Sandhyadeep Beauty Parlour</b>
                 </div>
-                <div class="slogan-text">
+                <div class="slogan-text text-sm">
                     Have a hair affair with us
                 </div>
             </div>
         </div>
-        <div class="description-container">
-            <div class="description-toggle-menus">
+        <div class="description-container pt-4">
+            <div class="description-toggle-menus d-flex justify-content-between">
                 <div matRipple [matRippleCentered]="true" (click)="onSelectMenu('about_us')"
-                     class="toggle-menu-background about-us"
+                     class="toggle-menu-background pb-1 w-3/12 text-center transition-all
+                     about-us"
                      [class.active]="selectedMenu === 'about_us'">
                     <div class="toggle-menu" [class.active]="selectedMenu === 'about_us'">About Us</div>
                 </div>
@@ -53,64 +55,66 @@
                 <!--                    <div class="toggle-menu" [class.active]="selectedMenu === 'products'">Products</div>-->
                 <!--                </div>-->
             </div>
-            <div class="description-data-container">
+            <div class="description-data-container pt-2">
                 <div *ngIf="selectedMenu === 'about_us'" class="about-us-page-container">
-                    <div class="tab-container border-bottom">
-                        <div class="heading-text">
+                    <div class="tab-container mt-4 mb-3 pb-1 border-bottom">
+                        <div class="heading-text text-base d-flex justify-content-between align-items-center">
                             <b>Description</b>
                         </div>
-                        <div class="content-div">
+                        <div class="content-div pt-1 text-sm my-1">
                             In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
                             demonstrate the visual form of a document or a typeface without relying on meaningful conte
                         </div>
                     </div>
-                    <div class="tab-container">
-                        <div class="heading-text">
+                    <div class="tab-container mt-4 mb-3 pb-1">
+                        <div class="heading-text text-base">
                             <b>Information</b>
                         </div>
-                        <div class="timing">
+                        <div class="timing text-sm d-flex justify-content-between py-1">
                             <div>Sunday - Friday</div>
                             <div>10:00 AM - 07:00 PM</div>
                         </div>
                     </div>
-                    <div class="tab-container margin-bottom-20">
-                        <div class="content-div">
+                    <div class="tab-container mt-4 mb-3 pb-1">
+                        <div class="content-div pt-1 text-sm my-1">
                             5595, Near Samarth Vidya Mandir, Anandi Bazar, Ahmednagar, Maharashtra, 414001
                         </div>
-                        <div class="phone-number-div my-2 gap-2">
+                        <div class="phone-number-div d-flex justify-content-between
+                        align-items-center
+                        my-2 gap-2">
                             <div>+91-9422086335</div>
                             <div class="d-flex align-items-center justify-content-end gap-2">
                                 <button (click)="sharedService.onCallAction()" class="phone-icon" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
-                                    <i class="fa fa-phone"></i>
+                                    <i class="text-base fa fa-phone"></i>
                                 </button>
                                 <button (click)="sendMessage()" class="whatsapp-icon" mat-mini-fab aria-label="Example icon button with a menu icon">
-                                    <i class="fa fa-whatsapp"></i>
+                                    <i class="text-base fa fa-whatsapp"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="selectedMenu === 'services'" class="services-container">
+                <div *ngIf="selectedMenu === 'services'" class="mb-3 services-container">
                     <div class="page-container">
                         <service-list [hideCheckBox]="true" (updateAmount)="updateData($event)"></service-list>
                     </div>
                 </div>
                 <div *ngIf="selectedMenu === 'owner'" class="owner-container">
-                    <div class="tab-container border-bottom">
-                        <div class="heading-text">
+                    <div class="tab-container mt-4 mb-3 pb-1 border-bottom">
+                        <div class="heading-text text-base">
                             <b>Description</b>
                         </div>
-                        <div class="content-div">
+                        <div class="content-div pt-1 text-sm my-1">
                             In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
                             demonstrate the visual form of a document or a typeface without relying on meaningful conte
                         </div>
                     </div>
-                    <div class="tab-container border-bottom">
-                        <div class="heading-text">
+                    <div class="tab-container mt-4 mb-3 pb-1 border-bottom">
+                        <div class="heading-text text-base">
                             <b>Achievements</b>
                         </div>
-                        <div class="content-div">
-                            <ul>
+                        <div class="content-div pt-1 text-sm my-1">
+                            <ul class="list-disc">
                                 <li>Media & Beauty Makeup Diploma · Media Makeup · Fsx · Singapore</li>
                                 <li>Makeup Techniques with Air Brush Machine · Mumbai, Maharashtra</li>
                                 <li>Master Diploma in Makeup Artistry · Singapore</li>
@@ -119,13 +123,13 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="tab-container">
-                        <div class="heading-text">
+                    <div class="tab-container mt-4 mb-3 pb-1">
+                        <div class="d-flex justify-content-between heading-text text-base">
                             <b>Portfolio</b>
-                            <div (click)="onSeeAllPortfolios()" class="know-more">See All <i
+                            <div (click)="onSeeAllPortfolios()" class="know-more text-sm">See All <i
                                     class="fa fa-angle-right"></i></div>
                         </div>
-                        <div class="content-div my-1">
+                        <div class="content-div pt-1 text-sm my-1">
                             <ngx-slick-carousel class="carousel"
                                                 #slickModal="slick-carousel"
                                                 [config]="slideConfig"

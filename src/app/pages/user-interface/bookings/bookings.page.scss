@@ -1,4 +1,3 @@
-@import "../../../../theme/sandhyadeep-theme";
 
 .bookings-container {
   .wizard-navigation {
@@ -15,7 +14,7 @@
     padding: 7px;
     font-size: 12px;
     -webkit-font-smoothing: subpixel-antialiased;
-    background-color: $secondary-color;
+    background-color: var(--ion-color-sandhyadeep-blue);
     top: -4px;
     left: 0;
     color: #FFFFFF;

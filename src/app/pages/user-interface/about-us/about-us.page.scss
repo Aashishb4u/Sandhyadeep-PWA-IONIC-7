@@ -1,24 +1,3 @@
-@import "../../../../theme/sandhyadeep-theme";
-
-.top-adjust {
-  top: 65px;
-}
-
-.page-container {
-
-  .page-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 18px 0 5px;
-
-    .heading-text {
-      font-size: 24px;
-    }
-  }
-}
-
-
 .down {
   transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
@@ -29,150 +8,29 @@
   color: #666;
 }
 
-
-.about-us-container {
-  padding: 0 15px;
-}
-
-.image-container {
-
-  .about-us-image {
-    .feed-sliders {
-      height: 350px;
-
-      &.height-350 {
-      }
-
-      &.height-200 {
-        height: 350px;
-      }
-
-      border-radius: 10px;
-
-      .feed-slider {
-        background-repeat: no-repeat !important;
-        background-size: cover !important;
-        background-position: center center !important;
-        max-height: 30em;
-
-        &.feed-slider-one {
-          background: url("/assets/owner-images/sandhyadeep5.png");
-        }
-
-        &.feed-slider-two {
-          background: url("/assets/owner-images/sandhyadeep3.png");
-        }
-
-        &.feed-slider-three {
-          background: url("/assets/owner-images/sandhyadeep1.png");
-        }
-
-        &.feed-slider-four {
-          background: url("/assets/owner-images/sandhyadeep2.png");
-        }
-
-        &.feed-slider-five {
-          background: url("/assets/owner-images/sandhyadeep6.png");
-        }
-      }
-    }
-  }
-
-  .about-us-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    margin: 18px 0 5px;
-
-    .heading-text {
-      font-size: 20px;
-    }
-
-    .slogan-text {
-      font-size: 14px;
-    }
-  }
-}
-
 .description-container {
-  padding: 15px 0 0;
-
   .description-toggle-menus {
-    display: flex;
-    justify-content: space-between;
 
     .toggle-menu-background {
-      padding-bottom: 4px;
-      width: 25%;
-      text-align: center;
       transition: all 0.1s;
       &.active {
-        border-bottom: 3px solid $primary-color;
+        border-bottom: 3px solid var(--ion-color-sandhyadeep-pink);
       }
 
       .toggle-menu {
         color: #666;
 
         &.active {
-          color: $secondary-color;
+          color: var(--ion-color-sandhyadeep-blue);
           font-weight: bold;
-        }
-
-        &.about-us {
-
-        }
-
-        &.services {
-        }
-
-        &.owner {
-        }
-
-        &.product {
         }
       }
     }
   }
-
-  .description-data-container {
-    padding: 5px 0 0;
-
-
-  }
-
 }
+
 .about-us-page-container, .owner-container {
-  .tab-container {
-    margin: 15px 0 10px;
-    padding-bottom: 5px;
-  }
-
-
-  .heading-text {
-    display: flex;
-    justify-content: space-between;
-    font-size: 20px;
-    align-items: center;
-    .know-more {
-      font-size: 14px;
-    }
-  }
-
-  .content-div {
-    padding: 5px 0;
-    font-size: 14px;
-  }
-
   .phone-number-div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    i.fa {
-      font-size: 16px;
-    }
-
     .whatsapp-icon {
       background-color: green !important;
     }
@@ -180,22 +38,7 @@
 
   .timing {
     color: #666;
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 0;
   }
-}
-
-.services-container {
-  margin-bottom: 10px;
-
-  .heading-text {
-    font-size: 20px;
-  }
-}
-
-.owner-container {
-
 }
 
 .product-container {
@@ -305,28 +148,6 @@ ion-grid {
     left: 50%;
   }
 }
-
-// Styling to show the arrow on slides - end
-
-// Styling to show the arrow on outside - start
-
-//.ion-image-slides {
-//  margin-bottom: 10px;
-//  padding: 5px 0;
-//  .scroll-arrow {
-//    display: flex;
-//    justify-content: center;
-//    align-items: center;
-//    font-size: 30px;
-//    padding: 0 5px;
-//    color: #666;
-//  }
-//}
-
-// Styling to show the arrow on outside - end
-
-// Slider Style STOP
-//
 
 .custom-slide {
   margin: 0 5px;

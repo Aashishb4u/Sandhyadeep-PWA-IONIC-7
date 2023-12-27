@@ -1,4 +1,3 @@
-@import "../../../../theme/sandhyadeep-theme";
 
 .ion-slides-container {
   display: flex;
@@ -20,7 +19,7 @@
 
 .slide-title {
   font-weight: 600;
-  color: $secondary-color;
+  color: var(--ion-color-sandhyadeep-blue);
 }
 
 .ion-slide-toolbar {

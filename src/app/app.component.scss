@@ -1,4 +1,4 @@
-@import "../theme/sandhyadeep-theme";
+
 
 html, body {
   font-family: 'Muli' !important;
@@ -9,19 +9,6 @@ ion-content, ion-button, ion-header, ion-searchbar, ion-toolbar, ion-item, ion-l
   font-family: 'Muli' !important;
 }
 
-
-.otpContainer {
-  width: 255px;
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0;
-  .otpInput {
-    height: 50px !important;
-    width: 50px !important;
-    background: transparent !important;
-  }
-}
-
 .custom-tel {
   .ngx-floating {
    .country-selector {
@@ -30,19 +17,14 @@ ion-content, ion-button, ion-header, ion-searchbar, ion-toolbar, ion-item, ion-l
   }
 }
 
-.margin-0-5 {
-  margin: 0 0 0 5px;
-}
-
 .swiper-pagination-bullet {
-  background: $primary-color !important;
+  background: var(--ion-color-sandhyadeep-pink) !important;
   opacity: .3;
   &.swiper-pagination-bullet-active {
     opacity: 1;
-    background: $secondary-color !important;
+    background: var(--ion-color-sandhyadeep-blue) !important;
     border: 1px solid pink;
   }
-
 }
 
 .zoom-07 {
@@ -66,24 +48,6 @@ ion-content, ion-button, ion-header, ion-searchbar, ion-toolbar, ion-item, ion-l
   opacity: 0.5;
 }
 
-.default-button {
-  color: white;
-  margin: 15px 0;
-  display: flex;
-  border-radius: 7px;
-  justify-content: center;
-  text-align: center;
-  background: linear-gradient(225deg, $primary-color 2%, $secondary-color 63%);
-  height: $button-height;
-  padding: 0 10px;
-  button {
-    font-size: 16px;
-    font-weight: bold;
-    background: transparent;
-    color: white;
-  }
-}
-
 .primary-add-button {
   margin: 15px 0;
   display: flex;
@@ -92,13 +56,13 @@ ion-content, ion-button, ion-header, ion-searchbar, ion-toolbar, ion-item, ion-l
   text-align: center;
   background: white;
   height: 35px;
-  border: 1px solid $primary-color;
+  border: 1px solid var(--ion-color-sandhyadeep-pink);
   padding: 0 10px;
   button {
     font-size: 16px;
     font-weight: bold;
     background: transparent;
-    color: $primary-color;
+    color: var(--ion-color-sandhyadeep-pink);
   }
 }
 
@@ -137,7 +101,7 @@ button:focus {
 
 .snackClass {
   margin-top: 123px !important;
-  background: $secondary-color;
+  background: var(--ion-color-sandhyadeep-blue);
 }
 
 .successSnack {
@@ -197,7 +161,7 @@ button:focus {
   ion-searchbar {
     height: 50px !important;
     .searchbar-input-container {
-      border: 1px solid $secondary-color;
+      border: 1px solid var(--ion-color-sandhyadeep-blue);
       border-radius: 10px;
       input {
         background: white !important;
@@ -217,7 +181,7 @@ button:focus {
 }
 
 ion-chip {
-  color: $secondary-color !important;
+  color: var(--ion-color-sandhyadeep-blue) !important;
 }
 
 input, textarea, ion-select, ion-datetime {
@@ -233,7 +197,7 @@ input, textarea, ion-select, ion-datetime {
 .service-list-accordion {
   .expansion-header {
     margin: 10px 0;
-    border-left: 4px solid $primary-color;
+    border-left: 4px solid var(--ion-color-sandhyadeep-pink);
     border-radius: 0;
     height: 50px;
   }
@@ -329,8 +293,8 @@ hr {
 .custom-button {
   width: 100%;
   height: 40px;
-  background-color: $secondary-color !important;
-  //background: linear-gradient(225deg, $primary-color 2%, $secondary-color 63%);
+  background-color: var(--ion-color-sandhyadeep-blue) !important;
+  //background: linear-gradient(225deg, var(--ion-color-sandhyadeep-pink) 2%, var(--ion-color-sandhyadeep-blue) 63%);
   font-size: 16px !important;
   font-weight: 400 !important;
   color: #fff;
@@ -339,20 +303,6 @@ hr {
 .custom-button:disabled, .custom-button[disabled] {
   opacity: 0.7;
   color: white !important;
-}
-//
-//.ion-input-box {
-//  margin-bottom: 10px;
-//  .item-native {
-//    --background: transparent !important;
-//  }
-//}
-
-.iconEye {
-  font-size: 24px;
-  padding-left: 4px;
-  padding-top: 12px;
-  vertical-align: middle;
 }
 
 .iti--allow-dropdown input {
@@ -370,26 +320,21 @@ ion-item {
   font-weight: 400 !important;
 }
 
-.width-100 {
-  width: 100%;
-}
-
 .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-  background-color: $primary-color;
+  background-color: var(--ion-color-sandhyadeep-pink);
 }
 
 .mat-tab-label {
   opacity: 1 !important;
   width: 100% !important;
   .mat-tab-label-content {
-    color: $secondary-color;
+    color: var(--ion-color-sandhyadeep-blue);
   }
 }
 
 .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
   width: 29%;
 }
-
 
 .ion-content-ios {
   padding: 40px 5px 15px !important;
@@ -400,14 +345,29 @@ ion-item {
   --color:  red !important;
 }
 
-.margin-bottom-20 {
-  margin-bottom: 10px !important;
+.description-container .description-toggle-menus .toggle-menu-background {
+  padding-bottom: 4px;
+  width: 25%;
+  text-align: center;
+  transition: all .1s;
 }
 
-.display-none {
-  display: none;
+.mat-expansion-panel-header-title {
+  color: rgba(0, 0, 0, .87) !important;
 }
 
-.text-left {
-  text-align: left;
-}
+.mdc-list-group__subheader, .mat-badge-content,
+.mat-bottom-sheet-container, .mat-expansion-panel-header,
+.mat-button-toggle, .mat-calendar,
+.mat-expansion-panel-content,
+.mat-stepper-vertical, .mat-stepper-horizontal,
+.mat-toolbar, .mat-toolbar h1, .mat-toolbar h2, .mat-toolbar h3, .mat-toolbar h4, .mat-toolbar h5, .mat-toolbar h6,
+.mat-h1, .mat-headline-5, .mat-typography .mat-h1, .mat-typography .mat-headline-5, .mat-typography h1
+, .mat-h2, .mat-headline-6, .mat-typography .mat-h2, .mat-typography .mat-headline-6, .mat-typography h2,
+, .mat-h3, .mat-subtitle-1, .mat-typography .mat-h3, .mat-typography .mat-subtitle-1, .mat-typography h3,
+, .mat-h4, .mat-body-1, .mat-typography .mat-h4, .mat-typography .mat-body-1, .mat-typography h4,
+, .mat-small, .mat-caption, .mat-typography .mat-small, .mat-typography .mat-caption,
+, .mat-body-strong, .mat-subtitle-2, .mat-typography .mat-body-strong, .mat-typography .mat-subtitle-2,
+, .mat-body, .mat-body-2, .mat-typography .mat-body, .mat-typography .mat-body-2, .mat-typography {
+    font-family: Muli !important;
+  }
