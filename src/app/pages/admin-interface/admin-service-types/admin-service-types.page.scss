@@ -10,15 +10,16 @@
   }
 }
 
-.service-types-image-container {
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    height: 200px;
+.service-type-container {
+  .service-types-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    img {
+      height: 50px;
+    }
   }
 }
+
 
 .service-type-grid {
   ion-row {
@@ -49,7 +50,6 @@
   display: flex;
   align-items: center;
   .service-type-name {
-    font-size: 22px;
     font-weight: 500;
   }
 }

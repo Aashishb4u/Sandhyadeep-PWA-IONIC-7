@@ -15,7 +15,7 @@
         {{singlePackage?.discount?.type}}
       </div>
       <div class="package-img">
-        <img class="d-none" (load)="singlePackage.loaded = true" [src]="singlePackage?.skelImageUrl" alt="">
+        <img class="d-none" (load)="singlePackage.loaded = true" [src]="singlePackage?.imageUrl" alt="">
         <div class="image-container w-100">
           <ng-container *ngIf="singlePackage.loaded; else imgLoader">
             <img [src]="singlePackage?.imageUrl" alt="">
@@ -24,9 +24,6 @@
             <ion-skeleton-text style="height: 200px;" [animated]="true"></ion-skeleton-text>
           </ng-template>
         </div>
-<!--        <div class="image-container" *ngFor="let singleService of singlePackage?.services">-->
-<!--          <img (click)="showImage(singleService?.imageUrl)" src="{{singleService?.imageUrl}}" alt="">-->
-<!--        </div>-->
       </div>
       <div class="package-details-container flex-column">
         <div class="package-title-details w-100">
@@ -58,19 +55,15 @@
         <div class="my-1">{{singlePackage?.description}}</div>
         <div (click)="onShowDetails(singlePackage.id)" class="show-details">
           <div class="btn btn-primary custom-button">
-<!--            width: 100%;-->
-<!--            padding: 1rem;-->
-<!--            text-align: center;-->
-<!--            background: #265791;-->
-<!--            color: #fff;-->
-<!--            border-radius: 5px;-->
             Show Details
           </div>
         </div>
       </div>
     </div>
   </div>
-
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>
 <ion-footer class="ion-no-border">

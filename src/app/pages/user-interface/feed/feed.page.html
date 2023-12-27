@@ -31,7 +31,7 @@
         <div class="quick_menus">
             <ng-container *ngFor="let treatment of serviceTypesList; let index = index">
                 <img (load)="treatment.loaded = true" src="{{treatment.imageUrl}}" alt="" style="display: none">
-                <div (click)="goServices()" class="menu-container">
+                <div [routerLink]="['/services']" class="menu-container">
                     <div class="menu-image">
                         <ng-container *ngIf="treatment.loaded; else imgLoad">
                             <img src="{{treatment.imageUrl}}" alt="">
@@ -53,7 +53,7 @@
         </div>
         <div class="slide_container">
             <swiper #packageSlide [config]="packageSlideOptions">
-                <ng-template *ngFor="let packageData of packageList" swiperSlide>
+                <ng-template *ngFor="let packageData of feedPackages" swiperSlide>
                     <ion-card (click)="onClickPackage(packageData?.id)">
                         <img (load)="packageData.loaded = true" style="display: none" src="{{packageData?.imageUrl}}"
                              alt="">
@@ -86,39 +86,6 @@
             </swiper>
         </div>
 
-        <!--        Removed products for now -->
-        <!--        <div class="feed-heading">-->
-        <!--            <div class="heading-text">-->
-        <!--                <b>Products</b>-->
-        <!--            </div>-->
-        <!--            <div [routerLink]="['//products']" class="know-more">See All <i class="fa fa-angle-right"></i></div>-->
-        <!--        </div>-->
-        <!--        <div class="products_container">-->
-        <!--            <div *ngFor="let product of productList, let index = index" class="image-slider-container">-->
-        <!--                <div class="slider-image">-->
-        <!--                    <img src="{{product.url}}" alt="">-->
-        <!--                </div>-->
-        <!--                <div class="slider-text">-->
-        <!--                    <div class="product-name-container">-->
-        <!--                        <div class="product-name">-->
-        <!--                            {{product.name}}-->
-        <!--                        </div>-->
-        <!--                        <div class="product-price-details">-->
-        <!--                            <div class="price-container">-->
-        <!--                                <div class="price">-->
-        <!--                                    {{product.price}} ₹-->
-        <!--                                </div>-->
-        <!--                                <div class="discounted-price">-->
-        <!--                                    <del> {{product.discountedPrice}} ₹</del>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                    <add-button (updateCounter)="onUpdateCounter($event, index)"></add-button>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
         <div class="safety-measures">
             <div class="margin-bottom-10">
                 Best-in-class safety measures
@@ -150,7 +117,7 @@
         </div>
         <div class="application-details">
             <div class="owner-info-container">
-                <div [routerLink]="['//about-us']" class="owner-image">
+                <div [routerLink]="['/about-us']" class="owner-image">
                     <img src="assets/owner-images/deepaa_bhagwat.jpg">
                 </div>
                 <div class="owner-details">

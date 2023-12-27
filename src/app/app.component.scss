@@ -356,6 +356,18 @@ ion-item {
   color: rgba(0, 0, 0, .87) !important;
 }
 
+.skeleton-container {
+  z-index: 999999999;
+  background: white;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  &.add-padding {
+    padding: 2rem 15px 20px;
+  }
+}
+
 .mdc-list-group__subheader, .mat-badge-content,
 .mat-bottom-sheet-container, .mat-expansion-panel-header,
 .mat-button-toggle, .mat-calendar,

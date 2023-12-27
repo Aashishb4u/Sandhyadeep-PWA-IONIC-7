@@ -158,8 +158,12 @@ export class ApiService {
     return this.http.get(`${this.baseURL}serviceTypes`, {});
   }
 
+  getServices(page = 1, limit = 5) {
+    return this.http.get(`${this.baseURL}services?page=${page}&limit=${limit}`, {});
+  }
+
   getAllServices() {
-    return this.http.get(`${this.baseURL}services`, {});
+    return this.http.get(`${this.baseURL}services/all`, {});
   }
 
   deleteServiceType(serviceTypeId: any) {
@@ -183,7 +187,11 @@ export class ApiService {
   }
 
   getAllSubService() {
-    return this.http.get(`${this.baseURL}subServices`, {});
+    return this.http.get(`${this.baseURL}subServices/all`, {});
+  }
+
+  getSubServices(page = 1, limit = 5) {
+    return this.http.get(`${this.baseURL}subServices?page=${page}&limit=${limit}`, {});
   }
 
   deleteSubService(id: any) {
@@ -215,7 +223,11 @@ export class ApiService {
   }
 
   getAllPackages() {
-    return this.http.get(`${this.baseURL}packages`, {});
+    return this.http.get(`${this.baseURL}packages/all`, {});
+  }
+
+  getPackages(page = 1, limit = 5) {
+    return this.http.get(`${this.baseURL}packages?page=${page}&limit=${limit}`, {});
   }
 
   deleteUser(id: any) {

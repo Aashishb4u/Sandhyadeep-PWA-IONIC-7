@@ -79,7 +79,8 @@
               "aot": true,
               "buildOptimizer": true,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "serviceWorker": true
             },
             "development": {
               "buildOptimizer": false,
@@ -87,7 +88,8 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "serviceWorker": false
             },
             "ci": {
               "progress": false

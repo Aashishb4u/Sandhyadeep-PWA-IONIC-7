@@ -2,8 +2,8 @@
   <div class="service-type-container">
     <div class="service-types-container">
       <ion-card *ngFor="let serviceType of serviceTypes">
-        <div class="service-types-image-container">
-          <img [src]="serviceType?.imageUrl"/>
+        <div class="h-24 d-flex justify-content-center align-items-center">
+          <img class="h-12" [src]="serviceType?.imageUrl"/>
         </div>
         <ion-card-header>
           <div class="ion-card-header">

@@ -45,7 +45,7 @@ SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCov
   styleUrls: ['./feed.page.scss'],
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-  imports: [IonicModule, CommonModule, FormsModule, SkeletonLoaderPage,
+  imports: [IonicModule, RouterModule, CommonModule, FormsModule, SkeletonLoaderPage,
     HeaderComponentPage, FooterComponentPage, RouterModule, SwiperModule]
 })
 export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterViewChecked {
@@ -68,41 +68,8 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
     spaceBetween: 20,
     centeredSlides: true,
   };
-  productImages = [
-    {
-      name: 'Product 1',
-      url: 'assets/product1.jpg',
-      price: 345,
-      discountedPrice: 355,
-      inCart: false,
-      addedInCart: 0
-    },
-    {
-      name: 'Product 2',
-      url: 'assets/product2.jpeg',
-      price: 45,
-      discountedPrice: 60,
-      inCart: false,
-      addedInCart: 0
-    },
-    {
-      name: 'Product 3',
-      url: 'assets/product3.jpeg',
-      price: 126,
-      discountedPrice: 150,
-      inCart: false,
-      addedInCart: 0
-    },
-    {
-      name: 'Product 4',
-      url: 'assets/product4.jpeg',
-      price: 324,
-      discountedPrice: 387,
-      inCart: false,
-      addedInCart: 0
-    },
-  ];
   packageList = [];
+  feedPackages = [];
   productList = [];
   banners = [];
   serviceTypesList = [];
@@ -224,19 +191,15 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
       }
       return pack;
     }) : [];
+    this.feedPackages = [...this.packageList].slice(0, 6);
+    console.log(this.feedPackages);
     this.sharedService.packagesSubject.next(this.packageList);
   }
 
-  getServicePackageSuccess(res) {
-    this.packageList = res;
-    this.packageList = this.packageList.map((pack) => {
-      pack.imageUrl = `${appConstants.domainUrlApi}${pack.imageUrl}?${new Date().getTime()}`;
-      return pack;
-    });
-  }
-
   closeSkeleton() {
-    this.sharedService.showSkeletonSpinner.next(false);
+    setTimeout(() => {
+      this.sharedService.showSkeletonSpinner.next(false);
+    }, 1000);
   }
 
   showSkeleton() {
@@ -288,17 +251,10 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
     this.router.navigate(['/package-details'], { queryParams: { packageId: id }});
   }
 
-  goServices() {
-    this.router.navigate(['/services']);
-  }
-
   onKnowMore() {
     this.router.navigate(['/about-us']);
   }
 
-  onUpdateCounter(data, index) {
-    this.productImages[index].addedInCart = data;
-  }
 
   ngOnDestroy(): void {
     this.closeSkeleton();

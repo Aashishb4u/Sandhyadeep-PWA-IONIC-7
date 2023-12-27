@@ -8,6 +8,7 @@ import {SharedService} from "../../../shared-services/shared.service";
 import {MatButtonModule} from "@angular/material/button";
 import {AdminSubTypeModalPage} from "../../../shared-components/modals/admin-sub-type-modal/admin-sub-type-modal.page";
 import {MatDividerModule} from "@angular/material/divider";
+import {InfiniteScrollCustomEvent} from "@ionic/core";
 
 
 @Component({
@@ -23,6 +24,9 @@ export class AdminSubTypesPage implements OnInit {
               private communicationService: CommunicationService, private adminService: ApiService, public modalController: ModalController) { }
   subServices: any = [];
   selectedServiceType: any = null;
+  limit: any = 2;
+  page: any = 1;
+  totalPages: any = 0;
   async presentModal(componentData) {
     const modal = await this.modalController.create({
       component: AdminSubTypeModalPage,
@@ -34,7 +38,7 @@ export class AdminSubTypesPage implements OnInit {
       componentProps: componentData
     });
     modal.onWillDismiss().then(() => {
-      this.getMainServices();
+      this.getSubServices();
     });
     return await modal.present();
   }
@@ -82,11 +86,15 @@ export class AdminSubTypesPage implements OnInit {
 
   deleteServiceTypeSuccess(res) {
     this.sharedService.presentToast('Sub Service deleted Successfully.', 'success');
-    this.getMainServices();
+    this.getSubServices();
     this.communicationService.showAdminSpinner.next(false);
   }
 
   ionViewWillEnter() {
+    this.page = 1;
+    this.totalPages = 0;
+    this.subServices = [];
+    this.getSubServices();
     this.communicationService.pageTitle.next('Sub Services');
   }
 
@@ -101,11 +109,10 @@ export class AdminSubTypesPage implements OnInit {
 
   ngOnInit() {
     this.communicationService.pageTitle.next('Sub Services');
-    this.getMainServices();
   }
 
-  getMainServices() {
-    this.adminService.getAllSubService().subscribe(
+  getSubServices() {
+    this.adminService.getSubServices(this.page, this.limit).subscribe(
         res => this.getAllSubServiceSuccess(res),
         error => {
           this.adminService.commonError(error);
@@ -114,7 +121,22 @@ export class AdminSubTypesPage implements OnInit {
   }
 
   getAllSubServiceSuccess(res) {
-    this.subServices = res;
-    console.log(this.subServices, 'this.subServices');
+    this.totalPages = res.totalPages;
+    if(res && res.results && res.results.length) {
+      this.subServices = this.subServices.concat([...res.results]);
+    }
   }
+
+  onIonInfinite(ev) {
+    if(ev) {
+      ev.target.disabled = this.totalPages === this.page;
+      if(ev.target.disabled) return;
+    }
+    this.page +=1;
+    this.getSubServices();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
+  }
+
 }

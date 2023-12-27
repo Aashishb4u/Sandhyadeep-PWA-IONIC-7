@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 import {HeaderComponentPage} from "../../../shared-components/components/header-component/header-component.page";
 import {appConstants} from "../../../../assets/constants/app-constants";
 import {ImageRendererModalPage} from "../../../shared-components/modals/image-renderer-modal/image-renderer-modal.page";
+import {InfiniteScrollCustomEvent} from "@ionic/core";
 
 @Component({
   selector: 'app-packages',
@@ -21,8 +22,10 @@ export class PackagesPage implements OnInit {
   selectedPackages = [];
   amountPurchased = 0;
   dataReturned: any;
-
-  constructor(private storageService: StorageService, public sharedService: SharedService, private adminService: ApiService, private router: Router, public modalController: ModalController) { }
+  limit: any = 2;
+  page: any = 1;
+  totalPages: any = 0;
+  constructor(public apiService: ApiService, private storageService: StorageService, public sharedService: SharedService, private router: Router, public modalController: ModalController) { }
   slideOpts = {
     initialSlide: 1,
     slidesPerView: 4,
@@ -32,12 +35,11 @@ export class PackagesPage implements OnInit {
 
   ngOnInit() {
     this.getPackages();
+    this.sharedService.onUpdateCart();
   }
 
   ionViewWillEnter() {
     this.sharedService.showBackIcon.next(true);
-    this.sharedService.onUpdateCart();
-    this.getPackages();
   }
 
   ionViewWillLeave() {
@@ -45,17 +47,38 @@ export class PackagesPage implements OnInit {
   }
 
   getPackages() {
-    this.sharedService.packages$.subscribe((res) => {
-      if(res && res.length) {
-        this.packageList = [...res].map((v) => {
-          v.loaded = false;
-          v.skelImageUrl = `${v.imageUrl}?rand=${Math.random()}`;
-          return v
-        });
-        this.generateSelectedPackages();
-      }
+    this.apiService.getPackages(this.page, this.limit).subscribe(
+        res => this.getPackagesSuccess(res),
+        error => {
+          this.apiService.commonError(error);
+        }
+    );
+  }
 
-    })
+  getPackagesSuccess(res) {
+    this.totalPages = res.totalPages;
+    if(res && res.results && res.results.length) {
+      this.packageList = this.packageList.concat([...res.results].map((portfolio) => {
+        portfolio.imageUrl = `${appConstants.domainUrlApi}${portfolio.imageUrl}?${new Date().getTime()}`;
+        portfolio.totalAmount = portfolio.services.map(v => +v.price).reduce((a, b) => a + b);
+        portfolio.finalAmount = +portfolio.totalAmount - +portfolio.discount;
+        portfolio.totalDuration = portfolio.services.map(v => +v.duration).reduce((a, b) => a + b);
+        return portfolio;
+      }));
+      this.generateSelectedPackages();
+    }
+  }
+
+  onIonInfinite(ev) {
+    if(ev) {
+      ev.target.disabled = this.totalPages === this.page;
+      if(ev.target.disabled) return;
+    }
+    this.page +=1;
+    this.getPackages();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
   }
 
   generateSelectedPackages() {

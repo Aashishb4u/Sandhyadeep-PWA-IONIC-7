@@ -11,6 +11,7 @@ import {AdminPackageModalPage} from "../../../shared-components/modals/admin-pac
 import {appConstants} from "../../../../assets/constants/app-constants";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatButtonModule} from "@angular/material/button";
+import {InfiniteScrollCustomEvent} from "@ionic/core";
 
 @Component({
   selector: 'app-admin-packages',
@@ -30,6 +31,9 @@ export class AdminPackagesPage implements OnInit {
   packages: any = [];
   selectedPackageEdit: any = null;
   selectedService: any = null;
+  limit: any = 2;
+  page: any = 1;
+  totalPages: any = 0;
   async presentModal(componentData) {
     const modal = await this.modalController.create({
       component: AdminPackageModalPage,
@@ -107,14 +111,17 @@ export class AdminPackagesPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.communicationService.pageTitle.next('Packages');
+    this.page = 1;
+    this.totalPages = 0;
+    this.packages = [];
     this.getAllPackages();
+    this.communicationService.pageTitle.next('Packages');
   }
 
   ngOnInit() {}
 
   getAllPackages() {
-    this.adminService.getAllPackages().subscribe(
+    this.adminService.getPackages(this.page, this.limit).subscribe(
         res => this.getAllPackagesSuccess(res),
         error => {
           this.adminService.commonError(error);
@@ -123,9 +130,9 @@ export class AdminPackagesPage implements OnInit {
   }
 
   getAllPackagesSuccess(res) {
-    this.packages = res;
-    if (this.packages && this.packages.length) {
-      this.packages = this.packages.map((pack) => {
+    this.totalPages = res.totalPages;
+    if (res && res.results && res.results.length) {
+      this.packages = this.packages.concat([...res.results]).map((pack) => {
         pack.imageUrl = `${appConstants.domainUrlApi}${pack.imageUrl}?${new Date().getTime()}`;
         pack.totalAmount = pack.services.map(v => +v.price).reduce((a, b) => a + b);
         pack.finalAmount = +pack.totalAmount - +pack.discount;
@@ -157,5 +164,18 @@ export class AdminPackagesPage implements OnInit {
 
     return await modal.present();
   }
+
+  onIonInfinite(ev) {
+    if(ev) {
+      ev.target.disabled = this.totalPages === this.page;
+      if(ev.target.disabled) return;
+    }
+    this.page +=1;
+    this.getAllPackages();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
+  }
+
 
 }

@@ -9,6 +9,7 @@ import {ApiService} from "../../../shared-services/api.service";
 import {AdminServiceModalPage} from "../../../shared-components/modals/admin-service-modal/admin-service-modal.page";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatButtonModule} from "@angular/material/button";
+import {InfiniteScrollCustomEvent} from "@ionic/core";
 
 @Component({
   selector: 'app-admin-services',
@@ -27,6 +28,9 @@ export class AdminServicesPage implements OnInit {
   services: any = [];
   selectedServiceEdit: any = null;
   selectedService: any = null;
+  limit: any = 2;
+  page: any = 1;
+  totalPages: any = 0;
   async presentModal(componentData) {
     const modal = await this.modalController.create({
       component: AdminServiceModalPage,
@@ -101,13 +105,16 @@ export class AdminServicesPage implements OnInit {
 
   ionViewWillEnter() {
     this.communicationService.pageTitle.next('Services');
+    this.page = 1;
+    this.totalPages = 0;
+    this.services = [];
     this.getAllServices();
   }
 
   ngOnInit() {}
 
   getAllServices() {
-    this.adminService.getAllServices().subscribe(
+    this.adminService.getServices(this.page, this.limit).subscribe(
         res => this.getAllServicesSuccess(res),
         error => {
           this.adminService.commonError(error);
@@ -116,9 +123,9 @@ export class AdminServicesPage implements OnInit {
   }
 
   getAllServicesSuccess(res) {
-    this.services = res;
-    if (this.services && this.services.length) {
-      this.services = this.services.map((ser) => {
+    this.totalPages = res.totalPages;
+    if(res && res.results && res.results.length) {
+      this.services = this.services.concat([...res.results]) .map((ser) => {
         // Adding the api url and also updating image with timestamp
         ser.brands = ser.brands.map((val) => {
           val = val.split('_').join(' ');
@@ -135,4 +142,15 @@ export class AdminServicesPage implements OnInit {
   }
 
 
+  onIonInfinite(ev) {
+    if(ev) {
+      ev.target.disabled = this.totalPages === this.page;
+      if(ev.target.disabled) return;
+    }
+    this.page +=1;
+    this.getAllServices();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
+  }
 }
