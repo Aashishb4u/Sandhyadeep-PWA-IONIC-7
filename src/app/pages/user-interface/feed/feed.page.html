@@ -14,7 +14,7 @@
                 </ng-container>
                 <ng-template #loader>
                     <div style="padding: 1rem 1rem 0">
-                        <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '180px'}"></ngx-skeleton-loader>
+                        <ion-skeleton-text [animated]="true" style="width: 100%; height: 180px"></ion-skeleton-text>
                     </div>
                 </ng-template>
             </div>
@@ -37,7 +37,7 @@
                             <img src="{{treatment.imageUrl}}" alt="">
                         </ng-container>
                         <ng-template #imgLoad>
-                            <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '100%'}"></ngx-skeleton-loader>
+                            <ion-skeleton-text [animated]="true" style="width: 100%; height: 100%"></ion-skeleton-text>
                         </ng-template>
                     </div>
                     <div class="menu-text">{{treatment.name}}</div>
@@ -62,8 +62,7 @@
                                 <img src="{{packageData?.imageUrl}}" alt="image">
                             </ng-container>
                             <ng-template #packageLoader>
-                                <ngx-skeleton-loader appearance="line"
-                                                     [theme]="{width: '100%', height: '160px'}"></ngx-skeleton-loader>
+                                <ion-skeleton-text [animated]="true" style="width: 100%; height: 160px"></ion-skeleton-text>
                             </ng-template>
                             <div class="pt-2 pb-3 px-2 d-flex flex-column gap-1">
                                 <div class="mb-1 package-title">{{packageData?.name | titlecase}}</div>

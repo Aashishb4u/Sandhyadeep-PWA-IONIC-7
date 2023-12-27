@@ -36,7 +36,6 @@ import SwiperCore, {
 } from 'swiper';
 import {Content} from "@ionic/core/dist/types/components/content/content";
 import {forkJoin} from "rxjs";
-import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 
 
 SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCoverflow, EffectFade, EffectCards, EffectCube, EffectFlip, EffectCreative]);
@@ -47,7 +46,7 @@ SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCov
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [IonicModule, CommonModule, FormsModule, SkeletonLoaderPage,
-    HeaderComponentPage, FooterComponentPage, RouterModule, SwiperModule, NgxSkeletonLoaderModule]
+    HeaderComponentPage, FooterComponentPage, RouterModule, SwiperModule]
 })
 export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterViewChecked {
   @ViewChild('bannerSlide', { static: false }) bannerSlide?: SwiperComponent;

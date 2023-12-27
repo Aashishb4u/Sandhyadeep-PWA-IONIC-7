@@ -26,7 +26,6 @@ import {FooterComponentPage} from "../../../shared-components/components/footer-
 import {LogoSpinnerPage} from "../../../shared-components/components/logo-spinner/logo-spinner.page";
 import {ImageRendererModalPage} from "../../../shared-components/modals/image-renderer-modal/image-renderer-modal.page";
 import {BehaviorSubject, interval} from "rxjs";
-import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 import {MatButtonModule} from "@angular/material/button";
 
 SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCoverflow, EffectFade, EffectCards, EffectCube, EffectFlip, EffectCreative]);
@@ -39,7 +38,7 @@ SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCov
   imports: [IonicModule, CommonModule, FormsModule, MatButtonModule,
     HeaderComponentPage, SwiperModule, ServiceListPage, MatRippleModule,
       SlickCarouselModule, ProductListPage, HeaderComponentPage,
-    FooterComponentPage, LogoSpinnerPage, NgxSkeletonLoaderModule]
+    FooterComponentPage, LogoSpinnerPage]
 })
 export class AboutUsPage implements OnInit, AfterViewInit {
   @ViewChild('aboutUsSlide', { static: false }) aboutUsSlide?: SwiperComponent;
@@ -255,11 +254,11 @@ export class AboutUsPage implements OnInit, AfterViewInit {
   }
 
   afterChange(e) {
-    console.log('afterChange');
+    // console.log('afterChange');
   }
 
   beforeChange(e) {
-    console.log('beforeChange');
+    // console.log('beforeChange');
   }
 
   onSeeAllPortfolios() {

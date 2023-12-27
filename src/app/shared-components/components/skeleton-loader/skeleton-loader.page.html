@@ -1,88 +1,89 @@
 <div class="skeleton-container add-padding" *ngIf="sharedServiceService.showSkeletonSpinner | async">
 
-  <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '100px'}"
-  ></ngx-skeleton-loader>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 100px"
+    ></ion-skeleton-text>
 
-  <div class="middle-box">
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '60px', height: '60px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '60px', height: '60px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '60px', height: '60px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '60px', height: '60px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '60px', height: '60px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '60px', height: '60px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '60px', height: '60px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '60px', height: '60px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '60px', height: '60px'}"
-    ></ngx-skeleton-loader>
-  </div>
-  <ngx-skeleton-loader count="1" appearance="line" [theme]="{width: '100%', height: '30px'}"
-  ></ngx-skeleton-loader>
-  <ngx-skeleton-loader count="1" appearance="line" [theme]="{width: '100%', height: '30px'}"
-  ></ngx-skeleton-loader>
+    <div class="middle-box">
+        <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px"
+        ></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px"
+        ></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px"
+        ></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px"
+        ></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px"
+        ></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px"
+        ></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px"
+        ></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px"
+        ></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px"
+        ></ion-skeleton-text>
+    </div>
+    <ion-skeleton-text [animated]="true" count="1" style="width: 100%; height: 30px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" count="1" style="width: 100%; height: 30px"
+    ></ion-skeleton-text>
 
-  <div class="footer-menu">
-    <div>
-      <ngx-skeleton-loader appearance="line" [theme]="{width: '30px', height: '30px'}"
-      ></ngx-skeleton-loader>
+    <div class="footer-menu">
+        <div>
+            <ion-skeleton-text [animated]="true" style="width: 30px; height: 30px"
+            ></ion-skeleton-text>
+        </div>
+        <div>
+            <ion-skeleton-text [animated]="true" style="width: 30px; height: 30px"
+            ></ion-skeleton-text>
+        </div>
+        <div>
+            <ion-skeleton-text [animated]="true" style="width: 30px; height: 30px"
+            ></ion-skeleton-text>
+        </div>
+        <div>
+            <ion-skeleton-text [animated]="true" style="width: 30px; height: 30px"
+            ></ion-skeleton-text>
+        </div>
     </div>
-    <div>
-      <ngx-skeleton-loader appearance="line" [theme]="{width: '30px', height: '30px'}"
-      ></ngx-skeleton-loader>
-    </div>
-    <div>
-      <ngx-skeleton-loader appearance="line" [theme]="{width: '30px', height: '30px'}"
-      ></ngx-skeleton-loader>
-    </div>
-    <div>
-      <ngx-skeleton-loader appearance="line" [theme]="{width: '30px', height: '30px'}"
-      ></ngx-skeleton-loader>
-    </div>
-  </div>
 </div>
 
-<div class="skeleton-container add-padding" *ngIf="sharedServiceService.showServicesSkeletonSpinner | async">
-<!--<div class="skeleton-container add-padding">-->
+<!--<div class="skeleton-container add-padding" *ngIf="sharedServiceService.showServicesSkeletonSpinner | async">-->
+<div  *ngIf="sharedServiceService.showServicesSkeletonSpinner | async">
+    <!--<div class="skeleton-container add-padding">-->
 
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '80px'}"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '50px'}"
-    ></ngx-skeleton-loader>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 50px"
+    ></ion-skeleton-text>
 </div>
 
 

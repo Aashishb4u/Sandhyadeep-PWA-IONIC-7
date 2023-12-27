@@ -12,7 +12,7 @@
                                     <img src="{{packageData?.imageUrl}}" alt="">
                                 </ng-container>
                                 <ng-template #packImg>
-                                    <ngx-skeleton-loader appearance="line" [theme]="{width: '100%', height: '100%'}"></ngx-skeleton-loader>
+                                    <ion-skeleton-text [animated]="true" style="width: 100%; height: 100%"></ion-skeleton-text>
                                 </ng-template>
                             </ion-card>
                         </ng-template>
@@ -138,7 +138,13 @@
                                                 (afterChange)="afterChange($event)"
                                                 (beforeChange)="beforeChange($event)">
                                 <div ngxSlickItem *ngFor="let slide of portfolios" class="slide custom-slide my-2">
-                                    <img src="{{ slide?.imageUrl }}" alt="" class="w-100 object-fit-cover h-52 rounded shadow-sm">
+                                    <img (load)="slide.loaded = true" src="{{ slide?.imageUrl }}" alt="image" class="d-none">
+                                    <ng-container *ngIf="slide.loaded; else loader">
+                                        <img src="{{ slide?.imageUrl }}" alt="" class="w-100 object-fit-cover h-52 rounded shadow-sm">
+                                    </ng-container>
+                                    <ng-template #loader>
+                                        <ion-skeleton-text class="h-52 rounded h-52" [animated]="true"></ion-skeleton-text>
+                                    </ng-template>
                                 </div>
                             </ngx-slick-carousel>
                         </div>
