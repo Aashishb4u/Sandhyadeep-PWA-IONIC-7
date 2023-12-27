@@ -169,15 +169,12 @@
     justify-content: space-between;
     align-items: center;
 
-    .phone-icon {
-      height: 30px;
-      width: 30px;
-      border-radius: 50%;
-      background-color: $secondary-color;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
+    i.fa {
+      font-size: 16px;
+    }
+
+    .whatsapp-icon {
+      background-color: green !important;
     }
   }
 

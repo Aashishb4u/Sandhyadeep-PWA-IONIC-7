@@ -4,6 +4,7 @@ export const appConstants = {
     USER_INFO: 'user-info',
     SELECTED_SERVICES: 'selected-services',
     SELECTED_PACKAGES: 'selected-packages',
+    whatsAppNumber: '9422086335',
     // RazorPayConfiguration
     RAZORPAY: {
         KEY: 'rzp_test_uPxCJhIQrZ46rn',

@@ -7,6 +7,7 @@ import {ApiService} from "../../../shared-services/api.service";
 import {Router} from "@angular/router";
 import {HeaderComponentPage} from "../../../shared-components/components/header-component/header-component.page";
 import {SwiperComponent, SwiperModule} from 'swiper/angular';
+import {appConstants} from "../../../../assets/constants/app-constants"
 import SwiperCore, {
   Autoplay,
   EffectCards,
@@ -26,6 +27,7 @@ import {LogoSpinnerPage} from "../../../shared-components/components/logo-spinne
 import {ImageRendererModalPage} from "../../../shared-components/modals/image-renderer-modal/image-renderer-modal.page";
 import {BehaviorSubject, interval} from "rxjs";
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
+import {MatButtonModule} from "@angular/material/button";
 
 SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCoverflow, EffectFade, EffectCards, EffectCube, EffectFlip, EffectCreative]);
 
@@ -34,7 +36,7 @@ SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCov
   templateUrl: './about-us.page.html',
   styleUrls: ['./about-us.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule,
+  imports: [IonicModule, CommonModule, FormsModule, MatButtonModule,
     HeaderComponentPage, SwiperModule, ServiceListPage, MatRippleModule,
       SlickCarouselModule, ProductListPage, HeaderComponentPage,
     FooterComponentPage, LogoSpinnerPage, NgxSkeletonLoaderModule]
@@ -79,11 +81,37 @@ export class AboutUsPage implements OnInit, AfterViewInit {
     initialSlide: 0,
     slidesPerView: 3
   };
-  constructor(private sharedService: SharedService,
+
+  portfolios:any = [];
+  constructor(public sharedService: SharedService,
               private adminService: ApiService,
               public modalController: ModalController,
               private router: Router,
               private navCtrl: NavController) {
+  }
+
+  sendMessage() {
+    const message: any = "Hello There, I am looking for enquiry for beauty treatments";
+    const phoneCall: any = appConstants.whatsAppNumber;
+    this.sharedService.sendMessage(message, phoneCall);
+  }
+
+  getAllPortFolioImages() {
+    this.adminService.getAllPortfolioImages(1, 10).subscribe(
+        res => this.getAllPortFolioImagesSuccess(res),
+        error => {
+          this.adminService.commonError(error);
+        }
+    );
+  }
+
+  getAllPortFolioImagesSuccess(res: any) {
+    if(res.images && res.images.length) {
+      this.portfolios = this.portfolios.concat([...res.images].map((portfolio) => {
+        portfolio.imageUrl = `${appConstants.domainUrlApi}${portfolio.imageUrl}?${new Date().getTime()}`;
+        return portfolio;
+      }));
+    }
   }
 
 
@@ -165,6 +193,7 @@ export class AboutUsPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.getAllPortFolioImages();
   }
 
   onBookAppointment() {

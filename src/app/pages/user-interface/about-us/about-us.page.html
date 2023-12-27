@@ -77,12 +77,15 @@
                         <div class="content-div">
                             5595, Near Samarth Vidya Mandir, Anandi Bazar, Ahmednagar, Maharashtra, 414001
                         </div>
-                        <div class="phone-number-div">
+                        <div class="phone-number-div my-2 gap-2">
                             <div>+91-9422086335</div>
-                            <div>
-                                <div class="phone-icon">
+                            <div class="d-flex align-items-center justify-content-end gap-2">
+                                <button (click)="sharedService.onCallAction()" class="phone-icon" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
                                     <i class="fa fa-phone"></i>
-                                </div>
+                                </button>
+                                <button (click)="sendMessage()" class="whatsapp-icon" mat-mini-fab aria-label="Example icon button with a menu icon">
+                                    <i class="fa fa-whatsapp"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -122,7 +125,7 @@
                             <div (click)="onSeeAllPortfolios()" class="know-more">See All <i
                                     class="fa fa-angle-right"></i></div>
                         </div>
-                        <div class="content-div">
+                        <div class="content-div my-1">
                             <ngx-slick-carousel class="carousel"
                                                 #slickModal="slick-carousel"
                                                 [config]="slideConfig"
@@ -130,8 +133,8 @@
                                                 (breakpoint)="breakpoint($event)"
                                                 (afterChange)="afterChange($event)"
                                                 (beforeChange)="beforeChange($event)">
-                                <div ngxSlickItem *ngFor="let slide of slides" class="slide custom-slide">
-                                    <img src="{{ slide.img }}" alt="" width="100%">
+                                <div ngxSlickItem *ngFor="let slide of portfolios" class="slide custom-slide my-2">
+                                    <img src="{{ slide?.imageUrl }}" alt="" class="w-100 object-fit-cover h-52 rounded shadow-sm">
                                 </div>
                             </ngx-slick-carousel>
                         </div>

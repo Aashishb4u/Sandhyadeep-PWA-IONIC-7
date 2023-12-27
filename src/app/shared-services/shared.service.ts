@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {ToastController} from '@ionic/angular';
 import {appConstants} from '../../assets/constants/app-constants';
 import {StorageService} from './storage.service';
 import {Capacitor} from "@capacitor/core";
+import {isPlatformBrowser} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,21 @@ export class SharedService {
   packagesSubject = new BehaviorSubject<any>([]);
   fetchDataComplete = new BehaviorSubject<any>(false);
   packages$ = this.packagesSubject.asObservable();
-  constructor(public storageService: StorageService, public toastController: ToastController) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: object, public storageService: StorageService, public toastController: ToastController) { }
+
+  sendMessage(message, whatsAppNumber) {
+    const encodedMessage = encodeURI(message);
+    const url = `https://api.whatsapp.com/send?phone=91${whatsAppNumber}&text=${encodedMessage}`;
+    if (isPlatformBrowser(this.platformId) && typeof window !== 'undefined') {
+      window.open(url, '_blank');
+    }
+  }
+
+  onCallAction() {
+    if (isPlatformBrowser(this.platformId) && typeof window !== 'undefined') {
+      window.location.href = 'tel:' + appConstants.whatsAppNumber;
+    }
+  }
 
   getServiceTypes$() {
     const serviceTypes$ = this.serviceTypesSubject;
