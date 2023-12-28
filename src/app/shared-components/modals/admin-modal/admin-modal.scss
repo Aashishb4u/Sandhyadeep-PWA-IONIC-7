@@ -41,8 +41,11 @@
     display: flex;
     padding: 10px 15px;
     ion-icon {
-      font-size: 25px;
+      font-size: 27px;
       color: #ffffffba;
+      background: var(--ion-color-sandhyadeep-blue);
+      border-radius: 50%;
+      padding: 5px;
     }
   }
 }

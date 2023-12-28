@@ -4,18 +4,34 @@
   </div>
 </ion-header>
 <ion-content>
-  <form [formGroup]='appImagesForm'>
+  <form [formGroup]='componentForm'>
     <div class="modal-form-image">
 
-      <div class="modal-image">
-        <img *ngIf="imageBase64 && !imageUrl" src="{{imageBase64}}" alt="">
-        <img *ngIf="!imageBase64 && !imageUrl" src="/assets/no-image.png" alt="">
-        <img *ngIf="editMode && imageUrl" [src]="imageUrl" alt="">
-      </div>
+      <ng-container *ngIf="imageFileUrlControl?.value; else imageSelected">
+        <div class="modal-image">
+          <img [src]="imageFileUrlControl?.value"
+               alt="Image File Asset">
+        </div>
+      </ng-container>
+
+      <ng-template #imageSelected>
+        <ng-container *ngIf="imageBase64?.value">
+          <div class="modal-image">
+            <img [src]="imageBase64?.value"
+                 alt="Base64 Asset" >
+          </div>
+        </ng-container>
+      </ng-template>
+
+      <ng-container *ngIf="!imageFileUrlControl?.value && !imageBase64?.value">
+        <img class="h-40 object-fit-contain" [src]="appConstants.defaultBusinessImage" alt="">
+      </ng-container>
+
+
       <div class="image-changer">
-        <input formControlName="image" accept="image/*" (change)="onFileChange($event)" type="file" id="upload"
+        <input accept="image/*" (change)="onFileChange($event)" type="file" id="upload"
                hidden/>
-        <label style="margin-bottom: 0" for="upload">
+        <label class="mb-0" for="upload">
           <ion-icon name="add-circle-outline"></ion-icon>
         </label>
       </div>
@@ -26,7 +42,7 @@
         <ion-item>
           <ion-label class="required-label" position="floating">Image Asset Name</ion-label>
           <ion-input maxlength="120" formControlName="name"></ion-input>
-          <ion-note *ngIf="appImagesForm.get('name').dirty" slot="error">Please Select Name</ion-note>
+          <ion-note *ngIf="componentForm.get('name').dirty" slot="error">Please Select Name</ion-note>
         </ion-item>
 
         <ion-item>

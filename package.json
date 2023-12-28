@@ -50,6 +50,7 @@
     "moment": "^2.29.4",
     "ng-connection-service": "^9.0.3",
     "ng-otp-input": "^1.8.5",
+    "ngx-image-compress": "^15.1.6",
     "ngx-mat-intl-tel-input": "^5.0.0",
     "ngx-slick-carousel": "^15.0.0",
     "rxjs": "~7.5.0",

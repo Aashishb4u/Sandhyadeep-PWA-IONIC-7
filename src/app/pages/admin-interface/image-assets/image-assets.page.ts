@@ -41,6 +41,7 @@ export class ImageAssetsPage implements OnInit {
     const modal = await this.modalController.create({
       component: ImageAssetModalPage,
       cssClass: 'admin-modal-class',
+      animated: true,
       backdropDismiss: true,
       showBackdrop: true,
       breakpoints: [0, 0.8, 1],
@@ -48,9 +49,15 @@ export class ImageAssetsPage implements OnInit {
       componentProps: componentData
     });
     modal.onWillDismiss().then(() => {
+      this.resetPage();
       this.getAppImages();
     });
     return await modal.present();
+  }
+
+  resetPage() {
+    this.page = 1;
+    this.appImages = [];
   }
 
   onEdit(appImage) {
@@ -128,14 +135,6 @@ export class ImageAssetsPage implements OnInit {
   }
 
   getAllAppImagesSuccess(res) {
-    // this.appImages = res.images;
-    // if (this.appImages && this.appImages.length) {
-    //   this.appImages = this.appImages.map((ser) => {
-    //     // Adding the api url and also updating image with timestamp
-    //     ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
-    //     return ser;
-    //   });
-    // }
     if(res.images && res.images.length) {
       this.appImages = this.appImages.concat([...res.images].map((portfolio) => {
         portfolio.imageUrl = `${appConstants.domainUrlApi}${portfolio.imageUrl}?${new Date().getTime()}`;

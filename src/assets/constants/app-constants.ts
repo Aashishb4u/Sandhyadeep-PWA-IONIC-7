@@ -16,15 +16,16 @@ export const appConstants = {
         NOTES: '',
         CURRENCY: 'INR'
     },
-    baseAuthUrl: 'http://localhost:3001/api/v1/auth/',
-    baseURLAdminAPIs: 'http://localhost:3001/api/v1/',
-    domainUrlApi: 'http://localhost:3001/api/',
+    defaultBusinessImage: 'assets/no-image.png',
+    // baseAuthUrl: 'http://localhost:3001/api/v1/auth/',
+    // baseURLAdminAPIs: 'http://localhost:3001/api/v1/',
+    // domainUrlApi: 'http://localhost:3001/api/',
     // baseAuthUrl: 'https://1582-61-2-178-162.ngrok-free.app/api/v1/auth/',
     // baseURLAdminAPIs: 'https://1582-61-2-178-162.ngrok-free.app/api/v1/',
     // domainUrlApi: 'https://1582-61-2-178-162.ngrok-free.app/api/',
     // imageUrl: 'http://localhost:3001/'
-    // baseAuthUrl: 'https://www.sandhyadeep.in/api/v1/auth/',
-    // baseURLAdminAPIs: 'https://www.sandhyadeep.in/api/v1/',
-    // domainUrlApi: 'https://www.sandhyadeep.in/api/',
+    baseAuthUrl: 'https://www.sandhyadeep.in/api/v1/auth/',
+    baseURLAdminAPIs: 'https://www.sandhyadeep.in/api/v1/',
+    domainUrlApi: 'https://www.sandhyadeep.in/api/',
 };
 
