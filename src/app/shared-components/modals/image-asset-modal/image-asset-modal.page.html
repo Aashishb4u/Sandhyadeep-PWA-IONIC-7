@@ -24,7 +24,9 @@
       </ng-template>
 
       <ng-container *ngIf="!imageFileUrlControl?.value && !imageBase64?.value">
-        <img class="h-40 object-fit-contain" [src]="appConstants.defaultBusinessImage" alt="">
+        <div class="modal-image">
+          <img class="h-40 object-fit-contain" [src]="appConstants.defaultBusinessImage" alt="">
+        </div>
       </ng-container>
 
 

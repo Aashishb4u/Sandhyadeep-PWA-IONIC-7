@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -12,6 +12,7 @@ import {appConstants} from "../../../../assets/constants/app-constants";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatButtonModule} from "@angular/material/button";
 import {InfiniteScrollCustomEvent} from "@ionic/core";
+import {Content} from "@ionic/core/dist/types/components/content/content";
 
 @Component({
   selector: 'app-admin-packages',
@@ -22,7 +23,7 @@ import {InfiniteScrollCustomEvent} from "@ionic/core";
     MatDividerModule, MatButtonModule]
 })
 export class AdminPackagesPage implements OnInit {
-
+  @ViewChild('packageContent') packageContent: Content;
   // tslint:disable-next-line:max-line-length
   constructor(private sharedService: SharedService, private alertController: AlertController,
               private communicationService: CommunicationService,
@@ -45,6 +46,9 @@ export class AdminPackagesPage implements OnInit {
       componentProps: componentData
     });
     modal.onWillDismiss().then(() => {
+      this.packages = [];
+      this.page = 1;
+      this.totalPages = 0;
       this.getAllPackages();
     });
     return await modal.present();
@@ -105,6 +109,9 @@ export class AdminPackagesPage implements OnInit {
   }
 
   deletePackageSuccess(res) {
+    this.packages = [];
+    this.page = 1;
+    this.totalPages = 0;
     this.sharedService.presentToast('Package deleted Successfully.', 'success');
     this.getAllPackages();
     this.communicationService.showAdminSpinner.next(false);
@@ -132,7 +139,7 @@ export class AdminPackagesPage implements OnInit {
   getAllPackagesSuccess(res) {
     this.totalPages = res.totalPages;
     if (res && res.results && res.results.length) {
-      this.packages = this.packages.concat([...res.results]).map((pack) => {
+      this.packages = this.packages.concat([...res.results].map((pack) => {
         pack.imageUrl = `${appConstants.domainUrlApi}${pack.imageUrl}?${new Date().getTime()}`;
         pack.totalAmount = pack.services.map(v => +v.price).reduce((a, b) => a + b);
         pack.finalAmount = +pack.totalAmount - +pack.discount;
@@ -144,7 +151,7 @@ export class AdminPackagesPage implements OnInit {
           });
         }
         return pack;
-      });
+      }));
     }
   }
 
@@ -166,6 +173,7 @@ export class AdminPackagesPage implements OnInit {
   }
 
   onIonInfinite(ev) {
+    console.log("here");
     if(ev) {
       ev.target.disabled = this.totalPages === this.page;
       if(ev.target.disabled) return;

@@ -42,6 +42,9 @@ export class AdminServicesPage implements OnInit {
       componentProps: componentData
     });
     modal.onWillDismiss().then(() => {
+      this.services = [];
+      this.page = 1;
+      this.totalPages = 0;
       this.getAllServices();
     });
     return await modal.present();
@@ -99,6 +102,9 @@ export class AdminServicesPage implements OnInit {
 
   deleteServiceSuccess(res) {
     this.sharedService.presentToast('service deleted Successfully.', 'success');
+    this.services = [];
+    this.page = 1;
+    this.totalPages = 0;
     this.getAllServices();
     this.communicationService.showAdminSpinner.next(false);
   }
@@ -125,7 +131,7 @@ export class AdminServicesPage implements OnInit {
   getAllServicesSuccess(res) {
     this.totalPages = res.totalPages;
     if(res && res.results && res.results.length) {
-      this.services = this.services.concat([...res.results]) .map((ser) => {
+      res.results = res.results.map((ser) => {
         // Adding the api url and also updating image with timestamp
         ser.brands = ser.brands.map((val) => {
           val = val.split('_').join(' ');
@@ -138,6 +144,8 @@ export class AdminServicesPage implements OnInit {
         ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
         return ser;
       });
+
+      this.services = this.services.concat([...res.results]);
     }
   }
 

@@ -10,6 +10,9 @@ import {forkJoin} from 'rxjs';
 import {ApiService} from "../../../shared-services/api.service";
 import {CommunicationService} from "../../../shared-services/admin-services/communication.service";
 import {SharedService} from "../../../shared-services/shared.service";
+import {appConstants} from '../../../../assets/constants/app-constants'
+import {ImageCompressionService} from "../../../shared-services/image-compression.service";
+
 @Component({
   selector: 'app-admin-service-modal',
   templateUrl: './admin-service-modal.page.html',
@@ -21,10 +24,10 @@ import {SharedService} from "../../../shared-services/shared.service";
 export class AdminServiceModalPage implements OnInit {
 
   constructor(private navParams: NavParams, private router: Router,
+              public imageCompression: ImageCompressionService,
               private adminService: ApiService, private communication: CommunicationService,
               private sharedService: SharedService, private formBuilder: FormBuilder, private modalController: ModalController) { }
   selectedImage: any = null;
-  imageBase64: any = '';
   imageUrl: any = '';
   serviceId: any = '';
   editMode: any = false;
@@ -33,10 +36,15 @@ export class AdminServiceModalPage implements OnInit {
   serviceTypes: any = [];
   brandsList: any = [];
   skinTypesList: any = [];
-  servicesForm: FormGroup;
+  componentForm: FormGroup;
+  appConstants = appConstants;
+
   ngOnInit() {
-    this.servicesForm = this.formBuilder.group({
+    this.componentForm = this.formBuilder.group({
       name: ['', Validators.required],
+      image: [''],
+      imageBase64: [''],
+      imageUrl: [''],
       type: ['', Validators.required],
       duration: ['', Validators.required],
       price: ['', Validators.required],
@@ -65,6 +73,19 @@ export class AdminServiceModalPage implements OnInit {
       console.log(this.navParams.data);
       this.patchModalData(this.navParams.data);
     }
+  }
+
+
+  get imageFileUrlControl() {
+    return this.componentForm.get('imageUrl');
+  }
+
+  get imageFile() {
+    return this.componentForm.get('image');
+  }
+
+  get imageBase64() {
+    return this.componentForm.get('imageBase64');
   }
 
   getBrands() {
@@ -109,7 +130,7 @@ export class AdminServiceModalPage implements OnInit {
     if (event && event.target && event.target.value) {
       const selectedValues = event.target.value.map(v => v.toLowerCase());
       if (selectedValues.includes('all')) {
-        this.servicesForm.get('skinTypes').setValue('all');
+        this.componentForm.get('skinTypes').setValue('all');
       }
     }
   }
@@ -118,32 +139,33 @@ export class AdminServiceModalPage implements OnInit {
     if (event && event.target && event.target.value) {
       const selectedValues = event.target.value.map(v => v.toLowerCase());
       if (selectedValues.includes('no_brands')) {
-        this.servicesForm.get('brands').setValue('no_brands');
+        this.componentForm.get('brands').setValue('no_brands');
       }
     }
   }
 
   patchModalData(patchData) {
     this.serviceId = patchData.id;
-    this.servicesForm.get('name').setValue(patchData.name);
-    this.servicesForm.get('type').setValue(patchData.type);
-    this.servicesForm.get('duration').setValue(patchData.duration);
-    this.servicesForm.get('price').setValue(patchData.price);
+    this.componentForm.get('name').setValue(patchData.name);
+    this.componentForm.get('type').setValue(patchData.type);
+    this.componentForm.get('duration').setValue(patchData.duration);
+    this.componentForm.get('price').setValue(patchData.price);
     if (patchData.subService && patchData.subService.id) {
-      this.servicesForm.get('subService').setValue(patchData.subService.id);
+      this.componentForm.get('subService').setValue(patchData.subService.id);
     }
     if (patchData.serviceType && patchData.serviceType.id) {
-      this.servicesForm.get('serviceType').setValue(patchData.serviceType.id);
+      this.componentForm.get('serviceType').setValue(patchData.serviceType.id);
     }
-    this.servicesForm.get('description').setValue(patchData.description);
-    this.servicesForm.get('brands').setValue(patchData.brands);
-    this.servicesForm.get('skinTypes').setValue(patchData.skinTypes);
+    this.componentForm.get('description').setValue(patchData.description);
+    this.componentForm.get('brands').setValue(patchData.brands);
+    this.componentForm.get('skinTypes').setValue(patchData.skinTypes);
     // This logic to update the image
-    this.imageUrl = `${patchData.imageUrl}?${new Date().getTime()}`;
+    const imageUrl = `${patchData.imageUrl}?${new Date().getTime()}`;
+    this.componentForm.get('imageUrl').setValue(imageUrl);
   }
 
   onAddService() {
-    if (this.servicesForm.invalid) {
+    if (this.componentForm.invalid) {
       this.sharedService.presentToast('Please fill all the mandatory fields', 'error');
       return;
     }
@@ -161,18 +183,17 @@ export class AdminServiceModalPage implements OnInit {
 
   patchService() {
     const formData = new FormData();
-    formData.append('name', this.servicesForm.get('name').value);
-    formData.append('type', this.servicesForm.get('type').value);
-    formData.append('duration', this.servicesForm.get('duration').value);
-    formData.append('price', this.servicesForm.get('price').value);
-    formData.append('subService', this.servicesForm.get('subService').value);
-    formData.append('serviceType', this.servicesForm.get('serviceType').value);
-    formData.append('description', this.servicesForm.get('description').value);
-    formData.append('brands', this.servicesForm.get('brands').value);
-    formData.append('skinTypes', this.servicesForm.get('skinTypes').value);
-    if (this.imageBase64) {
-      const fileName = `service-${(this.servicesForm.get('name').value).toLowerCase().trim().split(' ').join('-')}.${this.selectedImage.name.split('.')[1]}`;
-      formData.append('file', this.selectedImage, fileName);
+    formData.append('name', this.componentForm.get('name').value);
+    formData.append('type', this.componentForm.get('type').value);
+    formData.append('duration', this.componentForm.get('duration').value);
+    formData.append('price', this.componentForm.get('price').value);
+    formData.append('subService', this.componentForm.get('subService').value);
+    formData.append('serviceType', this.componentForm.get('serviceType').value);
+    formData.append('description', this.componentForm.get('description').value);
+    formData.append('brands', this.componentForm.get('brands').value);
+    formData.append('skinTypes', this.componentForm.get('skinTypes').value);
+    if (this.imageBase64.value) {
+      formData.append('file', this.componentForm.get('image').value);
     }
     this.adminService.updateService(formData, this.serviceId).subscribe(
         res => this.createServiceSuccess(res),
@@ -184,19 +205,20 @@ export class AdminServiceModalPage implements OnInit {
 
   createService() {
     const formData = new FormData();
-    if (this.selectedImage) {
-      const fileName = `service-${(this.servicesForm.get('name').value).toLowerCase().trim().split(' ').join('-')}.${this.selectedImage.name.split('.')[1]}`;
-      formData.append('file', this.selectedImage, fileName);
-    }
-    formData.append('name', this.servicesForm.get('name').value);
-    formData.append('type', this.servicesForm.get('type').value);
-    formData.append('duration', this.servicesForm.get('duration').value);
-    formData.append('price', this.servicesForm.get('price').value);
-    formData.append('subService', this.servicesForm.get('subService').value);
-    formData.append('serviceType', this.servicesForm.get('serviceType').value);
-    formData.append('description', this.servicesForm.get('description').value);
-    formData.append('brands', this.servicesForm.get('brands').value);
-    formData.append('skinTypes', this.servicesForm.get('skinTypes').value);
+    // if (this.selectedImage) {
+    //   const fileName = `service-${(this.componentForm.get('name').value).toLowerCase().trim().split(' ').join('-')}.${this.selectedImage.name.split('.')[1]}`;
+    //   formData.append('file', this.selectedImage, fileName);
+    // }
+    formData.append('name', this.componentForm.get('name').value);
+    formData.append('type', this.componentForm.get('type').value);
+    formData.append('duration', this.componentForm.get('duration').value);
+    formData.append('price', this.componentForm.get('price').value);
+    formData.append('subService', this.componentForm.get('subService').value);
+    formData.append('serviceType', this.componentForm.get('serviceType').value);
+    formData.append('description', this.componentForm.get('description').value);
+    formData.append('brands', this.componentForm.get('brands').value);
+    formData.append('skinTypes', this.componentForm.get('skinTypes').value);
+    formData.append('file', this.componentForm.get('image').value);
     this.adminService.createService(formData).subscribe(
         res => this.createServiceSuccess(res),
         error => {
@@ -210,9 +232,8 @@ export class AdminServiceModalPage implements OnInit {
   }
 
   closeModal() {
-    this.servicesForm.reset();
+    this.componentForm.reset();
     this.selectedImage = null;
-    this.imageBase64 = '';
     const onClosedData: string = "Wrapped Up!";
     setTimeout(() => {
       this.modalController.dismiss(onClosedData);
@@ -220,25 +241,33 @@ export class AdminServiceModalPage implements OnInit {
   }
 
   onFileChange(event) {
-    const image = event.target.files[0];
+    let reader = new FileReader();
+    let image = event.target.files[0];
     const fileExtension = image.name.split('.')[1].toLowerCase();
     if (image && image.type.includes('image') && ['png', 'jpg', 'jpeg'].includes(fileExtension)) {
-      this.getImageBase64(image);
-      this.selectedImage = image;
-      this.imageUrl = '';
+      if (event.target.files && event.target.files[0]) {
+        const fileSizeInMB = image.size / (1024 * 1024);
+        if (fileSizeInMB > 35) {
+          this.sharedService.presentToast('File size should not exceed 35 MB', 'error');
+          return;
+        }
+        this.sharedService.showSpinner.next(true);
+        reader.readAsDataURL(image);
+        reader.onload = (onLoadEvent) => {
+          const fileName = `service-${new Date().getTime()}.png`;
+          const localUrl = onLoadEvent.target.result;
+          this.imageCompression.compressFile(localUrl, fileName).then((compressedImage: any) => {
+            this.sharedService.showSpinner.next(false);
+            this.imageFileUrlControl.setValue('');
+            this.componentForm.get('imageBase64').setValue(compressedImage.base64);
+            this.componentForm.get('image').setValue(compressedImage.imageFile);
+          });
+        }
+      }
     } else {
       this.sharedService.presentToast('Image format is incorrect', 'error');
     }
   }
-
-  getImageBase64(file) {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.imageBase64 = reader.result;
-    };
-  }
-
 
   getServicesData() {
     const allSubServices$ = this.adminService.getAllSubService();

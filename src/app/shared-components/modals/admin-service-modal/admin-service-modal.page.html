@@ -3,22 +3,39 @@
     <div class="admin-modal-title">{{editMode ? 'Update' : 'Add'}} Service</div>
   </div>
   <div class="modal-form-image">
-    <div class="modal-image">
-      <img *ngIf="imageBase64 && !imageUrl" src="{{imageBase64}}" alt="">
-      <img *ngIf="!imageBase64 && !imageUrl" src="/assets/no-image.png" alt="">
-      <img *ngIf="editMode && imageUrl" [src]="imageUrl" alt="">
-    </div>
+    <ng-container *ngIf="imageFileUrlControl?.value; else imageSelected">
+      <div class="modal-image">
+        <img [src]="imageFileUrlControl?.value"
+             alt="Image File Asset">
+      </div>
+    </ng-container>
+
+    <ng-template #imageSelected>
+      <ng-container *ngIf="imageBase64?.value">
+        <div class="modal-image">
+          <img [src]="imageBase64?.value"
+               alt="Base64 Asset" >
+        </div>
+      </ng-container>
+    </ng-template>
+
+    <ng-container *ngIf="!imageFileUrlControl?.value && !imageBase64?.value">
+      <div class="modal-image">
+        <img class="h-40 object-fit-contain" [src]="appConstants.defaultBusinessImage" alt="">
+      </div>
+    </ng-container>
+
     <div class="image-changer">
       <input accept="image/*" (change)="onFileChange($event)" type="file" id="upload"
              hidden/>
-      <label style="margin-bottom: 0" for="upload">
+      <label class="mb-0" for="upload">
         <ion-icon name="add-circle-outline"></ion-icon>
       </label>
     </div>
   </div>
 </ion-header>
 <ion-content>
-  <form [formGroup]='servicesForm'>
+  <form [formGroup]='componentForm'>
     <div class="modal-form-container">
       <ion-list>
         <ion-item>
@@ -42,7 +59,7 @@
             <ion-select-option [value]="serviceType?.id" *ngFor="let serviceType of serviceTypes">{{serviceType?.name}}</ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-item *ngIf="servicesForm?.get('serviceType')?.value">
+        <ion-item *ngIf="componentForm?.get('serviceType')?.value">
           <ion-label *ngIf="editMode" position="stacked">Sub Service</ion-label>
           <ion-label *ngIf="!editMode" position="floating">Sub Service</ion-label>
           <ion-select placeholder="Select Sub Service" formControlName="subService" okText="Okay" cancelText="Dismiss">

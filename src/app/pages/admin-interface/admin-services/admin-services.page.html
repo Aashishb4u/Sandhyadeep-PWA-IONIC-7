@@ -9,13 +9,14 @@
         </div>
         <ion-card-header>
           <div class="ion-card-header">
-            <div style="display: flex; align-items: flex-start; flex-basis: 60%; flex-direction: column">
+            <div class="d-flex align-items-start flex-column"
+                 style="flex-basis: 60%">
               <div class="service-type-name">{{service?.name}}</div>
-              <div style="margin-left: 5px">
-                <i style="margin-right: 5px" class="fa fa-clock-o"> </i>{{service?.duration}} Minutes
+              <div class="ml-1">
+                <i class="ml-1 fa fa-clock-o"> </i>{{service?.duration}} Minutes
               </div>
             </div>
-            <div style="font-size: 20px">
+            <div class="text-xl">
               {{service?.price}} ₹
             </div>
           </div>
