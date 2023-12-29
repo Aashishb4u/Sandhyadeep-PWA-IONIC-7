@@ -87,9 +87,7 @@ export class PortfolioPage implements OnInit, OnDestroy {
       component: ImageRendererModalPage,
       componentProps: {
         "imageUrl": image,
-      },
-      initialBreakpoint: 0.75,
-      breakpoints: [0, 0.75],
+      }
     });
 
     modal.onDidDismiss().then((dataReturned) => {

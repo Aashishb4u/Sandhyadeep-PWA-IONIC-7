@@ -1,9 +1,14 @@
 <ion-content>
-  <div class="image-zoom-container">
-    <swiper [config]="slideOptsTest">
+  <div class="cross-btn z-50 position-absolute top-0 m-3 right-0">
+      <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
+          <mat-icon>clear</mat-icon>
+      </button>
+  </div>
+  <div class="image-zoom-container d-flex justify-content-center align-items-center">
+    <swiper [zoom]="true" [config]="slideOptsTest">
       <ng-template swiperSlide>
         <div class="swiper-zoom-container">
-          <img style="height: 300px" src="{{imageUrl}}" alt="">
+          <img src="{{imageUrl}}" alt="">
         </div>
       </ng-template>
     </swiper>

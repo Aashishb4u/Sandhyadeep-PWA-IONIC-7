@@ -6,6 +6,8 @@ import {SwiperModule} from 'swiper/angular';
 import SwiperCore, {
  SwiperOptions,
 } from 'swiper';
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 SwiperCore.use([]);
 @Component({
@@ -13,7 +15,7 @@ SwiperCore.use([]);
   templateUrl: './image-renderer-modal.page.html',
   styleUrls: ['./image-renderer-modal.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, SwiperModule]
+  imports: [IonicModule, CommonModule, FormsModule, MatButtonModule, MatIconModule, SwiperModule]
 })
 export class ImageRendererModalPage implements OnInit {
   modalTitle: string;
@@ -26,7 +28,7 @@ export class ImageRendererModalPage implements OnInit {
 
   slideOptsTest: SwiperOptions = {
     zoom: {
-      maxRatio: 3,
+      maxRatio: 5,
     }
   };
   presentingElement = null;
