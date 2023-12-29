@@ -1,30 +1,41 @@
 <ion-content>
   <div class="service-type-container">
     <div class="service-types-container">
-      <ion-card *ngFor="let serviceType of serviceTypes">
-        <div class="h-24 d-flex justify-content-center align-items-center">
-          <img class="h-12" [src]="serviceType?.imageUrl"/>
-        </div>
-        <ion-card-header>
-          <div class="ion-card-header">
-            <div class="service-type-name">{{serviceType?.name}}</div>
-            <div *ngIf="serviceType?.sequence" style="margin: 0 15px">
-              <ion-chip color="primary">{{serviceType?.sequence}}</ion-chip>
+      <ng-container *ngIf="serviceTypes && serviceTypes.length > 0; else listLoader">
+        <ion-card *ngFor="let serviceType of serviceTypes">
+          <div class="h-24 d-flex justify-content-center align-items-center">
+            <img class="h-12" [src]="serviceType?.imageUrl"/>
+          </div>
+          <ion-card-header>
+            <div class="ion-card-header">
+              <div class="service-type-name">{{serviceType?.name}}</div>
+              <div *ngIf="serviceType?.sequence" style="margin: 0 15px">
+                <ion-chip color="primary">{{serviceType?.sequence}}</ion-chip>
+              </div>
             </div>
+          </ion-card-header>
+          <mat-divider></mat-divider>
+          <ion-card-content>
+            <div class="service-type-footer-icons">
+              <button (click)="onEdit(serviceType)" color="primary" mat-mini-fab>
+                <i class="fa fa-pencil-square-o"></i>
+              </button>
+              <button (click)="onDelete(serviceType)" color="warn" mat-mini-fab>
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+      <ng-template #listLoader>
+        <ng-container *ngFor="let tab of [].constructor(10)">
+          <div class="my-3">
+            <ion-skeleton-text class="p-3" style="height: 70px; width: 90%" [animated]="true">
+
+            </ion-skeleton-text>
           </div>
-        </ion-card-header>
-        <mat-divider></mat-divider>
-        <ion-card-content>
-          <div class="service-type-footer-icons">
-            <button (click)="onEdit(serviceType)" color="primary" mat-mini-fab>
-              <i class="fa fa-pencil-square-o"></i>
-            </button>
-            <button (click)="onDelete(serviceType)" color="warn" mat-mini-fab>
-              <i class="fa fa-trash"></i>
-            </button>
-          </div>
-        </ion-card-content>
-      </ion-card>
+        </ng-container>
+      </ng-template>
     </div>
   </div>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">

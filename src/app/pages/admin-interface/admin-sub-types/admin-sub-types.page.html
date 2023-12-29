@@ -1,25 +1,35 @@
 <ion-content>
   <div class="service-type-container">
     <div class="service-types-container">
-      <ion-card *ngFor="let subService of subServices">
-        <ion-card-header>
-          <div class="ion-card-header">
-            <div class="service-type-name">{{subService?.name | titlecase}}</div>
-          </div>
-          <ion-card-subtitle>{{subService?.serviceType?.name}}</ion-card-subtitle>
-        </ion-card-header>
-        <mat-divider></mat-divider>
-        <ion-card-content>
-          <div class="service-type-footer-icons">
-            <button (click)="onEdit(subService)" color="primary" mat-mini-fab>
-              <i class="fa fa-pencil-square-o"></i>
-            </button>
-            <button (click)="onDelete(subService)" color="warn" mat-mini-fab>
-              <i class="fa fa-trash"></i>
-            </button>
-          </div>
-        </ion-card-content>
-      </ion-card>
+      <ng-container *ngIf="subServices && subServices.length > 0; else listLoader">
+        <ion-card *ngFor="let subService of subServices">
+          <ion-card-header>
+            <div class="ion-card-header">
+              <div class="service-type-name">{{subService?.name | titlecase}}</div>
+            </div>
+            <ion-card-subtitle>{{subService?.serviceType?.name}}</ion-card-subtitle>
+          </ion-card-header>
+          <mat-divider></mat-divider>
+          <ion-card-content>
+            <div class="service-type-footer-icons">
+              <button (click)="onEdit(subService)" color="primary" mat-mini-fab>
+                <i class="fa fa-pencil-square-o"></i>
+              </button>
+              <button (click)="onDelete(subService)" color="warn" mat-mini-fab>
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+      </ng-container>
+      <ng-template #listLoader>
+        <ng-container *ngFor="let tab of [].constructor(10)">
+          <ion-skeleton-text class="mb-1" style="height: 70px" [animated]="true">
+
+          </ion-skeleton-text>
+        </ng-container>
+      </ng-template>
     </div>
     <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>

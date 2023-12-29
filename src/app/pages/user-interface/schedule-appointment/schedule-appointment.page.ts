@@ -487,6 +487,7 @@ export class ScheduleAppointmentPage implements OnInit, OnDestroy {
         modal.onDidDismiss().then((dataReturned) => {
             this.storageService.removeStoredItem(appConstants.SELECTED_SERVICES);
             this.storageService.removeStoredItem(appConstants.SELECTED_PACKAGES);
+            this.selectedCouponDetails = null;
             this.router.navigate(['/bookings']);
         });
         return await modal.present();
@@ -498,6 +499,7 @@ export class ScheduleAppointmentPage implements OnInit, OnDestroy {
         });
         modal.onDidDismiss().then((dataReturned) => {
             this.router.navigate(['/services']);
+            this.selectedCouponDetails = null;
         });
         return await modal.present();
     }

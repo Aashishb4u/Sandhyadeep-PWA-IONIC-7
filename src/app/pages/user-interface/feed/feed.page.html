@@ -10,7 +10,7 @@
             <div class="ion-text-center ion-slides-container">
                 <img class="d-none" (load)="banner.loaded = true" src="{{banner?.imageUrl}}" alt="">
                 <ng-container *ngIf="banner.loaded; else loader">
-                    <img src="{{banner?.imageUrl}}" alt="">
+                    <img class="w-100" src="{{banner?.imageUrl}}" alt="">
                 </ng-container>
                 <ng-template #loader>
                     <div style="padding: 1rem 1rem 0">

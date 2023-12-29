@@ -2,8 +2,16 @@
   <div class="image-asset-container">
     <div class="sub-container">
       <ion-card *ngFor="let asset of appImages">
-        <div class="service-types-image-container">
-          <img [src]="asset?.imageUrl"/>
+        <div class="service-types-image-container d-flex justify-content-center">
+          <img (load)="asset.loaded = true" class="d-none" [src]="asset?.imageUrl"/>
+          <ng-container *ngIf="asset.loaded; else imgLoader">
+            <img [src]="asset?.imageUrl"/>
+          </ng-container>
+          <ng-template #imgLoader>
+            <ion-skeleton-text [animated]="true" style="height: 160px" class="w-100">
+
+            </ion-skeleton-text>
+          </ng-template>
         </div>
         <ion-card-header>
           <div class="ion-card-header">

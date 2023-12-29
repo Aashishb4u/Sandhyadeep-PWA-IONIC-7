@@ -12,6 +12,7 @@ import {UserAgreementPolicyPage} from "../../../shared-components/modals/user-ag
 import {AdminUserModalPage} from "../../../shared-components/modals/admin-user-modal/admin-user-modal.page";
 import {HeaderComponentPage} from "../../../shared-components/components/header-component/header-component.page";
 import {MatButtonModule} from "@angular/material/button";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-settings',
@@ -56,6 +57,7 @@ export class SettingsPage implements OnInit{
     userData.imageUrl = userData.imageUrl ?
         `${appConstants.domainUrlApi}${userData.imageUrl}?${new Date().getTime()}` : '/assets/icon/profile-icon.png';
     userData.settingEditMode = true;
+    userData.dateOfBirth = moment(new Date(userData.dateOfBirth)).format('DD/MM/YYYY');
     const modal = await this.modalController.create({
       component: AdminUserModalPage,
       cssClass: 'admin-modal-class',

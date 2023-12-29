@@ -154,6 +154,10 @@ export class ApiService {
     return this.http.get(`${this.baseURL}users/all`, {});
   }
 
+  getUserPaginate(page = 1, limit = 5) {
+    return this.http.get(`${this.baseURL}users?page=${page}&limit=${limit}`, {});
+  }
+
   getAllServiceTypes() {
     return this.http.get(`${this.baseURL}serviceTypes`, {});
   }
@@ -255,7 +259,7 @@ export class ApiService {
   }
 
   getAllBannerImages() {
-    return this.http.get(`${this.baseURL}appImages?assetLocation=banner`, {});
+    return this.http.get(`${this.baseURL}appImages/all?assetLocation=banner`, {});
   }
 
   getAllPortfolioImages(page = 1, limit = 5) {

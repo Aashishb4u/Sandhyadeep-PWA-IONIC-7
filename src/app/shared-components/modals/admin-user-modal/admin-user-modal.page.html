@@ -3,11 +3,27 @@
     <div class="admin-modal-title">{{editMode ? 'Update' : 'Add'}} User</div>
   </div>
   <div class="modal-form-image">
-    <div class="modal-image">
-      <img *ngIf="imageBase64 && !imageUrl" src="{{imageBase64}}" alt="">
-      <img *ngIf="!imageBase64 && !imageUrl" src="/assets/no-image.png" alt="">
-      <img *ngIf="editMode && imageUrl" [src]="imageUrl" alt="">
-    </div>
+    <ng-container *ngIf="imageFileUrlControl?.value; else imageSelected">
+      <div class="modal-image">
+        <img [src]="imageFileUrlControl?.value"
+             alt="Image File Asset">
+      </div>
+    </ng-container>
+
+    <ng-template #imageSelected>
+      <ng-container *ngIf="imageBase64?.value">
+        <div class="modal-image">
+          <img [src]="imageBase64?.value"
+               alt="Base64 Asset" >
+        </div>
+      </ng-container>
+    </ng-template>
+
+    <ng-container *ngIf="!imageFileUrlControl?.value && !imageBase64?.value">
+      <div class="modal-image">
+        <img class="h-40 object-fit-contain" [src]="appConstants.defaultBusinessImage" alt="">
+      </div>
+    </ng-container>
     <div class="image-changer">
       <input accept="image/*" (change)="onFileChange($event)" type="file" id="upload"
              hidden/>
@@ -20,7 +36,7 @@
 <ion-content>
 
   <div class="modal-form-container">
-    <form [formGroup]='userForm'>
+    <form [formGroup]='componentForm'>
       <ion-list>
         <ion-item>
           <ion-label class="required-label" position="floating">User Name</ion-label>

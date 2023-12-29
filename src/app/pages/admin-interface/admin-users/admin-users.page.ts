@@ -11,6 +11,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
 import * as moment from 'moment';
 import {appConstants} from "../../../../assets/constants/app-constants";
+import {InfiniteScrollCustomEvent} from "@ionic/core";
 
 @Component({
   selector: 'app-admin-users',
@@ -22,6 +23,9 @@ import {appConstants} from "../../../../assets/constants/app-constants";
 export class AdminUsersPage implements OnInit {
   usersList: any = [];
   selectedUser = null;
+  limit: any = 5;
+  page: any = 1;
+  totalPages: any = 0;
   constructor(private storageService: StorageService,
               private sharedService: SharedService,
               private alertController: AlertController,
@@ -40,12 +44,16 @@ export class AdminUsersPage implements OnInit {
       componentProps: userData
     });
     modal.onWillDismiss().then(() => {
+      this.usersList = [];
+      this.page = 1;
+      this.totalPages = 0;
       this.getAllUserDetails();
     });
     return await modal.present();
   }
 
   onEdit(userData) {
+    console.log(userData);
     this.selectedUser = userData;
     this.presentModal(userData);
   }
@@ -70,7 +78,7 @@ export class AdminUsersPage implements OnInit {
 
 
   getAllUserDetails() {
-    this.adminService.getAllUserDetails().subscribe(
+    this.adminService.getUserPaginate(this.page, this.limit).subscribe(
         res => this.getUserDetailsSuccess(res),
         error => {
           this.adminService.commonError(error);
@@ -79,13 +87,15 @@ export class AdminUsersPage implements OnInit {
   }
 
   getUserDetailsSuccess(res) {
-    this.usersList = res;
-    this.usersList = this.usersList.map((user) => {
-      user.dateOfBirth = moment(new Date(user.dateOfBirth)).format('DD/MM/YYYY');
-      user.age = moment().diff(user.dateOfBirth, 'years',false);
-      user.imageUrl = user.imageUrl ? `${appConstants.domainUrlApi}${user.imageUrl}?${new Date().getTime()}` : user.imageUrl;
-      return user;
-    });
+    this.totalPages = res.totalPages;
+    if (res && res.results && res.results.length) {
+      this.usersList = this.usersList.concat([...res.results].map((user) => {
+        user.dateOfBirth = moment(new Date(user.dateOfBirth)).format('DD/MM/YYYY');
+        user.age = moment().diff(user.dateOfBirth, 'years',false);
+        user.imageUrl = user.imageUrl ? `${appConstants.domainUrlApi}${user.imageUrl}?${new Date().getTime()}` : user.imageUrl;
+        return user;
+      }));
+    }
   }
 
 
@@ -117,6 +127,9 @@ export class AdminUsersPage implements OnInit {
   }
 
   deleteService(serviceTypeId) {
+    this.usersList = [];
+    this.page = 1;
+    this.totalPages = 0;
     this.adminService.deleteUser(serviceTypeId).subscribe(
         res => this.deleteUserSuccess(res),
         error => {
@@ -131,5 +144,18 @@ export class AdminUsersPage implements OnInit {
     this.sharedService.presentToast('User deleted Successfully.', 'success');
     this.getAllUserDetails();
     this.communicationService.showAdminSpinner.next(false);
+  }
+
+  onIonInfinite(ev) {
+    console.log("here");
+    if(ev) {
+      ev.target.disabled = this.totalPages === this.page;
+      if(ev.target.disabled) return;
+    }
+    this.page +=1;
+    this.getAllUserDetails();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
   }
 }

@@ -1,44 +1,65 @@
 <ion-content>
   <div class="service-type-container">
-    <div *ngFor="let user of usersList" class="content">
-      <div class="card">
-        <div class="firstinfo">
-          <div class="user-image-container">
-            <img [src]="user?.imageUrl ? user?.imageUrl : '/assets/icon/profile-icon.png'">
-          </div>
-          <div class="profileinfo">
-            <div style="font-size: 16px; line-height: 1.1">{{user?.name | titlecase}}</div>
-            <div class="font-12">
+    <ng-container *ngIf="usersList && usersList.length > 0; else listLoader">
+      <div *ngFor="let user of usersList" class="content">
+        <div class="card">
+          <div class="firstinfo">
+            <div class="user-image-container">
+              <img (load)="user.loaded = true" class="d-none" [src]="user?.imageUrl ? user?.imageUrl : '/assets/icon/profile-icon.png'">
+              <ng-container *ngIf="user.loaded; else loader">
+                <img [src]="user?.imageUrl ? user?.imageUrl : '/assets/icon/profile-icon.png'">
+              </ng-container>
+              <ng-template #loader>
+                <ion-skeleton-text [animated]="true"
+                                   class="rounded-full"
+                                   style="width: 100px; height: 100px">
+                </ion-skeleton-text>
+              </ng-template>
+            </div>
+            <div class="profileinfo">
+              <div style="font-size: 16px; line-height: 1.1">{{user?.name | titlecase}}</div>
+              <div class="font-12">
                             <span class="profile-name">
                                 {{user?.roleId?.name | titlecase}}
                             </span>
+              </div>
+              <mat-divider></mat-divider>
+              <div style="margin-top: 8px" class="font-12"><i class="fa fa-phone"></i> {{user?.mobileNo}}
+              </div>
+              <div class="font-12"><i class="fa fa-birthday-cake"></i> {{user?.dateOfBirth}}</div>
             </div>
-            <mat-divider></mat-divider>
-            <div style="margin-top: 8px" class="font-12"><i class="fa fa-phone"></i> {{user?.mobileNo}}
-            </div>
-            <div class="font-12"><i class="fa fa-birthday-cake"></i> {{user?.dateOfBirth}}</div>
+          </div>
+          <div class="user-status-container"
+               [ngClass]="{'user-active': user?.isActive, 'user-de-active': !user?.isActive }"><i
+                  class="fa fa-user-circle-o"></i> {{user?.isActive ? 'Active' : 'De-Active'}}
           </div>
         </div>
-        <div class="user-status-container"
-             [ngClass]="{'user-active': user?.isActive, 'user-de-active': !user?.isActive }"><i
-                class="fa fa-user-circle-o"></i> {{user?.isActive ? 'Active' : 'De-Active'}}
-        </div>
-      </div>
-      <div class="badgescard-container">
-        <div class="badgescard">
-          <div class="badgescard-email">{{user?.email}}</div>
-          <div class="badgescard-buttons">
-            <button (click)="onEdit(user)" color="primary" mat-mini-fab>
-              <i class="fa fa-pencil-square-o"></i>
-            </button>
-            <button style="margin-left: 5px" (click)="onDelete(user)" color="warn" mat-mini-fab>
-              <i class="fa fa-trash"></i>
-            </button>
+        <div class="badgescard-container">
+          <div class="badgescard">
+            <div class="badgescard-email">{{user?.email}}</div>
+            <div class="badgescard-buttons">
+              <button (click)="onEdit(user)" color="primary" mat-mini-fab>
+                <i class="fa fa-pencil-square-o"></i>
+              </button>
+              <button style="margin-left: 5px" (click)="onDelete(user)" color="warn" mat-mini-fab>
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-template #listLoader>
+      <ng-container *ngFor="let tab of [].constructor(20)">
+      <ion-skeleton-text class="m-1" style="height: 70px" [animated]="true">
+
+      </ion-skeleton-text>
+      </ng-container>
+    </ng-template>
   </div>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button (click)="presentModal({})" size="small">
       <ion-icon name="add"></ion-icon>
