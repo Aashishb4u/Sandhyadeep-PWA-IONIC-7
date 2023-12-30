@@ -19,7 +19,7 @@ SwiperCore.use([]);
 })
 export class ImageRendererModalPage implements OnInit {
   modalTitle: string;
-  imageUrl: string;
+  imageUrl: string = '';
 
   constructor(
       private modalController: ModalController,
@@ -27,12 +27,10 @@ export class ImageRendererModalPage implements OnInit {
   ) { }
 
   slideOptsTest: SwiperOptions = {
-    zoom: {
-      maxRatio: 5,
-    }
+    zoom: true
   };
   presentingElement = null;
-
+  imageLoaded: any = false;
   ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
     this.imageUrl = this.navParams.data['imageUrl'];

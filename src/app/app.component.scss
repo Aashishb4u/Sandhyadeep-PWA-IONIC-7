@@ -347,7 +347,7 @@ ion-item {
 
 .description-container .description-toggle-menus .toggle-menu-background {
   padding-bottom: 4px;
-  width: 25%;
+  width: 33%;
   text-align: center;
   transition: all .1s;
 }
@@ -365,6 +365,12 @@ ion-item {
   position: absolute;
   &.add-padding {
     padding: 2rem 15px 20px;
+  }
+}
+
+.phone-container {
+  .mat-mdc-form-field-hint-wrapper {
+    padding: 0 2px !important;
   }
 }
 

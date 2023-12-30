@@ -7,7 +7,9 @@
       <div class="ion-text-center ion-slides-container">
         <img class="d-none" (load)="singlePackage.loaded = true" src="{{singlePackage?.imageUrl}}" alt="image">
         <ng-container *ngIf="singlePackage?.loaded; else imageLoader">
-          <img class="pckg-img" (load)="singlePackage.loaded = true" src="{{singlePackage?.imageUrl}}" alt="">
+          <div class="swiper-zoom-container">
+            <img class="pckg-img" (load)="singlePackage.loaded = true" src="{{singlePackage?.imageUrl}}" alt="">
+          </div>
         </ng-container>
         <ng-template #imageLoader>
           <ion-skeleton-text style="height: 200px;" [animated]="true"></ion-skeleton-text>

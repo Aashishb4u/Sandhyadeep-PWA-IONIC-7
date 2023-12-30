@@ -81,6 +81,7 @@ export class HttpTokenInterceptorsService {
       case 400:
         this.sharedService.presentToast('Logged out due to authentication mismatch', 'error');
         this.apiService.logout();
+        this.router.navigate(['/login']);
         break;
       case 404:
         this.apiService.isAuthenticated.next(false);

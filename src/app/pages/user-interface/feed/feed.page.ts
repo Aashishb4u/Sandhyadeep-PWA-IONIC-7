@@ -57,8 +57,9 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
   bannerSlideConfig: SwiperOptions = {
     loop: true,
     initialSlide: 1,
+    pagination: {type: 'bullets', clickable: true},
     keyboard: { enabled: true },
-    scrollbar: { draggable: true },
+    // scrollbar: { draggable: true },
     effect: 'coverflow'
   };
   packageSlideOptions: SwiperOptions = {
@@ -106,7 +107,7 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
       loop: true,
       initialSlide: 1,
       keyboard: { enabled: true },
-      scrollbar: { draggable: true },
+      pagination: {type: 'bullets', clickable: true},
       effect: 'coverflow',
     };
   }

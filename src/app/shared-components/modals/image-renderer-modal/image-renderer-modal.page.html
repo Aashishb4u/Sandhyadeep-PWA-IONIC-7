@@ -1,16 +1,23 @@
 <ion-content>
-  <div class="cross-btn z-50 position-absolute top-0 m-3 right-0">
-      <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
-          <mat-icon>clear</mat-icon>
-      </button>
-  </div>
-  <div class="image-zoom-container d-flex justify-content-center align-items-center">
-    <swiper [zoom]="true" [config]="slideOptsTest">
-      <ng-template swiperSlide>
-        <div class="swiper-zoom-container">
-          <img src="{{imageUrl}}" alt="">
-        </div>
-      </ng-template>
-    </swiper>
-  </div>
+    <div class="cross-btn z-50 position-absolute top-0 m-3 right-0">
+        <button (click)="closeModal()" mat-mini-fab color="primary"
+                aria-label="Example icon button with a filter list icon">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+    <div class="image-container d-flex justify-content-center align-items-center">
+        <img (load)="imageLoaded = true" src="{{imageUrl}}" alt="" class="d-none">
+        <ng-container *ngIf="imageLoaded; else loader">
+            <swiper [zoom]="true" [config]="slideOptsTest">
+                <ng-template swiperSlide>
+                    <div class="swiper-zoom-container">
+                        <img src="{{imageUrl}}" alt="">
+                    </div>
+                </ng-template>
+            </swiper>
+        </ng-container>
+    </div>
+    <ng-template #loader>
+        <ion-skeleton-text [animated]="true" style="height: 100vh; width: 100%"></ion-skeleton-text>
+    </ng-template>
 </ion-content>

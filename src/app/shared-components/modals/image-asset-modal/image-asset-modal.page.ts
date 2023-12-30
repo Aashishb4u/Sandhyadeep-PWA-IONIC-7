@@ -166,12 +166,16 @@ export class ImageAssetModalPage implements OnInit {
         reader.onload = (onLoadEvent) => {
           const fileName = `image-asset-${new Date().getTime()}.png`;
           const localUrl = onLoadEvent.target.result;
-          this.imageCompression.compressFile(localUrl, fileName).then((compressedImage: any) => {
-            this.sharedService.showSpinner.next(false);
-            this.imageFileUrlControl.setValue('');
-            this.componentForm.get('imageBase64').setValue(compressedImage.base64);
-            this.componentForm.get('image').setValue(compressedImage.imageFile);
-          });
+          // this.imageCompression.compressFile(localUrl, fileName).then((compressedImage: any) => {
+          //   this.sharedService.showSpinner.next(false);
+          //   this.imageFileUrlControl.setValue('');
+          //   this.componentForm.get('imageBase64').setValue(compressedImage.base64);
+          //   this.componentForm.get('image').setValue(compressedImage.imageFile);
+          // });
+          this.sharedService.showSpinner.next(false);
+          this.imageFileUrlControl.setValue('');
+          this.componentForm.get('imageBase64').setValue(localUrl);
+          this.componentForm.get('image').setValue(image);
         }
       }
     } else {

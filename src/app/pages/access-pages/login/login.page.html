@@ -15,7 +15,7 @@
           <i class="fa fa-angle-left"></i>
         </div>
       </div>
-      <div class="logo-container
+      <div *ngIf="viewMode !== 'otp'" class="logo-container
       align-items-center justify-content-center text-sm
       d-flex flex-column ">
         <div class="logo-image bg-no-repeat rounded-full bg-cover"></div>
@@ -31,7 +31,7 @@
         <ng-container *ngSwitchCase="'login'">
           <form class="w-100" [formGroup]='phoneForm'>
             <div class="mb-2 text-base font-extrabold my-4 login-header">Login / Signup</div>
-            <div class="phone-container mb-3">
+            <div class="phone-container mb-5">
               <mat-form-field class="ngx-phone-number w-100" appearance="outline">
                 <ngx-mat-intl-tel-input formControlName="mobileNumber"
                                         [preferredCountries]="['in']"
@@ -41,10 +41,13 @@
                                         name="phone" #phone>
                 </ngx-mat-intl-tel-input>
                 <!--                    <mat-error *ngIf="phoneForm.get('mobileNumber').touched && phoneForm.get('mobileNumber')?.invalid">Please enter valid phone number</mat-error>-->
+              <mat-hint class="mb-3 text-left p-0 w-100">
+                By signing up, you agree to our <span (click)="showPolicy()" class="text-blue-600 text-bold"><u>Terms & Conditions</u></span>
+              </mat-hint>
               </mat-form-field>
             </div>
             <div>
-              <ion-button (click)="showPolicy()" expand="block">Continue
+              <ion-button (click)="loginWithOtp()" expand="block">Continue
                 <ion-spinner *ngIf="showPhoneSpinner" class="mx-1" name="circles"></ion-spinner>
               </ion-button>
             </div>
@@ -57,13 +60,27 @@
           </div>
           <div class="d-flex justify-content-center">
             <ng-otp-input #ngOtpInput (onInputChange)="onOtpInput($event)"
-                          [config]="{allowNumbersOnly: true, length:4,inputClass: 'otpInput', containerClass: 'otpContainer'}"></ng-otp-input>
+                          [config]="{allowNumbersOnly: true, length:4,inputClass: 'otpInput', containerClass: 'otpContainer'}">
+            </ng-otp-input>
           </div>
-          <div (click)="resendOtpAlert()" class="d-flex justify-center
+
+          <div *ngIf="(maxOtpChances - otpCount) > 0; else contactAdmin" class="my-2 font-bold text-center text-gray-900">
+            OTP Attempts Remaining: {{maxOtpChances - otpCount}}
+          </div>
+
+          <ng-template #contactAdmin>
+            <div class="my-2 font-bold text-center text-gray-900">
+              Last chance. If unsuccessful, contact the admin for login support.
+            </div>
+          </ng-template>
+
+          <ng-container *ngIf="counter < 0">
+            <div (click)="resendOtpAlert()" class="d-flex justify-center
           text-sm mb-6
           resend-otp-title">
-            <u>Resend OTP</u>
-          </div>
+              <u>Resend OTP</u>
+            </div>
+          </ng-container>
           <div class="d-flex justify-center text-center
           text-base font-medium
           resend-otp-counter">
@@ -109,5 +126,13 @@
     message="The email address you provided is already associated with an existing account. Please use another email address or log in with the registered mobile number associated with this email."
     [buttons]="['Okay']"
     (didDismiss)="isEmailAlertOpen = false"
+  ></ion-alert>
+
+  <ion-alert
+          [isOpen]="otpLimitExceeded"
+          header="Exceeded OTP Limit"
+          message="The limit for OTP attempts has been exceeded. Please get in touch with the App Owner to restart the service."
+          [buttons]="['Okay']"
+          (didDismiss)="otpLimitExceeded = false"
   ></ion-alert>
 </ion-content>

@@ -43,6 +43,8 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   showOtpSpinner: any = false;
   showPhoneSpinner: any = false;
   oneTimeKey: any = null;
+  otpCount: any = 0;
+  maxOtpChances = 5;
   imageArray: string[] = [
     '/assets/theme-images/login-bg-1.jpg',
     '/assets/theme-images/login-bg-3.jpg',
@@ -57,6 +59,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   viewMode: any = 'login';
   onlyMobileNumber: any = '';
   isEmailAlertOpen = false;
+  otpLimitExceeded = false;
   @ViewChild('loginImageContainer') loginImageContainer: ElementRef;
   @ViewChild('ngOtpInput', {static: false}) ngOtpInputRef: any;
   constructor(private modalController: ModalController, private alertController: AlertController, private storageService: StorageService,
@@ -111,6 +114,17 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   loginWithOtp() {
+    if (this.showPhoneSpinner) return;
+    let number = '';
+    if(this.phoneForm.get('mobileNumber')!.value) {
+      number = this.phoneForm.get('mobileNumber')!.value.replace(/\D/g, '').slice(-10);
+    }
+    if (number.length !== 10) {
+      this.sharedService.presentToast('Please Enter Valid Phone Number', 'error').then();
+      this.showPhoneSpinner = false;
+      return;
+    }
+    this.showPhoneSpinner = true;
     this.sharedService.showSpinner.next(true);
     // Logic to remove the country code
     this.onlyMobileNumber = this.phoneForm.get('mobileNumber')!.value.replace(/\D/g, '').slice(-10)
@@ -120,6 +134,8 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     this.adminService.loginWithOtp(data).subscribe(
       res => this.signInApiSuccess(res),
       error => {
+        this.otpLimitExceeded = true;
+        this.showPhoneSpinner = false;
         this.adminService.commonError(error);
         this.sharedService.showSpinner.next(false);
       }
@@ -130,6 +146,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     this.viewMode = 'otp';
     this.showBackButton = true;
     this.oneTimeKey = res.data.oneTimeKey;
+    this.otpCount = res.data.otpCount
     this.startCountDown();
     this.sharedService.showSpinner.next(false);
   }
@@ -283,28 +300,18 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async showPolicy() {
-    if (this.showPhoneSpinner) return;
-    let number = '';
-    if(this.phoneForm.get('mobileNumber')!.value) {
-      number = this.phoneForm.get('mobileNumber')!.value.replace(/\D/g, '').slice(-10);
-    }
-    if (number.length !== 10) {
-      this.sharedService.presentToast('Please Enter Valid Phone Number', 'error').then();
-      this.showPhoneSpinner = false;
-      return;
-    }
-    this.showPhoneSpinner = true;
     const modal = await this.modalController.create({
       component: UserAgreementPolicyPage,
       cssClass: 'admin-modal-class',
       backdropDismiss: true,
       showBackdrop: true,
+      componentProps: {mode: 'read'}
     });
     modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned!.data === 'approved') {
-        this.loginWithOtp();
-        return;
-      }
+      // if (dataReturned!.data === 'approved') {
+      //   this.loginWithOtp();
+      //   return;
+      // }
       this.showPhoneSpinner = false;
     });
     return await modal.present();
