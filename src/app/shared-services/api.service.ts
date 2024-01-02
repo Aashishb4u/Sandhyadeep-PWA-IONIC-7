@@ -303,6 +303,10 @@ export class ApiService {
     return this.http.patch(`${this.baseURL}bookings/${id}`, data, {});
   }
 
+  cancelBooking(id: any) {
+    return this.http.post(`${this.baseURL}bookings/cancel/${id}`, {}, {});
+  }
+
   createBooking(data: any) {
     return this.http.post(`${this.baseURL}bookings`, data, {});
   }

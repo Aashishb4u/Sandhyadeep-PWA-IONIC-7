@@ -116,8 +116,14 @@ export class FeedPage implements OnInit, AfterContentChecked, OnDestroy, AfterVi
     const subServices$ = this.adminService.getAllSubService();
     const services$ = this.adminService.getAllServices();
     forkJoin([subServices$, services$]).subscribe(results => {
+      const services: any = results[1];
       this.sharedService.subServicesSubject.next(results[0]);
-      this.sharedService.servicesSubject.next(results[1]);
+      this.sharedService.servicesSubject.next(
+          services.map((service) => {
+            service.imageUrl = `${appConstants.domainUrlApi}${service.imageUrl}?${new Date().getTime()}`;
+            return service;
+          })
+      );
       this.sharedService.showSpinner.next(false);
     });
   }

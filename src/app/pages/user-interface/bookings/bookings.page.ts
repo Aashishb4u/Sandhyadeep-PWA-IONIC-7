@@ -58,6 +58,8 @@ export class BookingsPage implements OnInit, OnDestroy {
   handlerMessage = '';
   selectedBookingId = '';
   roleMessage = '';
+  selectedOTP = '';
+  showOtp = false;
   selectedToggle: boolean = false;
   constructor(private modalController: ModalController,
               private popoverCtrl: PopoverController,
@@ -106,15 +108,21 @@ export class BookingsPage implements OnInit, OnDestroy {
 
   updateBooking(data) {
     this.adminService.updateBooking(data, this.selectedBookingId).subscribe(
-        res => this.updateBookingSuccess(res),
+        res => this.getBookings(),
         error => {
           this.adminService.commonError(error);
         }
     );
   }
 
-  updateBookingSuccess(res) {
-    this.getBookings();
+  cancelBooking(bookingId) {
+    console.log(bookingId);
+    this.adminService.cancelBooking(bookingId).subscribe(
+        res => this.getBookings(),
+        error => {
+          this.adminService.commonError(error);
+        }
+    );
   }
 
   async presentToast(toastPosition, toastMessage, toastDuration, customClass) {
@@ -135,7 +143,7 @@ export class BookingsPage implements OnInit, OnDestroy {
   }
 
 
-  async presentAlert() {
+  async presentAlert(bookingId) {
     const alert = await this.alertController.create({
       header: 'Do you want to cancel the Appointment!',
       cssClass: 'alert-popup',
@@ -151,10 +159,7 @@ export class BookingsPage implements OnInit, OnDestroy {
           text: 'OK',
           role: 'confirm',
           handler: () => {
-            const data = {
-              isCancelled: true,
-            };
-            this.updateBooking(data);
+            this.cancelBooking(bookingId);
             // this.reasonAlert();
             this.handlerMessage = 'Alert confirmed';
           },
@@ -229,14 +234,13 @@ export class BookingsPage implements OnInit, OnDestroy {
   }
 
   async showPopover(event, bookingId) {
-    this.selectedBookingId = bookingId._id;
     const popover = await this.popoverCtrl.create({
       component: BookingPopoverPage,
       event,
     });
     popover.onDidDismiss().then((val) => {
       if (val.data && val.data.isBookingCancelled) {
-        this.presentAlert();
+        this.presentAlert(bookingId);
       }
     });
     // console.log(dismissResult);

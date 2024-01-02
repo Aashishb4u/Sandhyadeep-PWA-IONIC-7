@@ -4,32 +4,110 @@
   <div class="bookings-container">
     <mat-tab-group [color]="'accent'">
       <mat-tab label="New Appointments">
-        <div class="card-divider"></div>
-        <div *ngIf="futureBookings.length > 0">
-          <ng-container *ngFor="let booking of futureBookings; let index = index">
-            <mat-card class="booking-card">
-              <mat-card-content>
-                <div class="single-booking-card">
-                  <div class="single-booking-left">
-                    <div class="booking-date">
-                      <i class="fa fa-clock-o"></i> {{booking?.dateString}}
+        <div *ngIf="futureBookings.length > 0" style="min-height: 80vh" class="pt-2 pb-2 d-flex flex-column gap-2 bg-gray-300">
+            <ng-container>
+              <mat-card *ngFor="let booking of futureBookings; let index = index" class="p-3">
+                <mat-card-content class="p-0">
+                  <div class="mb-2 d-flex align-items-center justify-content-between">
+                    <div class="gap-3 d-flex align-items-center">
+                      <div>
+                        <img style="width: 80px; height: 80px" src="assets/icon/booking.png" alt="">
+<!--                        <ion-skeleton-text [animated]="true" style="width: 80px; border-radius: 8px; height: 80px"></ion-skeleton-text>-->
+<!--                        <img src="" alt="">-->
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <div class="single-booking-left">
+                          <div class="booking-date text-sm">
+                            <i class="fa fa-clock-o"></i> {{booking?.dateString}}
+                          </div>
+                            <div class="text-gray-400 font-bold text-sm">{{booking?.services?.length}} Items</div>
+<!--                            <div  class="booking-more-info">-->
+<!--&lt;!&ndash;                            More Info <ion-icon name="alert-circle-outline"></ion-icon>&ndash;&gt;-->
+<!--                          </div>-->
+                        </div>
+                      </div>
                     </div>
-                    <div (click)="openModal(booking)" class="booking-more-info"> More Info <ion-icon name="alert-circle-outline"></ion-icon></div>
-                  </div>
-                  <div class="single-booking-right">
-                    <div class="booking-amount">₹ {{booking?.paymentData?.paymentAmount}}/-</div>
-                    <div (click)="showPopover($event, booking)" class="ellipsis-icon">
-                      <i class="fa fa-ellipsis-v"></i>
+                    <div (click)="showPopover($event, booking._id)" class="px-2 d-flex align-items-center">
+                      <i  class="fa fa-ellipsis-v"></i>
                     </div>
                   </div>
-                </div>
-              </mat-card-content>
-              <mat-card-footer>
-                <mat-progress-bar *ngIf="booking?.showSpinner" mode="indeterminate"></mat-progress-bar>
-              </mat-card-footer>
-            </mat-card>
-            <div style="border-bottom: 15px solid #d3d3d37a;"></div>
-          </ng-container>
+                  <hr>
+                  <div class="d-flex gap-3 flex-column justify-content-between">
+                    <div class="d-flex justify-content-between">
+                      <div class="text-gray-500 text-sm d-flex align-items-center">Booking Id</div>
+                      <div class="text-sm">{{booking?.bookingOrderId}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <div class="text-gray-500 text-sm d-flex align-items-center">Total Amount</div>
+                      <div class="text-sm font-bold">₹{{booking?.paymentData?.paymentAmount}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <div class="text-gray-500 text-sm d-flex align-items-center">Payment Method</div>
+                      <div class="text-base text-gray-500">{{booking?.paymentData?.paymentMethod?.split('_')?.join(' ') | titlecase}}</div>
+                    </div>
+                    <div  class="d-flex justify-content-between">
+                      <div class="text-gray-500 text-sm d-flex align-items-center">
+                        Payment Status
+                      </div>
+                      <ng-container [ngSwitch]="booking.paymentData.paymentStatus">
+                        <div *ngSwitchCase="'pending'" class="font-bold text-sm text-yellow-600 bg-yellow-200 px-2 py-1 rounded">
+                          PENDING
+                        </div>
+                        <div *ngSwitchCase="'paid'" class="font-bold text-sm text-green-600 bg-green-200 px-2 py-1 rounded">
+                          PAID
+                        </div>
+                        <div *ngSwitchCase="'refund_initiated'" class="font-bold text-sm text-yellow-600 bg-yellow-200 px-2 py-1 rounded">
+                          REFUND INITIATED
+                        </div>
+                        <div *ngSwitchCase="'refund_completed'" class="font-bold text-sm text-red-600 bg-red-200 px-2 py-1 rounded">
+                          REFUND COMPLETED
+                        </div>
+                      </ng-container>
+                    </div>
+                    <div  class="d-flex justify-content-between">
+                      <div class="text-gray-500 text-sm d-flex align-items-center">
+                        Booking Status
+                      </div>
+                      <ng-container [ngSwitch]="booking.status">
+                        <div *ngSwitchCase="'initiated'" class="font-bold text-base text-yellow-600 px-2 py-1">
+                          In-Progress
+                        </div>
+                        <div *ngSwitchCase="'paid'" class="font-bold text-base text-green-600 px-2 py-1">
+                          Completed
+                        </div>
+                      </ng-container>
+                    </div>
+                    <hr>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div (click)="openModal(booking)" style="color: var(--ion-color-sandhyadeep-blue)"
+                           class="text-gray-500 text-sm font-bold">
+                        <u>Booking Details</u>
+                      </div>
+                      <div class="text-sm">
+                        <button (click)="selectedOTP = booking.bookingOtp;  showOtp = true" mat-raised-button color="primary">Show OTP</button>
+                      </div>
+                    </div>
+                  </div>
+<!--                  <div class="single-booking-card">-->
+<!--                    <div class="single-booking-left">-->
+<!--                      <div class="booking-date">-->
+<!--                        <i class="fa fa-clock-o"></i> {{booking?.dateString}}-->
+<!--                      </div>-->
+<!--                      <div (click)="openModal(booking)" class="booking-more-info"> More Info <ion-icon name="alert-circle-outline"></ion-icon></div>-->
+<!--                    </div>-->
+<!--                    <div class="single-booking-right">-->
+<!--                      <div class="booking-amount">₹ {{booking?.paymentData?.paymentAmount}}/-</div>-->
+<!--                      <div (click)="showPopover($event, booking)" class="ellipsis-icon">-->
+<!--                        <i class="fa fa-ellipsis-v"></i>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+                </mat-card-content>
+                <mat-card-footer>
+                  <mat-progress-bar *ngIf="booking?.showSpinner" mode="indeterminate"></mat-progress-bar>
+                </mat-card-footer>
+              </mat-card>
+            </ng-container>
         </div>
         <ng-container *ngIf="futureBookings.length === 0">
           <ng-container
@@ -48,27 +126,94 @@
 <!--            <mat-slide-toggle [(ngModel)]="selectedToggle" (change)="slideToggleEvent($event)" [color]="'primary'"></mat-slide-toggle>-->
           </div>
         </div>
-        <div class="border-div"></div>
         <div class="booking-card-container">
-          <div *ngIf="filteredBookings && filteredBookings.length > 0">
-            <ng-container *ngFor="let booking of filteredBookings; let index = index">
-              <mat-card [ngClass]="{'cancelledBooking' : booking?.isCancelled}" class="booking-card">
-                <mat-card-content>
-                  <div class="single-booking-card">
-                    <div class="single-booking-left">
-                      <div [ngClass]="{'colorRed': booking?.isCancelled,  'colorGreen': !booking?.isCancelled}" class="booking-date">
-                        <i class="fa fa-clock-o"></i> {{booking?.dateString}}
+          <div style="min-height: 80vh"
+               *ngIf="filteredBookings && filteredBookings.length > 0"
+               class="pt-2 pb-2 d-flex flex-column gap-2 bg-gray-300">
+            <ng-container>
+              <mat-card *ngFor="let booking of filteredBookings; let index = index" class="p-3">
+                <mat-card-content class="p-0">
+                  <div class="mb-2 d-flex align-items-center justify-content-between">
+                    <div class="gap-3 d-flex align-items-center">
+                      <div>
+                        <img style="width: 80px; height: 80px" src="assets/icon/booking.png" alt="">
+                        <!--                        <ion-skeleton-text [animated]="true" style="width: 80px; border-radius: 8px; height: 80px"></ion-skeleton-text>-->
+                        <!--                        <img src="" alt="">-->
                       </div>
-                      <div (click)="openModal(booking)" class="booking-more-info"> More Info <ion-icon name="alert-circle-outline"></ion-icon></div>
+                      <div class="d-flex align-items-center">
+                        <div class="single-booking-left">
+                          <div class="booking-date text-sm">
+                            <i class="fa fa-clock-o"></i> {{booking?.dateString}}
+                          </div>
+                          <div class="text-gray-400 font-bold text-sm">{{booking?.services?.length}} Items</div>
+                          <!--                            <div  class="booking-more-info">-->
+                          <!--&lt;!&ndash;                            More Info <ion-icon name="alert-circle-outline"></ion-icon>&ndash;&gt;-->
+                          <!--                          </div>-->
+                        </div>
+                      </div>
                     </div>
-                    <div class="single-booking-right">
-                      <div class="booking-amount">₹ {{booking?.paymentData?.paymentAmount}}/-</div>
-                    </div>
+<!--                    <div (click)="showPopover($event, booking._id)" class="px-2 d-flex align-items-center">-->
+<!--                      <i  class="fa fa-ellipsis-v"></i>-->
+<!--                    </div>-->
                   </div>
-                  <div *ngIf="!booking?.isCancelled" class="ratings-container">
-                    <div>
-                      <app-star-ratings [rating]="booking?.ratings"
-                                        (ratingUpdated)="onRatingsChanged($event, index, booking)"></app-star-ratings>
+                  <hr>
+                  <div class="d-flex gap-3 flex-column justify-content-between">
+                    <div class="d-flex justify-content-between">
+                      <div class="text-gray-500 text-sm d-flex align-items-center">Booking Id</div>
+                      <div class="text-sm">{{booking?.bookingOrderId}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <div class="text-gray-500 text-sm d-flex align-items-center">Total Amount</div>
+                      <div class="text-sm font-bold">₹{{booking?.paymentData?.paymentAmount}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <div class="text-gray-500 text-sm d-flex align-items-center">Payment Method</div>
+                      <div class="text-base text-gray-500">{{booking?.paymentData?.paymentMethod?.split('_')?.join(' ') | titlecase}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <div class="text-gray-500 text-sm d-flex align-items-center">
+                        Payment Status
+                      </div>
+                      <ng-container [ngSwitch]="booking.paymentData.paymentStatus">
+                        <div *ngSwitchCase="'pending'" class="font-bold text-sm text-yellow-600 bg-yellow-200 px-2 py-1 rounded">
+                          PENDING
+                        </div>
+                        <div *ngSwitchCase="'paid'" class="font-bold text-sm text-green-600 bg-green-200 px-2 py-1 rounded">
+                          PAID
+                        </div>
+                        <div *ngSwitchCase="'refund_initiated'" class="font-bold text-sm text-yellow-600 bg-yellow-200 px-2 py-1 rounded">
+                          REFUND INITIATED
+                        </div>
+                        <div *ngSwitchCase="'refund_completed'" class="font-bold text-sm text-red-600 bg-red-200 px-2 py-1 rounded">
+                          REFUND COMPLETED
+                        </div>
+                        <div *ngSwitchCase="'cancelled'" class="font-bold text-sm text-red-600 bg-red-200 px-2 py-1 rounded">
+                          NOT PAID
+                        </div>
+                      </ng-container>
+                    </div>
+                    <div  class="d-flex justify-content-between">
+                      <div class="text-gray-500 text-sm d-flex align-items-center">
+                        Booking Status
+                      </div>
+                      <ng-container [ngSwitch]="booking.status">
+                        <div *ngSwitchCase="'initiated'" class="font-bold text-base text-yellow-600 px-2 py-1">
+                          In-Progress
+                        </div>
+                        <div *ngSwitchCase="'paid'" class="font-bold text-base text-green-600 px-2 py-1">
+                          Completed
+                        </div>
+                        <div *ngSwitchCase="'cancelled'" class="font-bold text-base text-red-600 px-2 py-1">
+                          Cancelled
+                        </div>
+                      </ng-container>
+                    </div>
+                    <hr>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div (click)="openModal(booking)" style="color: var(--ion-color-sandhyadeep-blue)"
+                           class="text-gray-500 text-sm font-bold">
+                        <u>Booking Details</u>
+                      </div>
                     </div>
                   </div>
                 </mat-card-content>
@@ -76,7 +221,6 @@
                   <mat-progress-bar *ngIf="booking?.showSpinner" mode="indeterminate"></mat-progress-bar>
                 </mat-card-footer>
               </mat-card>
-              <div style="border-bottom: 15px solid #d3d3d37a;"></div>
             </ng-container>
           </div>
           <ng-container *ngIf="filteredBookings.length === 0">
@@ -105,6 +249,14 @@
     </div>
   </ng-template>
   <app-skeleton-loader></app-skeleton-loader>
+  <ion-alert
+          [isOpen]="showOtp"
+          header="Booking OTP (Confidential)"
+          [message]="selectedOTP"
+          [buttons]="['Okay']"
+          cssClass="otp-alert"
+          (didDismiss)="showOtp = false"
+  ></ion-alert>
 </ion-content>
 <app-footer-component></app-footer-component>
 <app-logo-spinner></app-logo-spinner>

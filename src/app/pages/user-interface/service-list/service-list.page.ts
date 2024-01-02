@@ -117,6 +117,7 @@ export class ServiceListPage implements OnInit, OnDestroy {
                     .filter(ser => ser.serviceType.id === main.id)
                     .filter(v => !v.subService)
                     .map((service) => {
+                        service.loaded = false;
                         service.isChecked = !!selectedServiceIds.includes(service.id);
                         return service;
                     });

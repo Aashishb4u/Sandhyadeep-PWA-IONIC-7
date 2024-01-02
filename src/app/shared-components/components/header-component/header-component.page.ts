@@ -54,6 +54,11 @@ export class HeaderComponentPage implements OnInit, OnDestroy {
       this.router.navigate(['admin-panel']);
       return;
     }
+
+    if (this.router.url === '/bookings') {
+      this.router.navigate(['feed']);
+      return;
+    }
     this.navCtrl.back();
   }
 

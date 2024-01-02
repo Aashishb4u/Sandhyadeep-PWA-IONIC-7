@@ -40,8 +40,14 @@ export class FetchDataService {
         forkJoin([subServices$, services$, packages$])
             .pipe(takeUntil(this.sharedService.cancelRequest$))
             .subscribe(results => {
+                const services: any = results[1];
                 this.sharedService.subServicesSubject.next(results[0]);
-                this.sharedService.servicesSubject.next(results[1]);
+                this.sharedService.servicesSubject.next(
+                    services.map((service) => {
+                        service.imageUrl = `${appConstants.domainUrlApi}${service.imageUrl}?${new Date().getTime()}`;
+                        return service;
+                    })
+                );
                 this.getAllPackagesSuccess(results[2]);
                 this.sharedService.fetchDataComplete.next(true);
             });

@@ -17,7 +17,7 @@
             <div class="coupon-checkbox">
               <ion-checkbox class="zoom-07" [checked]="selectedCouponDetails?.id === coupon.id" color="primary"></ion-checkbox>
             </div>
-            <div class="coupon-details">
+            <div class="coupon-details w-100">
               <div class="coupon">{{coupon.couponLabel}}</div>
               <div class="savings-details"> {{coupon?.discountPercent}}% off upto {{coupon?.maxDiscountAmount}} on minimum purchase of {{coupon?.minAmount}} ₹</div>
               <hr>
@@ -43,7 +43,7 @@
           <div>Maximum Savings: </div>
           <div class="coupon-discount">{{selectedCouponDetails?.discountPercent}} %</div>
         </div>
-        <div class="apply-button width-150">
+        <div class="apply-button">
           <ion-button (click)="onApplyCoupon()" expand="block">Apply
             <!--              <ion-spinner class="mx-1" name="circles"></ion-spinner>-->
           </ion-button>

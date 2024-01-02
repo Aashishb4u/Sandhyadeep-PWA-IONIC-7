@@ -374,6 +374,13 @@ ion-item {
   }
 }
 
+.otp-alert {
+  .alert-message {
+      font-size: 30px;
+      letter-spacing: 9px;
+  }
+}
+
 .mdc-list-group__subheader, .mat-badge-content,
 .mat-bottom-sheet-container, .mat-expansion-panel-header,
 .mat-button-toggle, .mat-calendar,

@@ -7,10 +7,10 @@ export const appConstants = {
     whatsAppNumber: '9422086335',
     // RazorPayConfiguration
     RAZORPAY: {
-        KEY: 'rzp_test_uPxCJhIQrZ46rn',
-        SECRET: 'R9NUbTbYQ3CRsK2flKo47J3b',
-        ORGANIZATION: '',
-        LOGO: '/assets/new-theme/sandhyadeep-razerpay.png',
+        KEY: 'rzp_test_BsvQjG99liXWln',
+        SECRET: 'uhUPkgWT3XD6DsO4vE6G7i8f',
+        ORGANIZATION: 'Sandhyadeep',
+        LOGO: '/assets/razorpay-icon/icon.png',
         COLOR: '',
         DESCRIPTION: '',
         NOTES: '',
