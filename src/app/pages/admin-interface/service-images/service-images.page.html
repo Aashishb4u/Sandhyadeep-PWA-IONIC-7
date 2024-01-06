@@ -1,0 +1,82 @@
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Edit Service Images</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item class="my-3" *ngFor="let service of services">
+          <ion-thumbnail slot="start">
+            <div class="d-flex h-100 align-items-center">
+              <img (load)="service.loaded = true" class="d-none" [src]="service?.imageUrl"/>
+              <ng-container *ngIf="service.loaded; else imgLoader">
+                <img [src]="service?.imageUrl"/>
+              </ng-container>
+              <ng-template #imgLoader>
+                <ion-skeleton-text [animated]="true" class="w-100">
+
+                </ion-skeleton-text>
+              </ng-template>
+            </div>
+          </ion-thumbnail>
+          <ion-label>
+            <div class="text-sm">
+              {{service?.name}}
+            </div>
+          </ion-label>
+          <div class="service-type-footer-icons">
+            <button (click)="onEdit(service)" color="primary" mat-mini-fab>
+              <i class="fa fa-pencil-square-o"></i>
+            </button>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+<!--  <div class="image-service-container">-->
+<!--    <div class="sub-container">-->
+<!--      <ion-card *ngFor="let service of services">-->
+<!--        <div class="service-types-image-container d-flex justify-content-center">-->
+<!--          <img (load)="service.loaded = true" class="d-none" [src]="service?.imageUrl"/>-->
+<!--          <ng-container *ngIf="service.loaded; else imgLoader">-->
+<!--            <img [src]="service?.imageUrl"/>-->
+<!--          </ng-container>-->
+<!--          <ng-template #imgLoader>-->
+<!--            <ion-skeleton-text [animated]="true" style="height: 160px" class="w-100">-->
+
+<!--            </ion-skeleton-text>-->
+<!--          </ng-template>-->
+<!--        </div>-->
+<!--        <ion-card-header>-->
+<!--          <div class="ion-card-header">-->
+<!--            <div class="service-type-name">{{service?.name | titlecase}}</div>-->
+<!--          </div>-->
+<!--          <ion-card-subtitle>{{service?.serviceLocation}}</ion-card-subtitle>-->
+<!--        </ion-card-header>-->
+<!--        <mat-divider></mat-divider>-->
+<!--        <ion-card-content>-->
+<!--          <div class="service-type-footer-icons">-->
+<!--            <button (click)="onEdit(service)" color="primary" mat-mini-fab>-->
+<!--              <i class="fa fa-pencil-square-o"></i>-->
+<!--            </button>-->
+<!--            <button style="margin-left: 10px" (click)="onDelete(service)" color="warn" mat-mini-fab>-->
+<!--              <i class="fa fa-trash"></i>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </ion-card-content>-->
+<!--      </ion-card>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+<!--  <ion-fab slot="fixed" vertical="bottom" horizontal="end">-->
+<!--    <ion-fab-button (click)="presentModal({})" size="small">-->
+<!--      <ion-icon name="add"></ion-icon>-->
+<!--    </ion-fab-button>-->
+<!--  </ion-fab>-->
+</ion-content>
+

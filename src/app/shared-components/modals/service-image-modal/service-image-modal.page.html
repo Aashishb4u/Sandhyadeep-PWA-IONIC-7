@@ -1,0 +1,50 @@
+<ion-header>
+  <div class="admin-modal-title-container">
+    <div class="admin-modal-title">
+      {{componentForm.get('name')?.value}}
+<!--      {{editMode ? 'Update' : 'Add'}} Image Asset-->
+    </div>
+  </div>
+</ion-header>
+<ion-content>
+  <form [formGroup]='componentForm'>
+    <div class="modal-form-image">
+
+      <ng-container *ngIf="imageFileUrlControl?.value; else imageSelected">
+        <div class="modal-image">
+          <img [src]="imageFileUrlControl?.value"
+               alt="Image File Asset">
+        </div>
+      </ng-container>
+
+      <ng-template #imageSelected>
+        <ng-container *ngIf="imageBase64?.value">
+          <div class="modal-image">
+            <img [src]="imageBase64?.value"
+                 alt="Base64 Asset" >
+          </div>
+        </ng-container>
+      </ng-template>
+
+      <ng-container *ngIf="!imageFileUrlControl?.value && !imageBase64?.value">
+        <div class="modal-image">
+          <img class="h-40 object-fit-contain" [src]="appConstants.defaultBusinessImage" alt="">
+        </div>
+      </ng-container>
+
+
+      <div class="image-changer">
+        <input accept="image/*" (change)="onFileChange($event)" type="file" id="upload"
+               hidden/>
+        <label class="mb-0" for="upload">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </label>
+      </div>
+    </div>
+  </form>
+  <div class="admin-modal-button-container">
+    <button (click)="onAddService()"
+            mat-raised-button color="primary">{{editMode ? 'Update' : 'Save'}}
+    </button>
+  </div>
+</ion-content>

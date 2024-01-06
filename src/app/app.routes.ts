@@ -193,6 +193,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/admin-interface/image-assets/image-assets.page').then( m => m.ImageAssetsPage)
       },
       {
+        path: 'service-images',
+        loadComponent: () => import('./pages/admin-interface/service-images/service-images.page').then( m => m.ServiceImagesPage)
+      },
+      {
         path: 'admin-packages',
         loadComponent: () => import('./pages/admin-interface/admin-packages/admin-packages.page').then( m => m.AdminPackagesPage)
       },
@@ -201,5 +205,13 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/admin-interface/admin-services/admin-services.page').then( m => m.AdminServicesPage)
       },
     ]
+  },
+  {
+    path: 'service-images',
+    loadComponent: () => import('./pages/admin-interface/service-images/service-images.page').then( m => m.ServiceImagesPage)
+  },
+  {
+    path: 'service-image-modal',
+    loadComponent: () => import('./shared-components/modals/service-image-modal/service-image-modal.page').then( m => m.ServiceImageModalPage)
   }
 ];
