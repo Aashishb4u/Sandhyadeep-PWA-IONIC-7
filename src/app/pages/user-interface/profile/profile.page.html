@@ -1,0 +1,27 @@
+<sandhyadeep-header class="z-index-99"></sandhyadeep-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        <ion-button  class="login-btn" (click)="showLoginPage()" expand="block">
+          Login / Signup
+          <ion-spinner *ngIf="showBtnSpinner" class="mx-1" name="circles"></ion-spinner>
+        </ion-button>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label [routerLink]="['/about-us']">
+       <div class="d-flex justify-content-between align-items-center w-100">
+         <div class="d-flex align-items-center">
+           <img src="assets/icon/favicon.png" style="height: 35px; filter: grayscale(100%);" alt="">
+           &nbsp; About Us
+         </div>
+         <div>
+           <i class="text-gray-500 fa fa-chevron-right"></i>
+         </div>
+       </div>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<app-footer-component></app-footer-component>

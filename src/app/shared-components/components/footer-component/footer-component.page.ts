@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import {RouterModule} from "@angular/router";
 import {SharedService} from "../../../shared-services/shared.service";
+import {ApiService} from "../../../shared-services/api.service";
 
 @Component({
   selector: 'app-footer-component',
@@ -14,7 +15,7 @@ import {SharedService} from "../../../shared-services/shared.service";
 })
 export class FooterComponentPage implements OnInit {
   runningPlatform: any;
-  constructor(public sharedService: SharedService) {
+  constructor(public sharedService: SharedService, public apiService: ApiService) {
     this.runningPlatform = this.sharedService.getAppPlatform();
   }
 

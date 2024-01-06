@@ -5,50 +5,61 @@ import {AdminInterfacePage} from "./pages/admin-interface/admin-interface.page";
 
 // Here we are using Lazy loading with Pre load all modules - Check in Main.ts
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/feed', pathMatch: 'full' },
   {
     path: 'slides',
-    canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
+    // canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
     loadComponent: () => import('./pages/access-pages/slides/slides.page').then( m => m.SlidesPage)
   },
   {
     path: 'login',
-    canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
+    // canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
     loadComponent: () => import('./pages/access-pages/login/login.page').then( m => m.LoginPage)
   },
   {
     path: 'feed',
-    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
+    // canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/feed/feed.page').then( m => m.FeedPage)
   },
   {
     path: 'services',
-    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/services/services.page').then( m => m.ServicesPage)
   },
   {
     path: 'about-us',
-    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/about-us/about-us.page').then( m => m.AboutUsPage)
   },
   {
     path: 'portfolio',
-    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/portfolio/portfolio.page').then( m => m.PortfolioPage)
   },
   {
     path: 'settings',
+    // Only This is required here
     canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/settings/settings.page').then( m => m.SettingsPage)
   },
   {
+    path: 'profile',
+    canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
+    loadComponent: () => import('./pages/user-interface/profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
+    path: 'booking-auth',
+    canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
+    loadComponent: () => import('./pages/user-interface/profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
+    path: 'setting-auth',
+    canActivate: [async () => await inject(AuthService).userBeforeLoggedIn()],
+    loadComponent: () => import('./pages/user-interface/profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
     path: 'packages',
-    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/packages/packages.page').then( m => m.PackagesPage)
   },
   {
     path: 'products',
-    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/products/products.page').then( m => m.ProductsPage)
   },
   {
@@ -58,17 +69,14 @@ export const routes: Routes = [
   },
   {
     path: 'schedule-appointment',
-      canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
       loadComponent: () => import('./pages/user-interface/schedule-appointment/schedule-appointment.page').then( m => m.ScheduleAppointmentPage)
   },
   {
     path: 'package-details',
-    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/packages-details/packages-details.page').then( m => m.PackagesDetailsPage)
   },
   {
     path: 'product-details',
-    canActivate: [async () => await inject(AuthService).isUserLoggedIn()],
     loadComponent: () => import('./pages/user-interface/product-details/product-details.page').then( m => m.ProductDetailsPage)
   },
 

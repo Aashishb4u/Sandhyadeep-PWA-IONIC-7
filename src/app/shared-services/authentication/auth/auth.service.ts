@@ -25,7 +25,7 @@ export class AuthService {
             if (isAuthenticated) {
                 return true;
             } else {
-                this.router.navigate(['/login']);
+                this.router.navigate(['/']);
                 return false;
             }
         });
@@ -38,7 +38,7 @@ export class AuthService {
             take(1),
         ).subscribe((isAuthenticated) => {
             if (isAuthenticated) {
-                this.router.navigate(['/feed']);
+                this.router.navigate(['/']);
                 return false;
             } else {
                 return true;

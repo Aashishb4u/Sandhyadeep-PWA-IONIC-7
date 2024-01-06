@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AlertController, IonicModule, ModalController} from '@ionic/angular';
+import {AlertController, IonicModule, ModalController, NavParams} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 import {NgOtpInputModule} from 'ng-otp-input';
@@ -60,10 +60,12 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   onlyMobileNumber: any = '';
   isEmailAlertOpen = false;
   otpLimitExceeded = false;
+  treatAsModal = false;
   @ViewChild('loginImageContainer') loginImageContainer: ElementRef;
   @ViewChild('ngOtpInput', {static: false}) ngOtpInputRef: any;
   constructor(private modalController: ModalController, private alertController: AlertController, private storageService: StorageService,
               public sharedService: SharedService,
+              private navParams: NavParams,
               private adminService: ApiService, private renderer: Renderer2, private router: Router, private formBuilder: FormBuilder) {
     this.phoneForm = new FormGroup({
       mobileNumber: new FormControl(undefined),
@@ -160,12 +162,13 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     this.showOtpSpinner = false;
     this.showPhoneSpinner = false;
     this.showBackButton = false;
-    this.sharedService.onSettingEvent.next(true);
-    this.sharedService.onUpdateCart();
-    this.storageService.removeStoredItem(appConstants.SELECTED_SERVICES);
+    // this.storageService.removeStoredItem(appConstants.SELECTED_SERVICES);
   }
 
   ngOnInit() {
+    if(this.navParams.data && this.navParams.data['modalView']) {
+      this.treatAsModal = this.navParams.data['modalView'];
+    }
     this.viewMode = 'login';
     this.loginForm.reset();
     this.phoneForm.reset();
@@ -174,7 +177,6 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     this.showBackButton = false;
     this.showOtpSpinner = false;
     this.showPhoneSpinner = false;
-    this.sharedService.onSettingEvent.next(true);
     this.countDown = timer(0, this.tick).subscribe(() => --this.counter);
     this.phoneForm.get('mobileNumber')!.setValue('');
   }
@@ -213,6 +215,10 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     this.showOtpSpinner = false;
     const userData: any = res.data;
     if (userData.verification.isRegistered) {
+      if(this.treatAsModal) {
+        this.modalController.dismiss(userData.user);
+        return;
+      }
       this.router.navigate(['/feed']);
     } else {
       this.viewMode = 'signup';
@@ -299,6 +305,12 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+
+  closeModal() {
+    // cancelled string required for validation
+    this.modalController.dismiss('cancelled');
+  }
+
   async showPolicy() {
     const modal = await this.modalController.create({
       component: UserAgreementPolicyPage,
@@ -350,6 +362,10 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
 
   updateUserSuccess(res: any) {
     this.showButtonSpinner = false;
+    if(this.treatAsModal) {
+      this.modalController.dismiss(res.data.user);
+      return;
+    }
     this.router.navigate(['/feed']);
   }
 

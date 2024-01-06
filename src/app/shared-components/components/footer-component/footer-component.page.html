@@ -4,17 +4,33 @@
       <img src="{{FeedRLA.isActive ? '/assets/theme-images/home-active.png' : '/assets/theme-images/home.png'}}"  alt="">
       <span class="footer-title">Feed</span>
     </div>
-    <div routerLink="/bookings" routerLinkActive="selected" #bookingRLA="routerLinkActive" class="single-tab">
-      <img src="{{bookingRLA.isActive ? '/assets/theme-images/calendar-active.png' : '/assets/theme-images/calendar.png'}}"  alt="">
-      <span class="footer-title">Appointments</span>
-    </div>
+    <ng-container *ngIf="apiService.isAuthenticated | async; else bookingProfile">
+      <div routerLink="/bookings" routerLinkActive="selected" #bookingRLA="routerLinkActive" class="single-tab">
+        <img src="{{bookingRLA.isActive ? '/assets/theme-images/calendar-active.png' : '/assets/theme-images/calendar.png'}}"  alt="">
+        <span class="footer-title">Appointments</span>
+      </div>
+    </ng-container>
+    <ng-template #bookingProfile>
+      <div routerLink="/booking-auth" routerLinkActive="selected" #bookingProfileRLA="routerLinkActive" class="single-tab">
+        <img src="{{bookingProfileRLA.isActive ? '/assets/theme-images/calendar-active.png' : '/assets/theme-images/calendar.png'}}"  alt="">
+        <span class="footer-title">Appointments</span>
+      </div>
+    </ng-template>
     <div routerLink="/portfolio" routerLinkActive="selected" #portFolioRLA="routerLinkActive" class="single-tab">
       <img src="{{portFolioRLA.isActive ? '/assets/theme-images/folder-active.png' : '/assets/theme-images/folder.png'}}"  alt="">
       <span class="footer-title">Portfolio</span>
     </div>
-    <div routerLink="/settings" routerLinkActive="selected" #userRLA="routerLinkActive" class="single-tab">
-      <img src="{{userRLA.isActive ? '/assets/theme-images/user-active.png' : '/assets/theme-images/user.png'}}"  alt="">
-      <span class="footer-title">Profile</span>
-    </div>
+    <ng-container *ngIf="apiService.isAuthenticated | async; else profile">
+      <div routerLink="/settings" routerLinkActive="selected" #userRLA="routerLinkActive" class="single-tab">
+        <img src="{{userRLA.isActive ? '/assets/theme-images/user-active.png' : '/assets/theme-images/user.png'}}"  alt="">
+        <span class="footer-title">Profile</span>
+      </div>
+    </ng-container>
+    <ng-template #profile>
+      <div routerLink="/setting-auth" routerLinkActive="selected" #userProfileRLA="routerLinkActive" class="single-tab">
+        <img src="{{userProfileRLA.isActive ? '/assets/theme-images/user-active.png' : '/assets/theme-images/user.png'}}"  alt="">
+        <span class="footer-title">Profile</span>
+      </div>
+    </ng-template>
   </div>
 </ion-footer>

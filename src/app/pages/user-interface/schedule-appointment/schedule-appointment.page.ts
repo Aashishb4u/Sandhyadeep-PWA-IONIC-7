@@ -15,6 +15,10 @@ import {AddButtonComponent} from "../../../shared-components/components/add-butt
 import {appConstants} from "../../../../assets/constants/app-constants";
 import {HeaderComponentPage} from "../../../shared-components/components/header-component/header-component.page";
 import {MatButtonModule} from "@angular/material/button";
+import {UserAgreementPolicyPage} from "../../../shared-components/modals/user-agreement-policy/user-agreement-policy.page";
+import {LoginPage} from "../../access-pages/login/login.page";
+import {SkeletonLoaderPage} from "../../../shared-components/components/skeleton-loader/skeleton-loader.page";
+import {combineLatest} from "rxjs";
 
 @Component({
     selector: 'app-schedule-appointment',
@@ -23,7 +27,7 @@ import {MatButtonModule} from "@angular/material/button";
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule, ApplyCouponPage,
         PaymentSuccessPage, PaymentFailurePage, AddButtonComponent, HeaderComponentPage,
-        RouterModule, MatButtonModule
+        RouterModule, MatButtonModule, SkeletonLoaderPage
     ]
 })
 export class ScheduleAppointmentPage implements OnInit, OnDestroy {
@@ -31,7 +35,8 @@ export class ScheduleAppointmentPage implements OnInit, OnDestroy {
     constructor(private alertController: AlertController,
                 private modalController: ModalController, private winRef: WindowRefService,
                 private storageService: StorageService, private sharedService: SharedService,
-                private adminService: ApiService, private router: Router) {
+                public adminService: ApiService,
+                private router: Router) {
     }
 
     todayDate: any = '';
@@ -120,8 +125,9 @@ export class ScheduleAppointmentPage implements OnInit, OnDestroy {
     }
 
     ionViewWillEnter() {
-        this.sharedService.showBackIcon.next(true);
-        this.getServicesData();
+        setTimeout(() => {
+            this.getServicesData();
+        }, 1000);
         this.paymentMethod = 'online';
     }
 
@@ -146,24 +152,23 @@ export class ScheduleAppointmentPage implements OnInit, OnDestroy {
     }
 
     getServicesData() {
-        // getting Packages
-        this.sharedService.packages$.subscribe((responsePackages: any) => {
+        combineLatest([
+            this.sharedService.packages$,
+            this.sharedService.servicesSubject
+        ]).subscribe(([responsePackages, responseServices]) => {
             this.packages = responsePackages;
-            // getting Services
-            this.sharedService.services$.subscribe((responseServices: any) => {
-                this.services = responseServices;
-                if (this.services.length > 0) {
-                    this.updateSelectedServices();
-                }
+            this.services = responseServices;
+            if (this.services.length > 0) {
+                this.updateSelectedServices();
+            }
 
-                if (this.packages.length > 0) {
-                    this.updateSelectedPackages();
-                }
+            if (this.packages.length > 0) {
+                this.updateSelectedPackages();
+            }
 
-                this.updateFooter();
-
-            });
-        });
+            this.updateFooter();
+        })
+        // getting Packages
     }
 
     updateFooter() {
@@ -462,6 +467,37 @@ export class ScheduleAppointmentPage implements OnInit, OnDestroy {
             }
         );
     }
+
+    async showLoginPage() {
+        if (!this.selectedTimeSlot) {
+            this.sharedService.presentToast('Please Select Time Slot', 'error');
+            return;
+        }
+        if (this.selectedServices.length === 0 && this.selectedPackages.length === 0) {
+            this.sharedService.presentToast('Please Add Services or Packages', 'error');
+            return;
+        }
+        this.showBtnSpinner = true;
+        const modal = await this.modalController.create({
+            component: LoginPage,
+            cssClass: 'admin-modal-class',
+            backdropDismiss: true,
+            showBackdrop: true,
+            componentProps: {modalView: true}
+        });
+        modal.onDidDismiss().then((dataReturned) => {
+            this.showBtnSpinner = false;
+            this.sharedService.showBackIcon.next(true);
+            this.sharedService.onSettingEvent.next(false);
+            this.sharedService.showCart.next(true);
+            this.sharedService.onUpdateCart();
+            if(dataReturned.data !== 'cancelled') {
+                this.onBookAppointment();
+            }
+        });
+        return await modal.present();
+    }
+
 
     createBookingSuccess(res) {
         this.openSuccessModal();

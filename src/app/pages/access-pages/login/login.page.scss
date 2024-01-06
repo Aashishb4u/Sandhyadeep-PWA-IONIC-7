@@ -1,3 +1,11 @@
+.close-btn-container {
+  position: absolute;
+  z-index: 999999;
+  top: 0;
+  padding: 1.5rem;
+  right: 0;
+}
+
 .login-main-container {
   /*background: linear-gradient(214deg, rgba(40, 29, 232, 1) -25%, rgb(147, 18, 152) 63%);*/
   //background: linear-gradient(214deg, rgba(40, 29, 232, 1) -25%, rgb(81, 36, 82) 63%);

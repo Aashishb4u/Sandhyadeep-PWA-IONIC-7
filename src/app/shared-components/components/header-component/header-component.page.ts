@@ -9,6 +9,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatBadgeModule} from "@angular/material/badge";
 import {Capacitor} from "@capacitor/core";
 import {MatButtonModule} from "@angular/material/button";
+import {ApiService} from "../../../shared-services/api.service";
 
 @Component({
   selector: 'sandhyadeep-header',
@@ -25,7 +26,9 @@ export class HeaderComponentPage implements OnInit, OnDestroy {
   runningPlatform: any;
   // sandhyadeepLogoImage = '/assets/theme-images/Sandhyadeep_logo.png';
   // profileIcon = 'assets/icon/profile-icon.png';
-  constructor(private storageService: StorageService, private router: Router, private navCtrl: NavController,
+  constructor(private storageService: StorageService,
+              public apiService: ApiService,
+              private router: Router, private navCtrl: NavController,
               public sharedService: SharedService) {
     this.runningPlatform = this.sharedService.getAppPlatform();
   }

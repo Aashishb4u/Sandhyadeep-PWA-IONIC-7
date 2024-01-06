@@ -99,7 +99,7 @@ export class ApiService {
       this.storageService.removeStoredItem(appConstants.USER_INFO);
       this.storageService.removeStoredItem(appConstants.SELECTED_SERVICES);
       this.storageService.removeStoredItem(appConstants.SELECTED_PACKAGES);
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
     });
   }
 

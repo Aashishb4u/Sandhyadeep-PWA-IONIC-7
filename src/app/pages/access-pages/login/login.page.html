@@ -5,6 +5,11 @@
         text-base login-main-container">
     <!--    Added to avoid flickering of image -->
     <ng-container>
+      <div *ngIf="treatAsModal" class="close-btn-container">
+        <button (click)="closeModal()" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
       <div class="d-none" *ngFor="let img of imageArray">
         <img [src]="img" alt="">
       </div>

@@ -1,9 +1,19 @@
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges
+} from '@angular/core';
 import {Router} from '@angular/router';
-import {BehaviorSubject, forkJoin, lastValueFrom} from 'rxjs';
+import {BehaviorSubject, combineLatest, forkJoin, lastValueFrom} from 'rxjs';
 import {appConstants} from "../../../../assets/constants/app-constants";
 import {StorageService} from "../../../shared-services/storage.service";
 import {SharedService} from "../../../shared-services/shared.service";
@@ -25,7 +35,7 @@ import {FetchDataService} from "../../../shared-services/fetch-data.service";
         SkeletonLoaderPage,
         MatCheckboxModule]
 })
-export class ServiceListPage implements OnInit, OnDestroy {
+export class ServiceListPage implements OnInit, OnDestroy, AfterViewInit {
     @Output() updateAmount = new EventEmitter<object>();
     @Input() isRefreshed;
     @Input() refreshRate;
@@ -47,25 +57,25 @@ export class ServiceListPage implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        // console.log("called onInit");
-        // this.getAllDataAtOnce();
-        // if (this.mainServices.length === 0 || this.services.length === 0 || this.subServices.length === 0) {
-        //     this.sharedService.fetchDataComplete.subscribe((res) => {
-        //         if (res) {
-        //             this.getAllDataAtOnce();
-        //         }
-        //     });
-        // } else {
-        //     this.getAllDataAtOnce();
-        // }
-        setTimeout(() => {
-            console.log("called init");
-            this.mainServices = this.sharedService.getServiceTypes$();
-            this.subServices = this.sharedService.getSubServices$();
-            this.services = this.sharedService.getServices$();
-            this.getAllDataAtOnce();
-        }, 500);
         this.sharedService.showServicesSkeletonSpinner.next(true);
+    }
+
+    ngAfterViewInit() {
+       setTimeout(() => {
+           combineLatest([
+               this.sharedService.serviceTypesSubject,
+               this.sharedService.subServicesSubject,
+               this.sharedService.servicesSubject
+           ]).subscribe(([serviceTypes, subServices, services]) => {
+               if (serviceTypes && serviceTypes.length && subServices && subServices.length && services && services.length) {
+                   // All three observables have emitted non-empty arrays
+                   this.mainServices = serviceTypes;
+                   this.subServices = subServices;
+                   this.services = services;
+                   this.getAllDataAtOnce();
+               }
+           });
+       }, 1000);
     }
 
     ngOnDestroy() {
@@ -94,9 +104,6 @@ export class ServiceListPage implements OnInit, OnDestroy {
     // }
 
     getAllDataAtOnce() {
-        this.mainServices = this.sharedService.getServiceTypes$();
-        this.subServices = this.sharedService.getSubServices$();
-        this.services = this.sharedService.getServices$();
         if (this.mainServices.length > 0 && this.subServices.length > 0 && this.services.length > 0) {
             this.apiCalled = this.apiCalled + 1;
             const selectedServices = this.storageService.getStorageValue(appConstants.SELECTED_SERVICES);
@@ -129,7 +136,7 @@ export class ServiceListPage implements OnInit, OnDestroy {
         }
         setTimeout(() => {
             this.sharedService.showServicesSkeletonSpinner.next(false);
-        }, 300)
+        }, 500)
     }
 
     calculateTotalAmount() {
