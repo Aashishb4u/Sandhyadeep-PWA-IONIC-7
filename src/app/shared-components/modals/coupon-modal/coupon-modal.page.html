@@ -37,6 +37,14 @@
           <ion-input maxlength="6" formControlName="discountPercent" style="width: 100px" type="number"></ion-input>
         </ion-item>
         <ion-item>
+          <ion-label position="floating" class="required-label">Payment Method</ion-label>
+          <ion-select multiple="true" formControlName="paymentMethods" okText="Okay" cancelText="Dismiss">
+            <ng-container *ngFor="let method of ['online', 'pay_on_service']">
+              <ion-select-option [value]="method" >{{method}}</ion-select-option>
+            </ng-container>
+          </ion-select>
+        </ion-item>
+        <ion-item>
           <ion-label position="floating" class="required-label">Service Type</ion-label>
           <ion-select multiple="true" formControlName="serviceTypes" okText="Okay" cancelText="Dismiss">
             <ion-select-option [value]="'all'" >All Service Types</ion-select-option>

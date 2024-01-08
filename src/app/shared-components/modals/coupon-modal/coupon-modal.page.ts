@@ -41,6 +41,7 @@ export class CouponModalPage implements OnInit {
       name: ['', Validators.required],
       couponLabel: ['', Validators.required],
       serviceTypes: [[], Validators.required],
+      paymentMethods: [[], Validators.required],
       expiresOn: [moment().format(), Validators.required],
       minAmount: [0, Validators.required],
       maxDiscountAmount: [0, Validators.required],

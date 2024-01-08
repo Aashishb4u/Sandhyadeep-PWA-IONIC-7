@@ -33,6 +33,10 @@ export class ApplyCouponPage implements OnInit {
   }
 
   getCoupons() {
+    let paymentMethods = [];
+    if (this.navParams && this.navParams.data && this.navParams.data['paymentMethods']) {
+      paymentMethods = this.navParams.data['paymentMethods'];
+    }
     const services = this.sharedService.getServicesInCart();
     const serviceDetails = services.map((val) => {
       return {
@@ -40,7 +44,7 @@ export class ApplyCouponPage implements OnInit {
         counter: val.counter,
       };
     });
-    this.adminService.getApplicableCoupons({services: serviceDetails}).subscribe(
+    this.adminService.getApplicableCoupons({services: serviceDetails, paymentMethods}).subscribe(
         res => this.getApplicableSuccess(res),
         error => {
           this.adminService.commonError(error);

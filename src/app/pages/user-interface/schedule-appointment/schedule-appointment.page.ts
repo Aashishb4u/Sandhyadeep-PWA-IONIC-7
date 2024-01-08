@@ -540,8 +540,6 @@ export class ScheduleAppointmentPage implements OnInit, OnDestroy {
         return await modal.present();
     }
 
-    // Coupons ---
-
     async presentModal() {
         const modal = await this.modalController.create({
             component: ApplyCouponPage,
@@ -550,7 +548,7 @@ export class ScheduleAppointmentPage implements OnInit, OnDestroy {
             showBackdrop: true,
             initialBreakpoint: 0.75,
             breakpoints: [0, 0.75, 1],
-            componentProps: {couponList: this.couponList},
+            componentProps: {couponList: this.couponList, paymentMethods: [this.paymentMethod]},
         });
         modal.onWillDismiss().then((res) => {
             if (res.data) {
@@ -584,8 +582,6 @@ export class ScheduleAppointmentPage implements OnInit, OnDestroy {
         this.selectedCouponDetails = res.data.coupon;
         this.serviceDiscount = res.data.discountAmount ? res.data.discountAmount : 0;
         this.sharedService.presentToast(res.message, 'success');
-        console.log(this.selectedCouponDetails);
-        console.log(this.serviceDiscount);
     }
 
     onMorePackages() {
@@ -610,6 +606,8 @@ export class ScheduleAppointmentPage implements OnInit, OnDestroy {
                     role: 'confirm',
                     handler: (data) => {
                         if (data[0] && data[0].length > 0) {
+                            this.selectedCouponDetails = '';
+                            this.serviceDiscount = 0;
                             this.paymentMethod = data;
                             return true;
                         } else {

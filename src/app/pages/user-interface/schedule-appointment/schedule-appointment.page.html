@@ -240,10 +240,10 @@
         </div>
       </div>
     </div>
-    <div class="appointment-button-footer">
+    <div class="appointment-button-footer pb-3">
       <div (click)="reasonAlert()" class="payment-option">
         <div class="payment-status-prompt">Payment Mode <i class="fa fa-chevron-up"></i></div>
-        <div class="payment-status">{{paymentMethod}}</div>
+        <div class="payment-status">{{paymentMethod.split('_').join(' ') | titlecase}}</div>
       </div>
 
       <ion-button *ngIf="(adminService.isAuthenticated | async); else loginBtn" class="book-now-button" (click)="onBookAppointment()" expand="block">

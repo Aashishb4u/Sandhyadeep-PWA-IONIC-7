@@ -1,5 +1,5 @@
 <ion-footer class="ion-no-border">
-  <div class="footer-container" [ngClass]="{'ios': runningPlatform === 'ios'}">
+  <div class="footer-container pb-3 pt-2" [ngClass]="{'ios': runningPlatform === 'ios'}">
     <div routerLink="/feed" routerLinkActive="selected" #FeedRLA="routerLinkActive" class="single-tab">
       <img src="{{FeedRLA.isActive ? '/assets/theme-images/home-active.png' : '/assets/theme-images/home.png'}}"  alt="">
       <span class="footer-title">Feed</span>

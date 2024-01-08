@@ -10,6 +10,7 @@ import {AdminServiceModalPage} from "../../../shared-components/modals/admin-ser
 import {MatDividerModule} from "@angular/material/divider";
 import {MatButtonModule} from "@angular/material/button";
 import {InfiniteScrollCustomEvent} from "@ionic/core";
+import {scan, tap} from "rxjs";
 
 @Component({
   selector: 'app-admin-services',
@@ -119,34 +120,63 @@ export class AdminServicesPage implements OnInit {
 
   ngOnInit() {}
 
+  // getAllServices() {
+  //   this.adminService.getServices(this.page, this.limit).subscribe(
+  //       res => this.getAllServicesSuccess(res),
+  //       error => {
+  //         this.adminService.commonError(error);
+  //       }
+  //   );
+  // }
+  //
+  // getAllServicesSuccess(res) {
+  //   this.totalPages = res.totalPages;
+  //   if(res && res.results && res.results.length) {
+  //     res.results = res.results.map((ser) => {
+  //       // Adding the api url and also updating image with timestamp
+  //       ser.brands = ser.brands.map((val) => {
+  //         val = val.split('_').join(' ');
+  //         return val;
+  //       });
+  //       ser.skinTypes = ser.skinTypes.map((val) => {
+  //         val = val.split('_').join(' ');
+  //         return val;
+  //       });
+  //       ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
+  //       return ser;
+  //     });
+  //
+  //     this.services = this.services.concat([...res.results]);
+  //   }
+  // }
+
   getAllServices() {
-    this.adminService.getServices(this.page, this.limit).subscribe(
-        res => this.getAllServicesSuccess(res),
-        error => {
-          this.adminService.commonError(error);
-        }
-    );
+    this.adminService.getServices(this.page, this.limit)
+        .pipe(
+            scan((acc, res) => this.updateServicesArray(acc, res), []),
+            tap(services => this.services = services)
+        )
+        .subscribe(
+            () => {},
+            error => this.adminService.commonError(error)
+        );
   }
 
-  getAllServicesSuccess(res) {
-    this.totalPages = res.totalPages;
-    if(res && res.results && res.results.length) {
-      res.results = res.results.map((ser) => {
-        // Adding the api url and also updating image with timestamp
-        ser.brands = ser.brands.map((val) => {
-          val = val.split('_').join(' ');
-          return val;
-        });
-        ser.skinTypes = ser.skinTypes.map((val) => {
-          val = val.split('_').join(' ');
-          return val;
-        });
+  updateServicesArray(currentServices, newResponse) {
+    this.totalPages = newResponse.totalPages;
+    const results = newResponse.results || [];
+
+    if (results.length) {
+      results.forEach(ser => {
+        ser.brands = ser.brands.map(val => val.split('_').join(' '));
+        ser.skinTypes = ser.skinTypes.map(val => val.split('_').join(' '));
         ser.imageUrl = `${appConstants.domainUrlApi}${ser.imageUrl}?${new Date().getTime()}`;
-        return ser;
       });
 
-      this.services = this.services.concat([...res.results]);
+      return [...this.services, ...results];
     }
+
+    return currentServices;
   }
 
 
