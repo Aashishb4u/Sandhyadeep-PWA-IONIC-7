@@ -84,16 +84,19 @@
       </div>
     </ion-toolbar>
     <div class="filters-container">
-      <div class="search-box">
-        <ion-searchbar placeholder="Search Here"></ion-searchbar>
+      <div class="search-box gap-3 d-flex align-items-center px-3">
+        <ion-searchbar (ionClear)="clearSearch()" class="p-0" [(ngModel)]="searchString" [placeholder]="communicationService.placeHolder | async"></ion-searchbar>
+        <button (click)="onSearch(searchString)" mat-mini-fab color="primary" aria-label="Example icon button with a home icon">
+          <mat-icon>search</mat-icon>
+        </button>
       </div>
     </div>
-    <div class="page-heading">
+    <div *ngIf="communicationService.pageTitle | async" class="page-heading">
       <div class="heading-text">
-        {{pageTitle}}
+        {{communicationService.pageTitle | async}}
       </div>
     </div>
-    <ion-progress-bar *ngIf="showProgressBar" type="indeterminate"></ion-progress-bar>
+    <ion-progress-bar *ngIf="communicationService.showAdminSpinner | async" type="indeterminate"></ion-progress-bar>
   </ion-header>
   <ion-content class="ion-padding">
     <ion-router-outlet></ion-router-outlet>

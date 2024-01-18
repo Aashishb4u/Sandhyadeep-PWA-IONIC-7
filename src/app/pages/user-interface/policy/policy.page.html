@@ -1,23 +1,11 @@
-<ion-header>
-  <ion-toolbar class="ion-content-ios" color="primary">
-    <ion-title>User Agreement</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="cancel()" [strong]="true">
-        <ion-icon name="close-circle-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-
+<sandhyadeep-header class="z-index-999"></sandhyadeep-header>
 
 <ion-content>
-  <div *ngIf="accessMode === 'write'" class="agreement-note">Please scroll down to accept Agreement</div>
   <div class="container">
     <p>Greetings and welcome to our salon booking application! By engaging with our application, you acknowledge and agree to adhere to the following terms and conditions & business policies:</p>
     <div>
       <div class="font-bold text-xl mb-3">
-        <strong>Business Policies</strong>
+       <strong>Business Policies</strong>
       </div>
       <div>
         <ul class="list-disc">
@@ -45,19 +33,6 @@
           <li><b>Disclaimer:</b> We provide no representations or warranties, express or implied, regarding the services or the content of the salon web application.</li>
         </ul>
       </div>
-    </div>
-
-    <ng-container *ngIf="accessMode === 'write'">
-      <hr>
-      <ion-item class="bg-transparent" lines="none">
-        <ion-checkbox slot="start" [(ngModel)]="agreedToTerms"></ion-checkbox>
-        <ion-label style="white-space: normal;">I have read and agree to the above terms and conditions</ion-label>
-      </ion-item>
-    </ng-container>
-
-    <div class="button-container">
-      <ion-button *ngIf="accessMode === 'write'" [disabled]="!agreedToTerms" (click)="onApprove()" expand="block">Accept</ion-button>
-      <ion-button *ngIf="accessMode === 'read'" (click)="cancel()" expand="block">Okay</ion-button>
     </div>
   </div>
 </ion-content>

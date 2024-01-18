@@ -79,7 +79,6 @@ export const routes: Routes = [
     path: 'product-details',
     loadComponent: () => import('./pages/user-interface/product-details/product-details.page').then( m => m.ProductDetailsPage)
   },
-
   {
     path: 'admin-package-modal',
     loadComponent: () => import('./shared-components/modals/admin-package-modal/admin-package-modal.page').then( m => m.AdminPackageModalPage)
@@ -149,10 +148,6 @@ export const routes: Routes = [
     loadComponent: () => import('./shared-components/components/star-ratings/star-ratings.page').then( m => m.StarRatingsPage)
   },
   {
-    path: 'user-agreement-policy',
-    loadComponent: () => import('./shared-components/modals/user-agreement-policy/user-agreement-policy.page').then(m => m.UserAgreementPolicyPage)
-  },
-  {
     path: 'apply-coupon',
     loadComponent: () => import('./shared-components/modals/apply-coupon/apply-coupon.page').then( m => m.ApplyCouponPage)
   },
@@ -204,6 +199,10 @@ export const routes: Routes = [
         path: 'admin-services',
         loadComponent: () => import('./pages/admin-interface/admin-services/admin-services.page').then( m => m.AdminServicesPage)
       },
+      {
+        path: 'bookings-list',
+        loadComponent: () => import('./pages/admin-interface/bookings-list/bookings-list.page').then( m => m.BookingsListPage)
+      }
     ]
   },
   {
@@ -213,5 +212,13 @@ export const routes: Routes = [
   {
     path: 'service-image-modal',
     loadComponent: () => import('./shared-components/modals/service-image-modal/service-image-modal.page').then( m => m.ServiceImageModalPage)
+  },
+  {
+    path: 'policy',
+    loadComponent: () => import('./pages/user-interface/policy/policy.page').then( m => m.PolicyPage)
+  },
+  {
+    path: 'complete-booking',
+    loadComponent: () => import('./pages/admin-interface/complete-booking/complete-booking.page').then( m => m.CompleteBookingPage)
   }
 ];

@@ -25,6 +25,14 @@
       <div><button [routerLink]="['/admin']" mat-button color="primary">Admin Interface</button></div>
       <div><i class="fa fa-angle-right" aria-hidden="true"></i></div>
     </div>
+    <div *ngIf="userRole && userRole === 'admin'" class="login-menus">
+      <div>
+        <button [routerLink]="['/admin/bookings-list']" mat-button color="primary">
+          Complete Booking
+        </button>
+      </div>
+      <div><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+    </div>
     <!--        <div class="login-menus">-->
     <!--            <div><button mat-button color="primary">Email</button></div>-->
     <!--            <div>aashishbhagwat@gmail.com</div>-->

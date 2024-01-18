@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon Booking Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #BD1E51;
+            padding: 20px;
+            text-align: center;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .header img {
+            filter: brightness(0) invert(1) grayscale(100%) contrast(100%);
+            max-width: 100px;
+            max-height: 100px;
+        }
+        .header-text {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        h2 {
+            color: #BD1E51;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .booking-details {
+            margin-top: 20px;
+        }
+        .terms-link {
+            margin-top: 20px;
+        }
+        .terms-link a {
+            color: #BD1E51;
+        }
+        .terms-text {
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://app.sandhyadeep.in/assets/theme-images/Sandhyadeep_logo.png" alt="Business Icon">
+        <div class="header-text">Sandhyadeep Beauty Parlour</div>
+    </div>
+    <h2>Appointment Confirmation</h2>
+    <p>Dear [Customer Name],</p>
+    <p>Thank you for booking with Sandhyadeep Salon. Your appointment has been confirmed. Below are the details of your booking:</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Service</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Haircut</td>
+            <td>$30.00</td>
+        </tr>
+        <tr>
+            <td>Manicure</td>
+            <td>$20.00</td>
+        </tr>
+        <!-- Add more rows for other services -->
+        </tbody>
+        <tfoot>
+        <tr>
+            <td><strong>Total Discount</strong></td>
+            <td>$10.00</td>
+        </tr>
+        <tr>
+            <td><strong>Total</strong></td>
+            <td>$40.00</td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <div class="booking-details">
+        <p><strong>Booking Date and Time:</strong> [Booking Date and Time]</p>
+        <p><strong>Payment Method:</strong> [Online/Pay On Service]</p>
+        <p><strong>Booking Summary:</strong> [Booking Summary]</p>
+        <p><strong>Booking Id:</strong> [Booking Id]</p>
+        <p><strong>Payment Status:</strong> [PAID/PENDING]</p>
+    </div>
+
+    <p>We look forward to seeing you on [Appointment Date and Time]. If you have any questions or need to make changes to your appointment, please contact us.</p>
+
+    <div class="terms-link">
+        <p class="terms-text">By completing this booking, you acknowledge that you are bound by our <a href="https://app.sandhyadeep.in/terms" target="_blank">Terms and Conditions</a>.</p>
+    </div>
+
+    <p>Thank you for choosing Sandhyadeep Beauty Parlour! Have a great day!</p>
+</div>
+</body>
+</html>

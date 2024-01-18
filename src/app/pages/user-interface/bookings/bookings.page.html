@@ -28,7 +28,7 @@
                       </div>
                     </div>
                     <div (click)="showPopover($event, booking._id)" class="px-2 d-flex align-items-center">
-                      <i  class="fa fa-ellipsis-v"></i>
+                      <i  class="px-3 text-xl text-gray-600 fa fa-ellipsis-v"></i>
                     </div>
                   </div>
                   <hr>
@@ -88,20 +88,6 @@
                       </div>
                     </div>
                   </div>
-<!--                  <div class="single-booking-card">-->
-<!--                    <div class="single-booking-left">-->
-<!--                      <div class="booking-date">-->
-<!--                        <i class="fa fa-clock-o"></i> {{booking?.dateString}}-->
-<!--                      </div>-->
-<!--                      <div (click)="openModal(booking)" class="booking-more-info"> More Info <ion-icon name="alert-circle-outline"></ion-icon></div>-->
-<!--                    </div>-->
-<!--                    <div class="single-booking-right">-->
-<!--                      <div class="booking-amount">₹ {{booking?.paymentData?.paymentAmount}}/-</div>-->
-<!--                      <div (click)="showPopover($event, booking)" class="ellipsis-icon">-->
-<!--                        <i class="fa fa-ellipsis-v"></i>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
                 </mat-card-content>
                 <mat-card-footer>
                   <mat-progress-bar *ngIf="booking?.showSpinner" mode="indeterminate"></mat-progress-bar>
@@ -200,7 +186,7 @@
                         <div *ngSwitchCase="'initiated'" class="font-bold text-base text-yellow-600 px-2 py-1">
                           In-Progress
                         </div>
-                        <div *ngSwitchCase="'paid'" class="font-bold text-base text-green-600 px-2 py-1">
+                        <div *ngSwitchCase="'completed'" class="font-bold text-base text-green-600 px-2 py-1">
                           Completed
                         </div>
                         <div *ngSwitchCase="'cancelled'" class="font-bold text-base text-red-600 px-2 py-1">

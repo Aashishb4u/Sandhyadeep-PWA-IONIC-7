@@ -1,0 +1,118 @@
+<ion-content>
+    <div class="pt-2 pb-2 d-flex flex-column gap-2 bg-gray-300">
+        <mat-card *ngFor="let booking of bookings; let index = index" class="p-3">
+            <mat-card-content class="p-0">
+                <div class="mb-2 d-flex align-items-center justify-content-between">
+                    <div class="gap-3 d-flex align-items-center">
+                        <div>
+                            <img style="width: 80px; height: 80px" src="assets/icon/booking.png" alt="">
+                            <!--                        <ion-skeleton-text [animated]="true" style="width: 80px; border-radius: 8px; height: 80px"></ion-skeleton-text>-->
+                            <!--                        <img src="" alt="">-->
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="single-booking-left">
+                                <div class="booking-date text-sm">
+                                    <i class="fa fa-clock-o"></i> {{booking?.dateString}}
+                                </div>
+                                <div class="text-gray-400 font-bold text-sm">{{booking?.services?.length}} Items</div>
+                                <!--                            <div  class="booking-more-info">-->
+                                <!--&lt;!&ndash;                            More Info <ion-icon name="alert-circle-outline"></ion-icon>&ndash;&gt;-->
+                                <!--                          </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex gap-3 flex-column justify-content-between">
+                    <div class="d-flex justify-content-between">
+                        <div class="text-gray-500 text-sm d-flex align-items-center">Booking Id</div>
+                        <div class="text-sm">{{booking?.bookingOrderId}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="text-gray-500 text-sm d-flex align-items-center">Total Amount</div>
+                        <div class="text-sm font-bold">₹{{booking?.paymentId?.paymentAmount}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="text-gray-500 text-sm d-flex align-items-center">Payment Method</div>
+                        <div class="text-base text-gray-500">{{booking?.paymentId?.paymentMethod?.split('_')?.join(' ') | titlecase}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="text-gray-500 text-sm d-flex align-items-center">
+                            Payment Status
+                        </div>
+                        <ng-container [ngSwitch]="booking?.paymentId?.paymentStatus">
+                            <div *ngSwitchCase="'pending'"
+                                 class="font-bold text-sm text-yellow-600 bg-yellow-200 px-2 py-1 rounded">
+                                PENDING
+                            </div>
+                            <div *ngSwitchCase="'paid'"
+                                 class="font-bold text-sm text-green-600 bg-green-200 px-2 py-1 rounded">
+                                PAID
+                            </div>
+                            <div *ngSwitchCase="'refund_initiated'"
+                                 class="font-bold text-sm text-yellow-600 bg-yellow-200 px-2 py-1 rounded">
+                                REFUND INITIATED
+                            </div>
+                            <div *ngSwitchCase="'refund_completed'"
+                                 class="font-bold text-sm text-red-600 bg-red-200 px-2 py-1 rounded">
+                                REFUND COMPLETED
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="text-gray-500 text-sm d-flex align-items-center">
+                            Booking Status
+                        </div>
+                        <ng-container [ngSwitch]="booking.status">
+                            <div *ngSwitchCase="'initiated'" class="uppercase font-bold text-base text-yellow-600 px-2 py-1">
+                                In-Progress
+                            </div>
+                            <div *ngSwitchCase="'completed'" class="uppercase font-bold text-base text-green-600 px-2 py-1">
+                                Completed
+                            </div>
+                        </ng-container>
+                    </div>
+                    <hr>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div (click)="openModal(booking)" style="color: var(--ion-color-sandhyadeep-blue)"
+                             class="text-gray-500 text-sm font-bold">
+                            <u>Booking Details</u>
+                        </div>
+                        <div *ngIf="booking.status !== 'completed'" class="text-sm">
+                            <button (click)="modal.present(); selectedBooking = booking" mat-raised-button color="primary">ENTER
+                                OTP
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-footer>
+                <mat-progress-bar *ngIf="booking?.showSpinner" mode="indeterminate"></mat-progress-bar>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+    <ion-modal #modal
+               [initialBreakpoint]="0.40"
+               [animated]="true"
+               [breakpoints]="[0, 0.40, 0.60]"
+               handleBehavior="cycle">
+        <ng-template>
+            <ion-content class="ion-padding">
+                <div>
+                    <label class="my-2 w-100 text-center text-sm">Enter Booking OTP to complete the Booking</label>
+                    <div class="d-flex justify-content-center">
+                        <ng-otp-input #ngOtpInput (onInputChange)="promptOtp = $event"
+                                      [config]="{allowNumbersOnly: true, length:4, inputClass: 'bookingOtpInput', containerClass: 'bookingOtpContainer'}">
+                        </ng-otp-input>
+                    </div>
+                    <div>
+                        <ion-button (click)="validateOtp()" expand="block">Complete Booking
+                            <ion-spinner *ngIf="showPhoneSpinner" class="mx-1" name="circles"></ion-spinner>
+                        </ion-button>
+                    </div>
+                </div>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+</ion-content>
+

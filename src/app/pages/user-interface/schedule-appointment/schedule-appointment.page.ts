@@ -128,6 +128,7 @@ export class ScheduleAppointmentPage implements OnInit, OnDestroy {
         setTimeout(() => {
             this.getServicesData();
         }, 1000);
+        this.sharedService.showBackIcon.next(true);
         this.paymentMethod = 'online';
     }
 

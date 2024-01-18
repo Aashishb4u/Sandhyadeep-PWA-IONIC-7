@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Booking Confirmation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .confirmation-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-title {
+            font-size: 22px;
+            color: #001c27;
+        }
+
+        h1 {
+            color: #001c27;
+        }
+
+        p {
+            color: #333;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #001c27;
+            color: #fff;
+        }
+
+        .header {
+            background-color: #001c27;
+            color: #fff;
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .header img {
+            width: 100px;
+            height: 100px;
+            vertical-align: middle;
+        }
+
+        .header p {
+            color: #d3d3d3a3;
+            margin: 0;
+        }
+
+        .user-details-table,
+        .booking-details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .user-details-table th,
+        .user-details-table td,
+        .booking-details-table th,
+        .booking-details-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .user-details-table th {
+            /*color: #001c27;*/
+            color: #fff;
+        }
+        .user-details-table td {
+            color: #001c27;
+            /*color: #fff;*/
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .user-icon {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .user-icon i {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="confirmation-container">
+    <div class="header">
+        <img src="https://indistays.creativehand.co.in/assets/company-logo/indistays_white.png" alt="Indistays Icon">
+        <p>Best Camping Accommodations</p>
+    </div>
+
+    <h1 class="booking-title">New Booking Confirmation</h1>
+    <p>Hello [Owner Name],</p>
+    <p>A new booking has been confirmed. Here are the details:</p>
+
+    <table class="user-details-table">
+        <thead>
+        <tr>
+            <th>User Information</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><strong>User Name:</strong> Aashish Bhagwat</td>
+        </tr>
+        <tr>
+            <td><strong>User Email:</strong> aashishbhagwat4u@gmail.com</td>
+        </tr>
+        <tr>
+            <td><strong>User Contact:</strong> +91-9403733265</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="booking-details-table">
+        <thead>
+        <tr>
+            <th>Booking Information</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><strong>Hotel Name:</strong> Hotel Pyasa</td>
+        </tr>
+        <tr>
+            <td><strong>Booking Place:</strong> Pune</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="accommodations-table">
+        <thead>
+        <tr>
+            <th>Accommodation Type</th>
+            <th>Beds</th>
+            <th class="text-right">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Tent, Hotel Pyasa, Pune</td>
+            <td>
+                <div class="user-icon">
+                    <i class="fa fa-user-circle"></i> x 3
+                </div>
+            </td>
+            <td class="text-right">₹200</td>
+        </tr>
+        <tr>
+            <td>Villa, Hotel Amba, Pune</td>
+            <td>
+                <div class="user-icon">
+                    <i class="fa fa-user-circle"></i> x 2
+                </div>
+            </td>
+            <td class="text-right">₹200</td>
+        </tr>
+        <tr>
+            <td><strong>Total</strong></td>
+            <td>
+            </td>
+            <td class="text-right"><strong>₹2000</strong></td>
+        </tr>
+
+        <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+
+    <p>Best regards,<br>Your Indistays Team</p>
+</div>
+</body>
+</html>

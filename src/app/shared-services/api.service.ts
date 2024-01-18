@@ -291,8 +291,12 @@ export class ApiService {
     return this.http.post(`${this.baseURL}payments/transaction-log`, data, {});
   }
 
-  getAllBookings() {
-    return this.http.get(`${this.baseURL}bookings`, {});
+  getAllBookings(search = '') {
+    let filter = '';
+    if(search) {
+      filter = `?bookingOrderId=${search}`;
+    }
+    return this.http.get(`${this.baseURL}bookings${filter}`, {});
   }
 
   getUserBookings(id: any) {
@@ -309,6 +313,10 @@ export class ApiService {
 
   createBooking(data: any) {
     return this.http.post(`${this.baseURL}bookings`, data, {});
+  }
+
+  completeBooking(data, id: any) {
+    return this.http.post(`${this.baseURL}bookings/complete/${id}`, data, {});
   }
 
   createCoupon(data: any) {

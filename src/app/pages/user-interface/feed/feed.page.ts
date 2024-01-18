@@ -36,6 +36,7 @@ import SwiperCore, {
 } from 'swiper';
 import {Content} from "@ionic/core/dist/types/components/content/content";
 import {forkJoin} from "rxjs";
+import {MatButtonModule} from "@angular/material/button";
 
 
 SwiperCore.use([Scrollbar, Navigation, Pagination, Keyboard, Autoplay, EffectCoverflow, EffectFade, EffectCards, EffectCube, EffectFlip, EffectCreative]);

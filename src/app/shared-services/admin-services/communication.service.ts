@@ -7,5 +7,7 @@ import {BehaviorSubject} from 'rxjs';
 export class CommunicationService {
   showAdminSpinner = new BehaviorSubject<any>(false);
   pageTitle = new BehaviorSubject<any>('');
+  placeHolder = new BehaviorSubject<any>('Search Here');
+  searchEvent = new BehaviorSubject<any>('');
   constructor() { }
 }
