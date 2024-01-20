@@ -114,8 +114,7 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="servicePackage?.showIncludes"
-                 style="display: flex; flex-direction: column; width: 100%;">
+            <div class="d-flex flex-column w-100 " *ngIf="servicePackage?.showIncludes">
               <div>
                 <div class="include-title">Services</div>
                 <div *ngIf="servicePackage && servicePackage.services && servicePackage?.services?.length > 0"
@@ -126,28 +125,28 @@
                   </div>
                   <div class="dashed-border"></div>
                   <div class="each-selected-service">
-                    <div>Package Total</div>
+                    <div>Subtotal (Single Qty)</div>
                     <div>
                       {{servicePackage?.totalAmount}} ₹
                     </div>
                   </div>
                   <div *ngIf="servicePackage?.discount > 0"
                        class="each-selected-service discount-row">
-                    <div>Package Discount</div>
+                    <div>Discount (Single Qty)</div>
                     <div>
                       {{servicePackage?.discount}} ₹
                     </div>
                   </div>
                   <div *ngIf="servicePackage?.discount > 0"
                        class="each-selected-service">
-                    <div>Amount (Discount Added)</div>
+                    <div>Total  (Single Qty)</div>
                     <div>
                       {{servicePackage?.totalAmount - servicePackage?.discount}} ₹
                     </div>
                   </div>
                   <div class="dashed-border"></div>
-                  <div class="each-selected-service bold-row">
-                    <div>Total Bill ({{servicePackage?.counter}} Packages)</div>
+                  <div class="each-selected-service">
+                    <div>Subtotal ({{servicePackage?.counter}} Packages)</div>
                     <div>
                       {{servicePackage?.totalAmount * servicePackage?.counter}} ₹
                     </div>
@@ -160,9 +159,9 @@
                     </div>
                   </div>
                   <div *ngIf="servicePackage?.discount > 0"
-                       class="each-selected-service  bold-row">
-                    <div>Amount (Discount Added)</div>
-                    <div>
+                       class="each-selected-service">
+                    <div>Total Amount</div>
+                    <div class="bold-row">
                       {{(servicePackage?.totalAmount - servicePackage?.discount) * servicePackage?.counter}} ₹
                     </div>
                   </div>
@@ -232,7 +231,7 @@
         <div class="total-div">
           <div class="total-div-price">{{checkoutCount}} Items</div>
         </div>
-        <div *ngIf="packageDiscount || serviceDiscount" style="color: #126d16; font-weight: bold; font-size: 14px">
+        <div *ngIf="packageDiscount || serviceDiscount" style="color: #46bd46; font-weight: bold; font-size: 14px">
           You Save: {{packageDiscount + serviceDiscount}} ₹
         </div>
         <div>

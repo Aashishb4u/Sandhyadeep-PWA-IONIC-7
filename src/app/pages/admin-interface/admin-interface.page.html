@@ -5,7 +5,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <ion-list>
+    <ion-list *ngIf="userRole && userRole === 'admin'">
       <ion-menu-toggle autoHide="false">
         <ion-item [routerLink]="['/admin/admin-service-types']">
           <ion-label>

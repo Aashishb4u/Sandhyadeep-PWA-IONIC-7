@@ -31,10 +31,13 @@
         <div *ngIf="(sharedService.showCart | async) && (sharedService.updateCart | async) > 0" class="demo-section">
           <mat-icon [routerLink]="['/schedule-appointment']"  color="primary" matBadge="{{sharedService.updateCart | async}}" matBadgeColor="warn">shopping_cart</mat-icon>
         </div>
-        <div *ngIf="!(sharedService.onSettingEvent | async)"
-             [routerLink]="(apiService.isAuthenticated | async) ? ['/settings'] : ['/setting-auth']" class="profileIcon">
-          <img src="{{sharedService?.profileIcon}}" alt="">
-        </div>
+        <ng-container *ngIf="!newVersionCheckerService.isNewVersionAvailable">
+          <div *ngIf="!(sharedService.onSettingEvent | async)"
+               [routerLink]="(apiService.isAuthenticated | async) ? ['/settings'] : ['/setting-auth']" class="profileIcon">
+            <img src="{{sharedService?.profileIcon}}" alt="">
+          </div>
+        </ng-container>
       </div>
     </div>
+    <app-new-version-checker style="z-index: 999999"></app-new-version-checker>
   </ion-header>

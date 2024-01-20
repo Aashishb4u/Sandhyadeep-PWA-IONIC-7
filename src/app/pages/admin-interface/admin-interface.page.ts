@@ -6,6 +6,7 @@ import {CommunicationService} from "../../shared-services/admin-services/communi
 import {RouterModule} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {SharedService} from "../../shared-services/shared.service";
 
 @Component({
   selector: 'app-admin-interface',
@@ -14,13 +15,19 @@ import {MatButtonModule} from "@angular/material/button";
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, RouterModule, MatIconModule, MatButtonModule]
 })
-export class AdminInterfacePage {
-
-  constructor(public communicationService: CommunicationService) { }
+export class AdminInterfacePage implements OnInit {
+  userRole: any = '';
+  constructor(public communicationService: CommunicationService,
+              public sharedService: SharedService
+              ) { }
   searchString: any = '';
 
   onSearch(e) {
       this.communicationService.searchEvent.next(e);
+  }
+
+  ngOnInit() {
+    this.userRole = this.sharedService.getUserRole().toLowerCase();
   }
 
   clearSearch() {

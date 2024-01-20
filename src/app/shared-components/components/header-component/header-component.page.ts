@@ -10,13 +10,15 @@ import {MatBadgeModule} from "@angular/material/badge";
 import {Capacitor} from "@capacitor/core";
 import {MatButtonModule} from "@angular/material/button";
 import {ApiService} from "../../../shared-services/api.service";
+import {NewVersionCheckerComponent} from "../../new-version-checker/new-version-checker.component";
+import {NewVersionCheckerService} from "../../../shared-services/new-version-checker.service";
 
 @Component({
   selector: 'sandhyadeep-header',
   templateUrl: './header-component.page.html',
   styleUrls: ['./header-component.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterModule, MatIconModule,
+  imports: [IonicModule, NewVersionCheckerComponent, CommonModule, FormsModule, RouterModule, MatIconModule,
     MatBadgeModule, MatButtonModule]
 })
 export class HeaderComponentPage implements OnInit, OnDestroy {
@@ -28,6 +30,7 @@ export class HeaderComponentPage implements OnInit, OnDestroy {
   // profileIcon = 'assets/icon/profile-icon.png';
   constructor(private storageService: StorageService,
               public apiService: ApiService,
+              public newVersionCheckerService: NewVersionCheckerService,
               private router: Router, private navCtrl: NavController,
               public sharedService: SharedService) {
     this.runningPlatform = this.sharedService.getAppPlatform();

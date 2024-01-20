@@ -25,7 +25,7 @@
       <div><button [routerLink]="['/admin']" mat-button color="primary">Admin Interface</button></div>
       <div><i class="fa fa-angle-right" aria-hidden="true"></i></div>
     </div>
-    <div *ngIf="userRole && userRole === 'admin'" class="login-menus">
+    <div *ngIf="userRole && (userRole === 'admin' || userRole === 'assistant')" class="login-menus">
       <div>
         <button [routerLink]="['/admin/bookings-list']" mat-button color="primary">
           Complete Booking
