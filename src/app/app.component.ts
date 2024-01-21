@@ -1,4 +1,4 @@
-import {Component, EnvironmentInjector, inject, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, EnvironmentInjector, inject, ViewEncapsulation} from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import {HttpClientModule} from "@angular/common/http";
@@ -13,6 +13,7 @@ import {forkJoin} from "rxjs";
 import {ApiService} from "./shared-services/api.service";
 import {LogoSpinnerPage} from "./shared-components/components/logo-spinner/logo-spinner.page";
 import {FetchDataService} from "./shared-services/fetch-data.service";
+import {PushNotificationService} from "./shared-services/push-notification.service";
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -20,7 +21,7 @@ import {FetchDataService} from "./shared-services/fetch-data.service";
   standalone: true,
   imports: [IonicModule, CommonModule, HttpClientModule, MatButtonModule, LogoSpinnerPage],
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   public environmentInjector = inject(EnvironmentInjector);
   constructor(
       private platform: Platform,
@@ -28,6 +29,7 @@ export class AppComponent {
       private ConnectionServiceService: ConnectionService,
       private storageService: StorageService,
       private sharedService: SharedService,
+      public pushNotificationService: PushNotificationService,
       private adminService: ApiService, // Do not Remove this
       private fetchData: FetchDataService, // Do not Remove this
   ) {
@@ -50,6 +52,10 @@ export class AppComponent {
 
   refreshPage() {
     this.router.navigate(['']);
+  }
+
+  ngAfterViewInit() {
+    this.pushNotificationService.subscribeToNotifications();
   }
 
 }

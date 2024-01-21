@@ -13,6 +13,7 @@ import {AdminUserModalPage} from "../../../shared-components/modals/admin-user-m
 import {HeaderComponentPage} from "../../../shared-components/components/header-component/header-component.page";
 import {MatButtonModule} from "@angular/material/button";
 import * as moment from "moment";
+import {PushNotificationService} from "../../../shared-services/push-notification.service";
 
 @Component({
   selector: 'app-settings',
@@ -32,6 +33,7 @@ export class SettingsPage implements OnInit{
               private apiService: ApiService,
               private alertController: AlertController,
               public router: Router,
+              public pushNotificationService: PushNotificationService,
               private sharedService: SharedService) { }
 
   ionViewWillEnter() {
@@ -108,6 +110,21 @@ export class SettingsPage implements OnInit{
       ],
     });
     await alert.present();
+  }
+
+  sendPush() {
+    const data = {
+      title: "My First Notification",
+      body: "Testing is ON!"
+    }
+    this.pushNotificationService.sendPushNotification(data)
+        .subscribe((res) => this.onSuccess(res),
+            (err) => this.apiService.commonError(err)
+        );
+  }
+
+  onSuccess(res) {
+    console.log(res);
   }
 
 }

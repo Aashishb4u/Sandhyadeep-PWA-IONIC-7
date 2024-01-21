@@ -33,6 +33,14 @@
       </div>
       <div><i class="fa fa-angle-right" aria-hidden="true"></i></div>
     </div>
+    <div *ngIf="userRole && (userRole === 'admin' || userRole === 'assistant')" class="login-menus">
+      <div>
+        <button (click)="sendPush()"  mat-button color="primary">
+          Push Notify
+        </button>
+      </div>
+      <div><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+    </div>
     <!--        <div class="login-menus">-->
     <!--            <div><button mat-button color="primary">Email</button></div>-->
     <!--            <div>aashishbhagwat@gmail.com</div>-->
