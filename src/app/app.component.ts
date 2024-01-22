@@ -1,4 +1,11 @@
-import {AfterViewInit, Component, EnvironmentInjector, inject, ViewEncapsulation} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  EnvironmentInjector,
+  inject,
+  ViewEncapsulation
+} from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import {HttpClientModule} from "@angular/common/http";
@@ -9,16 +16,18 @@ import {SharedService} from "./shared-services/shared.service";
 import {ConnectionService} from "ng-connection-service";
 import {appConstants} from "../assets/constants/app-constants";
 import {MatButtonModule} from "@angular/material/button";
-import {forkJoin} from "rxjs";
 import {ApiService} from "./shared-services/api.service";
 import {LogoSpinnerPage} from "./shared-components/components/logo-spinner/logo-spinner.page";
 import {FetchDataService} from "./shared-services/fetch-data.service";
 import {PushNotificationService} from "./shared-services/push-notification.service";
+import '@khmyznikov/pwa-install';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [IonicModule, CommonModule, HttpClientModule, MatButtonModule, LogoSpinnerPage],
 })
 export class AppComponent implements AfterViewInit {

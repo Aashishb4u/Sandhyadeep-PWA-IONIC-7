@@ -41,6 +41,8 @@
     "@capacitor/status-bar": "4.1.1",
     "@ionic/angular": "^7.0.0",
     "@ionic/core": "^7.0.1",
+    "@khmyznikov/pwa-install": "^0.3.3",
+    "@types/web-app-manifest": "^1.0.7",
     "bootstrap": "^5.3.2",
     "cordova-res": "^0.15.4",
     "font-awesome": "^4.7.0",

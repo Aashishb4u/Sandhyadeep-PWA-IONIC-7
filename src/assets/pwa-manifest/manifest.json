@@ -7,36 +7,36 @@
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
- "screenshots": [
-     {
-       "src": "assets/screenshots/ss-1.png",
-       "type": "image/png"
-     },
-     {
-       "src": "assets/screenshots/ss-2.png",
-       "type": "image/png"
-     },
-     {
-       "src": "assets/screenshots/ss-3.png",
-       "type": "image/png"
-     },
-     {
-       "src": "assets/screenshots/ss-4.png",
-       "type": "image/png"
-     },
-     {
-       "src": "assets/screenshots/ss-5.png",
-       "type": "image/png"
-     },
-     {
-       "src": "assets/screenshots/ss-6.png",
-       "type": "image/png"
-     },
-     {
-       "src": "assets/screenshots/ss-7.png",
-       "type": "image/png"
-     }
-   ],
+  "screenshots": [
+    {
+      "src": "assets/screenshots/ss-1.png",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/screenshots/ss-2.png",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/screenshots/ss-3.png",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/screenshots/ss-4.png",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/screenshots/ss-5.png",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/screenshots/ss-6.png",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/screenshots/ss-7.png",
+      "type": "image/png"
+    }
+  ],
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
