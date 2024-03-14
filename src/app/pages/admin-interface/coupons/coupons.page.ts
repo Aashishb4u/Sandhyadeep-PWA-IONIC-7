@@ -102,6 +102,11 @@ export class CouponsPage implements OnInit {
   ngOnInit() {
     this.communicationService.pageTitle.next('Coupons');
     this.getMainServices();
+    this.communicationService.addEvent.subscribe((res) => {
+      if (res === 'Coupons') {
+        this.presentModal({});
+      }
+    });
   }
 
   getMainServices() {

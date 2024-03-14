@@ -25,6 +25,7 @@ export class AdminUsersPage implements OnInit {
   selectedUser = null;
   limit: any = 5;
   page: any = 1;
+  searchString: any = '';
   totalPages: any = 0;
   constructor(private storageService: StorageService,
               private sharedService: SharedService,
@@ -72,13 +73,25 @@ export class AdminUsersPage implements OnInit {
   }
 
   ngOnInit() {
+    this.communicationService.searchEvent.subscribe((res) => {
+      this.page = 1;
+      this.totalPages = 0;
+      this.usersList = [];
+      this.searchString = res;
+      this.getAllUserDetails();
+    });
     this.communicationService.pageTitle.next('Users');
     this.getAllUserDetails();
+    this.communicationService.addEvent.subscribe((res) => {
+      if (res === 'Users') {
+        this.presentModal({});
+      }
+    });
   }
 
 
   getAllUserDetails() {
-    this.adminService.getUserPaginate(this.page, this.limit).subscribe(
+    this.adminService.getUserPaginate(this.page, this.limit, this.searchString).subscribe(
         res => this.getUserDetailsSuccess(res),
         error => {
           this.adminService.commonError(error);

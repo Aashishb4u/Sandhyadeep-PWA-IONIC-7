@@ -9,5 +9,6 @@ export class CommunicationService {
   pageTitle = new BehaviorSubject<any>('');
   placeHolder = new BehaviorSubject<any>('Search Here');
   searchEvent = new BehaviorSubject<any>('');
+  addEvent = new BehaviorSubject<any>(false);
   constructor() { }
 }

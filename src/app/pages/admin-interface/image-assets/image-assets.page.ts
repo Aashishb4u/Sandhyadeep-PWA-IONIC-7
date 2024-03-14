@@ -123,6 +123,11 @@ export class ImageAssetsPage implements OnInit {
   ngOnInit() {
     this.communicationService.pageTitle.next('Image Assets');
     this.getAppImages();
+    this.communicationService.addEvent.subscribe((res) => {
+      if (res === 'Image Assets') {
+        this.presentModal({});
+      }
+    });
   }
 
   getAppImages() {

@@ -24,9 +24,10 @@ export class AdminSubTypesPage implements OnInit {
               private communicationService: CommunicationService, private adminService: ApiService, public modalController: ModalController) { }
   subServices: any = [];
   selectedServiceType: any = null;
-  limit: any = 2;
+  limit: any = 20;
   page: any = 1;
   totalPages: any = 0;
+  searchString: any = '';
   async presentModal(componentData) {
     const modal = await this.modalController.create({
       component: AdminSubTypeModalPage,
@@ -109,10 +110,23 @@ export class AdminSubTypesPage implements OnInit {
 
   ngOnInit() {
     this.communicationService.pageTitle.next('Sub Services');
+    this.communicationService.addEvent.subscribe((res) => {
+      if (res === 'Sub Services') {
+        this.presentModal({});
+      }
+    });
+    this.communicationService.searchEvent.subscribe((res) => {
+      console.log(this.communicationService.addEvent);
+      this.page = 1;
+      this.subServices = [];
+      this.totalPages = 0;
+      this.searchString = res;
+      this.getSubServices();
+    })
   }
 
   getSubServices() {
-    this.adminService.getSubServices(this.page, this.limit).subscribe(
+    this.adminService.getSubServices(this.page, this.limit, this.searchString).subscribe(
         res => this.getAllSubServiceSuccess(res),
         error => {
           this.adminService.commonError(error);

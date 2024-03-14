@@ -22,6 +22,7 @@ export class AdminServiceTypesPage implements OnInit {
   constructor(private sharedService: SharedService, private alertController: AlertController, private communicationService: CommunicationService,
               private adminService: ApiService, public modalController: ModalController) { }
   serviceTypes: any = [];
+  searchString: any = '';
   selectedServiceType: any = null;
   async presentModal(componentData) {
     const modal = await this.modalController.create({
@@ -102,10 +103,20 @@ export class AdminServiceTypesPage implements OnInit {
   ngOnInit() {
     this.communicationService.pageTitle.next('Service Types');
     this.getMainServices();
+    this.communicationService.addEvent.subscribe((res) => {
+      if (res === 'Service Types') {
+        this.presentModal({});
+      }
+    });
+    this.communicationService.searchEvent.subscribe((res) => {
+      this.serviceTypes = [];
+      this.searchString = res;
+      this.getMainServices();
+    });
   }
 
   getMainServices() {
-    this.adminService.getAllServiceTypes().subscribe(
+    this.adminService.getAllServiceTypes(this.searchString).subscribe(
         res => this.getMainServicesSuccess(res),
         error => {
           this.adminService.commonError(error);

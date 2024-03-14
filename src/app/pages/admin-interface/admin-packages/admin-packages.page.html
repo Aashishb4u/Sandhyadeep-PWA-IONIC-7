@@ -2,33 +2,61 @@
   <div class="package-container">
     <div class="packages-container">
       <ion-card *ngFor="let combo of packages">
-        <div class="packages-image-container">
-          <img [src]="combo?.imageUrl"/>
-        </div>
-        <ion-card-header>
-          <div class="ion-card-header">
-            <div class="package-name-container">
-              <div class="package-name">{{combo?.name}}</div>
-              <div style="margin-left: 5px">
-                <i style="margin-right: 5px" class="fa fa-clock-o"> </i>{{combo?.totalDuration}} Minutes
+        <ion-item class="my-3">
+          <ion-thumbnail slot="start">
+            <div class="d-flex h-100 align-items-center">
+              <img (load)="combo.loaded = true" class="d-none" [src]="combo?.imageUrl"/>
+              <ng-container *ngIf="combo.loaded; else imgLoader">
+                <img [src]="combo?.imageUrl"/>
+              </ng-container>
+              <ng-template #imgLoader>
+                <ion-skeleton-text [animated]="true" class="w-100">
+
+                </ion-skeleton-text>
+              </ng-template>
+            </div>
+          </ion-thumbnail>
+          <ion-label>
+            <div class="text-sm">
+              {{combo?.name}}
+            </div>
+            <div class="d-flex my-2 align-items-center gap-2">
+              <div class="text-sm text-gray-700">
+                {{combo?.totalAmount}} ₹
+              </div>
+              <div class="text-gray-500 text-xs d-flex align-items-center gap-1">
+                <i class="ml-1 fa fa-clock-o"> </i>{{combo?.totalDuration}} Minutes
               </div>
             </div>
-            <div class="package-amount-details">
-              <!--              <del>-->
-              <!--                <span class="amount">₹{{combo?.totalAmount}}</span>-->
-              <!--              </del>-->
-              <ins>
-                <span class="amount">₹{{combo?.finalAmount}}</span>
-              </ins>
-            </div>
-          </div>
-        </ion-card-header>
-        <ion-card-content>
+          </ion-label>
+        </ion-item>
+<!--        <div class="packages-image-container">-->
+<!--          <img [src]="combo?.imageUrl"/>-->
+<!--        </div>-->
+<!--        <ion-card-header>-->
+<!--          <div class="ion-card-header">-->
+<!--            <div class="package-name-container">-->
+<!--              <div class="package-name">{{combo?.name}}</div>-->
+<!--              <div style="margin-left: 5px">-->
+<!--                <i style="margin-right: 5px" class="fa fa-clock-o"> </i>{{combo?.totalDuration}} Minutes-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="package-amount-details">-->
+<!--              &lt;!&ndash;              <del>&ndash;&gt;-->
+<!--              &lt;!&ndash;                <span class="amount">₹{{combo?.totalAmount}}</span>&ndash;&gt;-->
+<!--              &lt;!&ndash;              </del>&ndash;&gt;-->
+<!--              <ins>-->
+<!--                <span class="amount">₹{{combo?.finalAmount}}</span>-->
+<!--              </ins>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </ion-card-header>-->
+        <ion-card-content class="m-0 p-0">
           <div style="font-size: 14px">
-            <div *ngIf="combo?.services">
-              <div>
-                <div class="text-style-horizontal-line">Services</div>
-              </div>
+            <div class="mb-4" *ngIf="combo?.services">
+<!--              <div>-->
+<!--                <div class="text-style-horizontal-line">Services</div>-->
+<!--              </div>-->
               <div *ngIf="combo?.services && (combo?.services?.length > 0)" class="selected-services">
                 <div class="each-selected-service" *ngFor="let service of combo?.services">
                   <div>{{service?.name}}</div>
@@ -55,18 +83,7 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="combo?.description">
-              <div>
-                <div class="text-style-horizontal-line">Description</div>
-              </div>
-              <div style="margin: 5px 0 20px">
-                {{combo.description}}
-              </div>
-            </div>
-            <div style="padding: 15px 0;">
-              <mat-divider></mat-divider>
-            </div>
-            <div class="package-footer-icons">
+            <div class="package-footer-icons p-3 mb-2">
               <button (click)="onEdit(combo)" color="primary" mat-mini-fab>
                 <i class="fa fa-pencil-square-o"></i>
               </button>
@@ -82,10 +99,10 @@
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </div>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="presentModal(packages)" size="small">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+<!--  <ion-fab slot="fixed" vertical="bottom" horizontal="end">-->
+<!--    <ion-fab-button (click)="presentModal(packages)" size="small">-->
+<!--      <ion-icon name="add"></ion-icon>-->
+<!--    </ion-fab-button>-->
+<!--  </ion-fab>-->
 </ion-content>
 

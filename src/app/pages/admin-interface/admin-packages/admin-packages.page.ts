@@ -30,6 +30,7 @@ export class AdminPackagesPage implements OnInit {
               private adminService: ApiService,
               public modalController: ModalController) { }
   packages: any = [];
+  searchString: any = '';
   selectedPackageEdit: any = null;
   selectedService: any = null;
   limit: any = 2;
@@ -125,10 +126,23 @@ export class AdminPackagesPage implements OnInit {
     this.communicationService.pageTitle.next('Packages');
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.communicationService.addEvent.subscribe((res) => {
+      if (res === 'Packages') {
+        this.presentModal({});
+      }
+    });
+    this.communicationService.searchEvent.subscribe((res) => {
+      this.page = 1;
+      this.totalPages = 0;
+      this.packages = [];
+      this.searchString = res;
+      this.getAllPackages();
+    });
+  }
 
   getAllPackages() {
-    this.adminService.getPackages(this.page, this.limit).subscribe(
+    this.adminService.getPackages(this.page, this.limit, this.searchString).subscribe(
         res => this.getAllPackagesSuccess(res),
         error => {
           this.adminService.commonError(error);

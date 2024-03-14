@@ -11,26 +11,29 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatButtonModule} from "@angular/material/button";
 import {InfiniteScrollCustomEvent} from "@ionic/core";
 import {scan, tap} from "rxjs";
+import {Router, RouterModule} from "@angular/router";
 
 @Component({
   selector: 'app-admin-services',
   templateUrl: './admin-services.page.html',
   styleUrls: ['./admin-services.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, MatDividerModule, MatButtonModule]
+  imports: [IonicModule, RouterModule, CommonModule, FormsModule, MatDividerModule, MatButtonModule]
 })
 export class AdminServicesPage implements OnInit {
 
   // tslint:disable-next-line:max-line-length
   constructor(private sharedService: SharedService,
               private alertController: AlertController,
+              private router: Router,
               private communicationService: CommunicationService,
               private adminService: ApiService, public modalController: ModalController) { }
   services: any = [];
   selectedServiceEdit: any = null;
   selectedService: any = null;
-  limit: any = 2;
+  limit: any = 20;
   page: any = 1;
+  searchString: any = '';
   totalPages: any = 0;
   async presentModal(componentData) {
     const modal = await this.modalController.create({
@@ -118,7 +121,21 @@ export class AdminServicesPage implements OnInit {
     this.getAllServices();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.communicationService.searchEvent.subscribe((res) => {
+      this.page = 1;
+      this.totalPages = 0;
+      this.services = [];
+      this.searchString = res;
+      this.getAllServices();
+    });
+
+    this.communicationService.addEvent.subscribe((res) => {
+       if (res === 'Services') {
+         this.presentModal({});
+       }
+    });
+  }
 
   // getAllServices() {
   //   this.adminService.getServices(this.page, this.limit).subscribe(
@@ -151,7 +168,7 @@ export class AdminServicesPage implements OnInit {
   // }
 
   getAllServices() {
-    this.adminService.getServices(this.page, this.limit)
+    this.adminService.getServices(this.page, this.limit, this.searchString)
         .pipe(
             scan((acc, res) => this.updateServicesArray(acc, res), []),
             tap(services => this.services = services)

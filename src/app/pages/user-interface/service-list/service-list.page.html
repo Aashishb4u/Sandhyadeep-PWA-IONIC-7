@@ -31,17 +31,17 @@
                                 <div *ngFor="let service of subService.services; let index = index"
                                      (click)="onSelectServices(service); $event.stopPropagation()"
                                      class="sub-item-container">
-                                    <div>
-                                        <img class="d-none" (load)="service.loaded = true" [src]="service.imageUrl" alt="">
-                                        <ng-container *ngIf="service.loaded; else imgLoading">
-                                            <img class="rounded h-14 w-14 object-fit-cover" [src]="service.imageUrl" alt="service_image">
-                                        </ng-container>
-                                        <ng-template #imgLoading>
-                                            <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px">
+<!--                                    <div>-->
+<!--                                        <img class="d-none" (load)="service.loaded = true" [src]="service.imageUrl" alt="">-->
+<!--                                        <ng-container *ngIf="service.loaded; else imgLoading">-->
+<!--                                            <img class="rounded h-14 w-14 object-fit-cover" [src]="service.imageUrl" alt="service_image">-->
+<!--                                        </ng-container>-->
+<!--                                        <ng-template #imgLoading>-->
+<!--                                            <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px">-->
 
-                                            </ion-skeleton-text>
-                                        </ng-template>
-                                    </div>
+<!--                                            </ion-skeleton-text>-->
+<!--                                        </ng-template>-->
+<!--                                    </div>-->
                                     <div class="sub-item-name">
                                         <label class="name">{{service.name}}</label>
                                         <div class="time"><i
@@ -66,17 +66,17 @@
                     <ng-container *ngIf="mainService.services && mainService.services.length > 0">
                         <div *ngFor="let service of mainService.services; let index = index"
                              (click)="onSelectServices(service); $event.stopPropagation()" class="sub-item-container">
-                            <div>
-                                <img class="d-none" (load)="service.loaded = true" [src]="service.imageUrl" alt="">
-                                <ng-container *ngIf="service.loaded; else imgLoading">
-                                    <img class="rounded h-14 w-14 object-fit-cover" [src]="service.imageUrl" alt="service_image">
-                                </ng-container>
-                                <ng-template #imgLoading>
-                                    <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px">
+<!--                            <div>-->
+<!--                                <img class="d-none" (load)="service.loaded = true" [src]="service.imageUrl" alt="">-->
+<!--                                <ng-container *ngIf="service.loaded; else imgLoading">-->
+<!--                                    <img class="rounded h-14 w-14 object-fit-cover" [src]="service.imageUrl" alt="service_image">-->
+<!--                                </ng-container>-->
+<!--                                <ng-template #imgLoading>-->
+<!--                                    <ion-skeleton-text [animated]="true" style="width: 60px; height: 60px">-->
 
-                                    </ion-skeleton-text>
-                                </ng-template>
-                            </div>
+<!--                                    </ion-skeleton-text>-->
+<!--                                </ng-template>-->
+<!--                            </div>-->
                             <div class="sub-item-name">
                                 <label class="name">{{service.name}}</label>
                                 <div class="time"><i

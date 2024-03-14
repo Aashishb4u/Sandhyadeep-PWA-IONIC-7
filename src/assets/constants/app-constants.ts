@@ -17,16 +17,17 @@ export const appConstants = {
         CURRENCY: 'INR'
     },
     defaultBusinessImage: 'assets/no-image.png',
-    // baseAuthUrl: 'http://localhost:3001/api/v1/auth/',
-    // baseURLAdminAPIs: 'http://localhost:3001/api/v1/',
-    // domainUrlApi: 'http://localhost:3001/api/',
+    baseAuthUrl: 'http://localhost:3001/api/v1/auth/',
+    baseURLAdminAPIs: 'http://localhost:3001/api/v1/',
+    domainUrlApi: 'http://localhost:3001/api/',
     // baseAuthUrl: 'https://7e30-59-98-123-130.ngrok-free.app/api/v1/auth/',
     // baseURLAdminAPIs: 'https://7e30-59-98-123-130.ngrok-free.app/api/v1/',
     // domainUrlApi: 'https://7e30-59-98-123-130.ngrok-free.app/api/',
     // imageUrl: 'http://localhost:3001/'
-    baseAuthUrl: 'https://www.sandhyadeep.in/api/v1/auth/',
-    baseURLAdminAPIs: 'https://www.sandhyadeep.in/api/v1/',
-    domainUrlApi: 'https://www.sandhyadeep.in/api/',
+
+    // baseAuthUrl: 'https://www.sandhyadeep.in/api/v1/auth/',
+    // baseURLAdminAPIs: 'https://www.sandhyadeep.in/api/v1/',
+    // domainUrlApi: 'https://www.sandhyadeep.in/api/',
 
     push_public_key: 'BKWIJiONxQMJRKp0VpEkc343tfXdjT8V9_8XzsygB6A8pgIVDEoQmY1bSI7U_k_zxBKLOdr41FYYvP-dQPznjVE',
     push_private_key: '1sXh0AUkoSSTMoPSvtTg_XQCRJCHr6iaqIAnGpkIOiQ'

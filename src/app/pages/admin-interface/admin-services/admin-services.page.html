@@ -4,88 +4,41 @@
   <div class="service-type-container">
     <div class="service-types-container">
       <ng-container *ngIf="services && services.length > 0; else listLoader">
-        <ion-card *ngFor="let service of services">
-          <div class="service-types-image-container">
-            <img [src]="service?.imageUrl" alt=""/>
-          </div>
-          <ion-card-header>
-            <div class="ion-card-header">
-              <div class="d-flex align-items-start flex-column"
-                   style="flex-basis: 60%">
-                <div class="service-type-name">{{service?.name}}</div>
-                <div class="ml-1">
+        <ion-list>
+          <ion-item class="my-3" *ngFor="let service of services">
+            <ion-thumbnail slot="start">
+              <div class="d-flex h-100 align-items-center">
+                <img (load)="service.loaded = true" class="d-none" [src]="service?.imageUrl"/>
+                <ng-container *ngIf="service.loaded; else imgLoader">
+                  <img [src]="service?.imageUrl"/>
+                </ng-container>
+                <ng-template #imgLoader>
+                  <ion-skeleton-text [animated]="true" class="w-100">
+
+                  </ion-skeleton-text>
+                </ng-template>
+              </div>
+            </ion-thumbnail>
+            <ion-label>
+              <div class="text-sm">
+                {{service?.name}}
+              </div>
+              <div class="d-flex my-2 align-items-center gap-2">
+                <div class="text-sm text-gray-700">
+                  {{service?.price}} ₹
+                </div>
+                <div class="text-gray-500 text-xs d-flex align-items-center gap-1">
                   <i class="ml-1 fa fa-clock-o"> </i>{{service?.duration}} Minutes
                 </div>
               </div>
-              <div class="text-xl">
-                {{service?.price}} ₹
-              </div>
+            </ion-label>
+            <div class="service-type-footer-icons">
+              <button (click)="onEdit(service)" color="primary" mat-mini-fab>
+                <i class="fa fa-pencil-square-o"></i>
+              </button>
             </div>
-          </ion-card-header>
-          <ion-card-content>
-            <div style="font-size: 14px">
-              <div *ngIf="service?.serviceType">
-                <div>
-                  <div class="text-style-horizontal-line">Service Type</div>
-                </div>
-                <div class="tags-container">
-                  <ul class="tags">
-                    <li><div class="tag">{{service?.serviceType?.name | titlecase}}</div></li>
-                  </ul>
-                </div>
-              </div>
-              <div *ngIf="service?.subService">
-                <div>
-                  <div class="text-style-horizontal-line">Sub Service</div>
-                </div>
-                <div class="tags-container">
-                  <ul class="tags">
-                    <li><div class="tag">{{service?.subService?.name | titlecase}}</div></li>
-                  </ul>
-                </div>
-              </div>
-              <div *ngIf="service?.description">
-                <div>
-                  <div class="text-style-horizontal-line">Description</div>
-                </div>
-                <div style="margin: 5px 0 20px">
-                  {{service.description}}
-                </div>
-              </div>
-              <div *ngIf="service?.brands && service?.brands?.length">
-                <div>
-                  <div class="text-style-horizontal-line">Brands Used</div>
-                </div>
-                <div class="tags-container">
-                  <ul *ngFor="let brand of service?.brands" class="tags">
-                    <li><div class="tag">{{brand}}</div></li>
-                  </ul>
-                </div>
-              </div>
-              <div *ngIf="service?.skinTypes && service?.skinTypes?.length">
-                <div>
-                  <div class="text-style-horizontal-line">Skin Types</div>
-                </div>
-                <div class="tags-container">
-                  <ul *ngFor="let skinType of service?.skinTypes" class="tags">
-                    <li><div class="tag">{{skinType}}</div></li>
-                  </ul>
-                </div>
-              </div>
-              <div style="padding: 15px 0;">
-                <mat-divider></mat-divider>
-              </div>
-              <div class="service-type-footer-icons">
-                <button (click)="onEdit(service)" color="primary" mat-mini-fab>
-                  <i class="fa fa-pencil-square-o"></i>
-                </button>
-                <button (click)="onDelete(service)" color="warn" mat-mini-fab>
-                  <i class="fa fa-trash"></i>
-                </button>
-              </div>
-            </div>
-          </ion-card-content>
-        </ion-card>
+          </ion-item>
+        </ion-list>
       </ng-container>
       <ng-template #listLoader>
         <ng-container *ngFor="let tab of [].constructor(10)">
@@ -99,10 +52,10 @@
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </div>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="presentModal({})" size="small">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+<!--  <ion-fab slot="fixed" vertical="bottom" horizontal="end">-->
+<!--    <ion-fab-button (click)="presentModal({})" size="small">-->
+<!--      <ion-icon  name="add"></ion-icon>-->
+<!--    </ion-fab-button>-->
+<!--  </ion-fab>-->
 </ion-content>
 

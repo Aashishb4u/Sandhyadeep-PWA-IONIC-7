@@ -89,6 +89,12 @@
         <button (click)="onSearch(searchString)" mat-mini-fab color="primary" aria-label="Example icon button with a home icon">
           <mat-icon>search</mat-icon>
         </button>
+<!--        <button (click)="onAdd()" mat-mini-fab color="primary" aria-label="Example icon button with a home icon">-->
+<!--          Add <mat-icon>add</mat-icon>-->
+<!--        </button>-->
+        <button *ngIf="communicationService.pageTitle | async" (click)="onAdd()" color="primary" mat-raised-button class="text-uppercase">
+          Add
+        </button>
       </div>
     </div>
     <div *ngIf="communicationService.pageTitle | async" class="page-heading">

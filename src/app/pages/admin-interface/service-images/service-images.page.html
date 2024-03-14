@@ -1,38 +1,31 @@
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>Edit Service Images</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item class="my-3" *ngFor="let service of services">
-          <ion-thumbnail slot="start">
-            <div class="d-flex h-100 align-items-center">
-              <img (load)="service.loaded = true" class="d-none" [src]="service?.imageUrl"/>
-              <ng-container *ngIf="service.loaded; else imgLoader">
-                <img [src]="service?.imageUrl"/>
-              </ng-container>
-              <ng-template #imgLoader>
-                <ion-skeleton-text [animated]="true" class="w-100">
+  <ion-list>
+    <ion-item class="my-3" *ngFor="let service of services">
+      <ion-thumbnail slot="start">
+        <div class="d-flex h-100 align-items-center">
+          <img (load)="service.loaded = true" class="d-none" [src]="service?.imageUrl"/>
+          <ng-container *ngIf="service.loaded; else imgLoader">
+            <img [src]="service?.imageUrl"/>
+          </ng-container>
+          <ng-template #imgLoader>
+            <ion-skeleton-text [animated]="true" class="w-100">
 
-                </ion-skeleton-text>
-              </ng-template>
-            </div>
-          </ion-thumbnail>
-          <ion-label>
-            <div class="text-sm">
-              {{service?.name}}
-            </div>
-          </ion-label>
-          <div class="service-type-footer-icons">
-            <button (click)="onEdit(service)" color="primary" mat-mini-fab>
-              <i class="fa fa-pencil-square-o"></i>
-            </button>
-          </div>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+            </ion-skeleton-text>
+          </ng-template>
+        </div>
+      </ion-thumbnail>
+      <ion-label>
+        <div class="text-sm">
+          {{service?.name}}
+        </div>
+      </ion-label>
+      <div class="service-type-footer-icons">
+        <button (click)="onEdit(service)" color="primary" mat-mini-fab>
+          <i class="fa fa-pencil-square-o"></i>
+        </button>
+      </div>
+    </ion-item>
+  </ion-list>
 
 <!--  <div class="image-service-container">-->
 <!--    <div class="sub-container">-->

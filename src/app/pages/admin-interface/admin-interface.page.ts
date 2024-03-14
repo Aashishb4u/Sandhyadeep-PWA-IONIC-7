@@ -23,7 +23,39 @@ export class AdminInterfacePage implements OnInit {
   searchString: any = '';
 
   onSearch(e) {
-      this.communicationService.searchEvent.next(e);
+    console.log(e);
+    this.communicationService.searchEvent.next(e);
+  }
+
+  onAdd() {
+    const title = this.communicationService.pageTitle.value;
+    this.communicationService.addEvent.next(title);
+    switch(title) {
+      case "Service Types": {
+
+        break;
+      }
+      case "Services": {
+        break;
+      }
+      case "Sub Services": {
+        break;
+      }
+      case "Users": {
+        break;
+      }
+      case "Packages": {
+        break;
+      }
+      case "Service Assets": {
+        break;
+      }
+      case "Coupons": {
+        break;
+      }
+    }
+    console.log();
+    this.communicationService.addEvent.next(true);
   }
 
   ngOnInit() {

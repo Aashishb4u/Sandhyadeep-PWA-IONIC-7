@@ -154,16 +154,25 @@ export class ApiService {
     return this.http.get(`${this.baseURL}users/all`, {});
   }
 
-  getUserPaginate(page = 1, limit = 5) {
-    return this.http.get(`${this.baseURL}users?page=${page}&limit=${limit}`, {});
+  getUserPaginate(page = 1, limit = 5, search = '') {
+    if (search) {
+      search = `&name=${search}`
+    }
+    return this.http.get(`${this.baseURL}users?page=${page}&limit=${limit}${search}`, {});
   }
 
-  getAllServiceTypes() {
-    return this.http.get(`${this.baseURL}serviceTypes`, {});
+  getAllServiceTypes(search = '') {
+    if (search) {
+      search = `?name=${search}`
+    }
+    return this.http.get(`${this.baseURL}serviceTypes${search}`, {});
   }
 
-  getServices(page = 1, limit = 5) {
-    return this.http.get(`${this.baseURL}services?page=${page}&limit=${limit}`, {});
+  getServices(page = 1, limit = 5, search = '') {
+    if (search) {
+      search = `&name=${search}`
+    }
+    return this.http.get(`${this.baseURL}services?page=${page}&limit=${limit}${search}`, {});
   }
 
   getAllServices() {
@@ -194,8 +203,11 @@ export class ApiService {
     return this.http.get(`${this.baseURL}subServices/all`, {});
   }
 
-  getSubServices(page = 1, limit = 5) {
-    return this.http.get(`${this.baseURL}subServices?page=${page}&limit=${limit}`, {});
+  getSubServices(page = 1, limit = 5, search) {
+    if (search) {
+      search = `&name=${search}`
+    }
+    return this.http.get(`${this.baseURL}subServices?page=${page}&limit=${limit}${search}`, {});
   }
 
   deleteSubService(id: any) {
@@ -230,8 +242,11 @@ export class ApiService {
     return this.http.get(`${this.baseURL}packages/all`, {});
   }
 
-  getPackages(page = 1, limit = 5) {
-    return this.http.get(`${this.baseURL}packages?page=${page}&limit=${limit}`, {});
+  getPackages(page = 1, limit = 5, search = '') {
+    if (search) {
+      search = `&name=${search}`
+    }
+    return this.http.get(`${this.baseURL}packages?page=${page}&limit=${limit}${search}`, {});
   }
 
   deleteUser(id: any) {
